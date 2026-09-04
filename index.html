@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4-1 選擇結構與運算子 互動講義PPT</title>
+  <style>
+    :root {
+      --bg-color: #f4f6f9;
+      --card-bg: #ffffff;
+      --primary-color: #2c3e50;
+      --accent-color: #27ae60;
+      --code-bg: #1e1e1e;
+      --text-color: #333;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    /* 簡報區域 */
+    .deck-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .slide {
+      display: none;
+      width: 90%;
+      max-width: 1000px;
+      height: 80vh;
+      background: var(--card-bg);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border-radius: 12px;
+      padding: 40px;
+      box-sizing: border-box;
+      overflow-y: auto;
+      animation: fadeIn 0.4s ease-in-out;
+    }
+
+    .slide.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1, h2 {
+      color: var(--primary-color);
+      border-bottom: 3px solid var(--accent-color);
+      padding-bottom: 8px;
+    }
+
+    /* 互動挖空與按鈕設計 */
+    .blank {
+      background-color: #f1c40f;
+      color: transparent;
+      padding: 2px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+      user-select: none;
+      display: inline-block;
+      font-weight: bold;
+    }
+
+    .blank.revealed {
+      background-color: #e8f8f5;
+      color: #27ae60;
+      border: 1px solid #27ae60;
+    }
+
+    .reveal-btn {
+      background-color: #3498db;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background 0.2s;
+    }
+
+    .reveal-btn:hover {
+      background-color: #2980b9;
+    }
+
+    .answer-block {
+      display: none;
+      background-color: #e8f8f5;
+      border-left: 5px solid var(--accent-color);
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+
+    .answer-block.show {
+      display: block;
+    }
+
+    /* 表格樣式 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 15px 0;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* 程式碼區塊 */
+    pre {
+      background-color: var(--code-bg);
+      color: #dcdcdc;
+      padding: 15px;
+      border-radius: 6px;
+      overflow-x: auto;
+      font-family: "Consolas", monospace;
+    }
+
+    /* 控制面板 */
+    .controls {
+      height: 60px;
+      background: var(--primary-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 30px;
+      color: white;
+    }
+
+    .btn-nav {
+      background: var(--accent-color);
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-nav:disabled {
+      background: #7f8c8d;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+
+<div class="deck-container">
+
+  <!-- Slide 1: 標題頁 -->
+  <div class="slide active">
+    <h1 style="margin-top: 100px; font-size: 2.5rem; text-align: center;">4-1 認識選擇結構與運算子</h1>
+    <p style="text-align: center; font-size: 1.2rem; color: #666;">單元講義互動簡報</p>
+  </div>
+
+  <!-- Slide 2: 生活思考 -->
+  <div class="slide">
+    <h2>1. 什麼是選擇結構？</h2>
+    <p>在學校生活中，有沒有什麼概念或是實例有用到選擇結構的？</p>
+    <p><strong>範例：</strong>成績達到 60 分判定為及格，否則判定為不及格。</p>
+    <hr>
+    <h3>舉例反思（點擊按鈕查看提示）：</h3>
+    <p>情況：<span class="blank" onclick="toggleBlank(this)">請學生發表（如：購買折扣商品）</span></p>
+    <p>條件：<span class="blank" onclick="toggleBlank(this)">消費滿 1000 元</span></p>
+    <p>問句：<span class="blank" onclick="toggleBlank(this)">如果消費滿 1000 元則打 9 折，否則維持原價。</span></p>
+    <p style="margin-top:20px; font-style: italic; color:#555;">
+      💡 結論：當我們希望依據<strong>條件成立與否</strong>來決定執行特定程式時，稱之為<strong>選擇結構</strong>。
+    </p>
+  </div>
+
+  <!-- Slide 3: 關係運算子 -->
+  <div class="slide">
+    <h2>2. 關係運算子與比較</h2>
+    <p>程式需要先學會「如何做判斷」，利用運算子來比較數值。</p>
+    <table>
+      <tr><th>符號</th><th>運算子名稱</th><th>範例</th></tr>
+      <tr><td>&gt;</td><td>大於</td><td>5 &gt; 1</td></tr>
+      <tr><td>&lt;</td><td>小於</td><td>1 &lt; 5</td></tr>
+      <tr><td>&gt;=</td><td>大於等於</td><td>Price &gt;= 100</td></tr>
+      <tr><td>&lt;=</td><td>小於等於</td><td>Price &lt;= 100</td></tr>
+      <tr><td>==</td><td>等於</td><td>Price == 100</td></tr>
+      <tr><td>!=</td><td>不等於</td><td>5 != 1</td></tr>
+    </table>
+    <h3>判斷結果（點擊揭曉挖空）：</h3>
+    <p>成立：回傳 <span class="blank" onclick="toggleBlank(this)">True</span>（內部儲存為 <span class="blank" onclick="toggleBlank(this)">1</span>）</p>
+    <p>不成立：回傳 <span class="blank" onclick="toggleBlank(this)">False</span>（內部儲存為 <span class="blank" onclick="toggleBlank(this)">0</span>）</p>
+  </div>
+
+  <!-- Slide 4: 流程圖符號與範例 -->
+  <div class="slide">
+    <h2>3. 流程圖常見符號</h2>
+    <ul>
+      <li><strong>橢圓形：</strong> 開始/結束符號</li>
+      <li><strong>箭頭：</strong> 程式執行方向</li>
+      <li><strong>長方形：</strong> 設定/程序</li>
+      <li><strong>菱形：</strong> 決策/條件判斷</li>
+      <li><strong>平行四邊形：</strong> 輸入/輸出</li>
+    </ul>
+    <hr>
+    <h3>颱風假風力判斷範例：</h3>
+    <p>條件：平均風力達 7 級以上 OR 陣風達 10 級以上 ➔ True (放颱風假) / False (不放颱風假)</p>
+  </div>
+
+  <!-- Slide 5: if 敘述 -->
+  <div class="slide">
+    <h2>4. if 敘述</h2>
+    <pre><code>if (判斷條件) {
+    敘述主體;
+}</code></pre>
+    <p><strong>說明：</strong>條件成立才執行；不成立則跳過。</p>
+    <h3>範例：判斷數字 10 是否為正數</h3>
+    <pre><code>int num = 10;
+if (num > 0) {
+    cout << "10為正數";
+}</code></pre>
+    <button class="reveal-btn" onclick="toggleAnswer('if-explain')">點擊查看程式說明</button>
+    <div id="if-explain" class="answer-block">
+      <ul>
+        <li><strong>Line 6:</strong> 宣告整數變數 <code>num = 10</code></li>
+        <li><strong>Line 7:</strong> 檢查 <code>num > 0</code>，條件為真 (true)</li>
+        <li><strong>Line 9:</strong> 執行輸出 "10為正數"</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Slide 6: if...else 敘述 -->
+  <div class="slide">
+    <h2>5. if...else 敘述</h2>
+    <pre><code>if (判斷條件) {
+    敘述主體 1; // 條件成立執行
+} else {
+    叙述主體 2; // 條件不成立執行
+}</code></pre>
+    <h3>範例：判斷奇偶數 (能否被 2 整除)</h3>
+    <button class="reveal-btn" onclick="toggleAnswer('ifelse-code')">點擊顯示核心條件程式碼</button>
+    <div id="ifelse-code" class="answer-block">
+      <pre><code>if (num % 2 == 0) {
+    cout << "此數能被2整除" << endl;
+} else {
+    cout << "此數不能被2整除" << endl;
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Slide 7: 課後練習 1 & 2 -->
+  <div class="slide">
+    <h2>課後練習 (1/3)</h2>
+    <p><strong>Q1. 成績判斷，空格 A 應填入什麼？</strong></p>
+    <p><code>if ( ______A______ ) { cout &lt;&lt; "及格"; }</code></p>
+    <button class="reveal-btn" onclick="toggleAnswer('q1-ans')">顯示解答</button>
+    <div id="q1-ans" class="answer-block"><code>score >= 60</code></div>
+
+    <hr>
+    <p><strong>Q2. 體重超過 90 公斤印出過重，否則正常。</strong></p>
+    <button class="reveal-btn" onclick="toggleAnswer('q2-ans')">顯示解答程式碼</button>
+    <div id="q2-ans" class="answer-block">
+      <pre><code>if (weight > 90) {
+    cout << "此學生體重過重" << endl;
+} else {
+    cout << "此學生體重正常" << endl;
+}</code></pre>
+    </div>
+  </div>
+
+  <!-- Slide 8: 課後練習 3 & 4 -->
+  <div class="slide">
+    <h2>課後練習 (2/3)</h2>
+    <p><strong>Q3. 計算 BMI 程式輸出結果為何？ ( weight=63.5, height=1.73 )</strong></p>
+    <button class="reveal-btn" onclick="toggleAnswer('q3-ans')">顯示計算結果</button>
+    <div id="q3-ans" class="answer-block">
+      <p>BMI ≈ 63.5 / (1.73²) = 21.2169</p>
+      <p><strong>輸出結果：</strong> <code>此學生BMI正常，BMI結果為: 21.2169</code></p>
+    </div>
+
+    <hr>
+    <p><strong>Q4. 除錯題：找出程式中的 5 個錯誤</strong></p>
+    <button class="reveal-btn" onclick="toggleAnswer('q4-ans')">顯示錯誤修復表</button>
+    <div id="q4-ans" class="answer-block">
+      <table>
+        <tr><th>行號</th><th>修正後的程式碼 / 錯誤原因</th></tr>
+        <tr><td>Line 9</td><td><code>if (num == (int)num)</code> (比較需用 ==，非賦值 =)</td></tr>
+        <tr><td>Line 10</td><td><code>cout &lt;&lt; num &lt;&lt; " 是整數。" &lt;&lt; endl;</code> (漏掉分號 ;)</td></tr>
+        <tr><td>Line 11</td><td><code>} else {</code> (else 後不需再加判斷條件語法)</td></tr>
+        <tr><td>Line 12</td><td>全形句號需修正或確認字串格式</td></tr>
+        <tr><td>Line 15</td><td><code>return 0;</code> (漏掉分號 ;)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- Slide 9: 課後練習 5 -->
+  <div class="slide">
+    <h2>課後練習 (3/3)</h2>
+    <p><strong>Q5. 流程圖繪製邏輯：魯迪與洛琪希猜數字遊戲</strong></p>
+    <p>題目：隨機數 1-100，比較誰猜的數字較接近。魯迪接近則輸出一，否則輸出洛琪希贏。</p>
+    <button class="reveal-btn" onclick="toggleAnswer('q5-ans')">顯示解答流程構想</button>
+    <div id="q5-ans" class="answer-block">
+      <ol>
+        <li><strong>開始 (Start)</strong></li>
+        <li><strong>輸入/取得：</strong>魯迪猜測值 A、洛琪希猜測值 B、目標答案 Ans</li>
+        <li><strong>計算距離：</strong>DiffA = |A - Ans|, DiffB = |B - Ans|</li>
+        <li><strong>條件判斷 (菱形)：</strong> <code>DiffA < DiffB</code>
+          <ul>
+            <li><strong>True:</strong> 輸出 "魯迪贏"</li>
+            <li><strong>False:</strong> 輸出 "洛琪希贏"</li>
+          </ul>
+        </li>
+        <li><strong>結束 (End)</strong></li>
+      </ol>
+    </div>
+  </div>
+
+</div>
+
+<!-- 底部導覽控制列 -->
+<div class="controls">
+  <button class="btn-nav" id="prevBtn" onclick="changeSlide(-1)">上一頁</button>
+  <span id="pageIndicator">Page 1 / 9</span>
+  <button class="btn-nav" id="nextBtn" onclick="changeSlide(1)">下一頁</button>
+</div>
+
+<script>
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const pageIndicator = document.getElementById('pageIndicator');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+
+  function updateSlide() {
+    slides.forEach((slide, index) => {
+      slide.classList.toggle('active', index === currentSlide);
+    });
+    pageIndicator.innerText = `Page ${currentSlide + 1} / ${slides.length}`;
+    prevBtn.disabled = currentSlide === 0;
+    nextBtn.disabled = currentSlide === slides.length - 1;
+  }
+
+  function changeSlide(direction) {
+    currentSlide += direction;
+    if (currentSlide < 0) currentSlide = 0;
+    if (currentSlide >= slides.length) currentSlide = slides.length - 1;
+    updateSlide();
+  }
+
+  // 挖空點擊展開/隱藏
+  function toggleBlank(element) {
+    element.classList.toggle('revealed');
+  }
+
+  // 解答區塊切換
+  function toggleAnswer(id) {
+    const target = document.getElementById(id);
+    target.classList.toggle('show');
+  }
+
+  // 鍵盤左右鍵控制
+  document.addEventListener('keydown', (e) => {
+    if (e.key === "ArrowLeft") changeSlide(-1);
+    if (e.key === "ArrowRight") changeSlide(1);
+  });
+
+  updateSlide();
+</script>
+
+</body>
+</html>
