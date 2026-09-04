@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>4-1 選擇結構與運算子 互動講義PPT</title>
+  <!-- 引入 Mermaid.js 用於即時渲染流程圖 -->
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>mermaid.initialize({startOnLoad:true});</script>
   <style>
     :root {
       --bg-color: #f4f6f9;
@@ -26,7 +29,6 @@
       overflow: hidden;
     }
 
-    /* 簡報區域 */
     .deck-container {
       flex: 1;
       display: flex;
@@ -39,11 +41,11 @@
       display: none;
       width: 90%;
       max-width: 1000px;
-      height: 80vh;
+      height: 82vh;
       background: var(--card-bg);
       box-shadow: 0 10px 30px rgba(0,0,0,0.1);
       border-radius: 12px;
-      padding: 40px;
+      padding: 35px 40px;
       box-sizing: border-box;
       overflow-y: auto;
       animation: fadeIn 0.4s ease-in-out;
@@ -62,9 +64,9 @@
       color: var(--primary-color);
       border-bottom: 3px solid var(--accent-color);
       padding-bottom: 8px;
+      margin-top: 0;
     }
 
-    /* 互動挖空與按鈕設計 */
     .blank {
       background-color: #f1c40f;
       color: transparent;
@@ -112,7 +114,6 @@
       display: block;
     }
 
-    /* 表格樣式 */
     table {
       width: 100%;
       border-collapse: collapse;
@@ -121,7 +122,7 @@
 
     th, td {
       border: 1px solid #ddd;
-      padding: 10px;
+      padding: 8px 12px;
       text-align: center;
     }
 
@@ -129,7 +130,6 @@
       background-color: #f2f2f2;
     }
 
-    /* 程式碼區塊 */
     pre {
       background-color: var(--code-bg);
       color: #dcdcdc;
@@ -139,7 +139,15 @@
       font-family: "Consolas", monospace;
     }
 
-    /* 控制面板 */
+    .flowchart-box {
+      background-color: #fafafa;
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      margin-top: 15px;
+    }
+
     .controls {
       height: 60px;
       background: var(--primary-color);
@@ -182,9 +190,9 @@
     <p>在學校生活中，有沒有什麼概念或是實例有用到選擇結構的？</p>
     <p><strong>範例：</strong>成績達到 60 分判定為及格，否則判定為不及格。</p>
     <hr>
-    <h3>舉例反思（點擊按鈕查看提示）：</h3>
-    <p>情況：<span class="blank" onclick="toggleBlank(this)">請學生發表（如：購買折扣商品）</span></p>
-    <p>條件：<span class="blank" onclick="toggleBlank(this)">消費滿 1000 元</span></p>
+    <h3>舉例反思（點擊黃色按鈕查看答案）：</h3>
+    <p>情況：<span class="blank" onclick="toggleBlank(this)">請學生發表（如：買滿額折扣商品）</span></p>
+    <p>條件：<span class="blank" onclick="toggleBlank(this)">消費金額滿 1000 元</span></p>
     <p>問句：<span class="blank" onclick="toggleBlank(this)">如果消費滿 1000 元則打 9 折，否則維持原價。</span></p>
     <p style="margin-top:20px; font-style: italic; color:#555;">
       💡 結論：當我們希望依據<strong>條件成立與否</strong>來決定執行特定程式時，稱之為<strong>選擇結構</strong>。
@@ -204,58 +212,73 @@
       <tr><td>==</td><td>等於</td><td>Price == 100</td></tr>
       <tr><td>!=</td><td>不等於</td><td>5 != 1</td></tr>
     </table>
-    <h3>判斷結果（點擊揭曉挖空）：</h3>
+    <h3>判斷結果（點擊揭曉）：</h3>
     <p>成立：回傳 <span class="blank" onclick="toggleBlank(this)">True</span>（內部儲存為 <span class="blank" onclick="toggleBlank(this)">1</span>）</p>
     <p>不成立：回傳 <span class="blank" onclick="toggleBlank(this)">False</span>（內部儲存為 <span class="blank" onclick="toggleBlank(this)">0</span>）</p>
   </div>
 
-  <!-- Slide 4: 流程圖符號與範例 -->
+  <!-- Slide 4: 流程圖常用符號 -->
   <div class="slide">
-    <h2>3. 流程圖常見符號</h2>
+    <h2>3. 流程圖常用符號</h2>
     <ul>
-      <li><strong>橢圓形：</strong> 開始/結束符號</li>
+      <li><strong>橢圓形：</strong> 開始 / 結束符號</li>
       <li><strong>箭頭：</strong> 程式執行方向</li>
-      <li><strong>長方形：</strong> 設定/程序</li>
-      <li><strong>菱形：</strong> 決策/條件判斷</li>
-      <li><strong>平行四邊形：</strong> 輸入/輸出</li>
+      <li><strong>長方形：</strong> 設定 / 程序處理</li>
+      <li><strong>菱形：</strong> 決策 / 條件判斷</li>
+      <li><strong>平行四邊形：</strong> 資料輸入 / 輸出</li>
     </ul>
-    <hr>
-    <h3>颱風假風力判斷範例：</h3>
-    <p>條件：平均風力達 7 級以上 OR 陣風達 10 級以上 ➔ True (放颱風假) / False (不放颱風假)</p>
   </div>
 
-  <!-- Slide 5: if 敘述 -->
+  <!-- Slide 5: 颱風假流程圖範例 -->
   <div class="slide">
-    <h2>4. if 敘述</h2>
+    <h2>4. 範例：颱風假風力判斷流程圖</h2>
+    <p><strong>標準：</strong>「依據氣象預報，平均風力可達7級以上或陣風可達10級以上」</p>
+    
+    <div class="flowchart-box">
+      <div class="mermaid">
+        graph TD
+          Start([Start]) --> Input[目前陣風級數]
+          Input --> Cond{達7級以上 || 陣風可達10級以上}
+          Cond -- True --> Holiday[放颱風假]
+          Cond -- False --> NoHoliday[不放颱風假]
+          Holiday --> END([END])
+          NoHoliday --> END
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 6: if 敘述 -->
+  <div class="slide">
+    <h2>5. if 敘述</h2>
     <pre><code>if (判斷條件) {
     敘述主體;
 }</code></pre>
-    <p><strong>說明：</strong>條件成立才執行；不成立則跳過。</p>
+    <p><strong>說明：</strong>如果括號中的判斷條件成立，就會執行後面的敘述；不成立則不執行。</p>
     <h3>範例：判斷數字 10 是否為正數</h3>
-    <pre><code>int num = 10;
+    <button class="reveal-btn" onclick="toggleAnswer('if-explain')">點擊查看程式與說明</button>
+    <div id="if-explain" class="answer-block">
+      <pre><code>int num = 10;
 if (num > 0) {
     cout << "10為正數";
 }</code></pre>
-    <button class="reveal-btn" onclick="toggleAnswer('if-explain')">點擊查看程式說明</button>
-    <div id="if-explain" class="answer-block">
       <ul>
         <li><strong>Line 6:</strong> 宣告整數變數 <code>num = 10</code></li>
-        <li><strong>Line 7:</strong> 檢查 <code>num > 0</code>，條件為真 (true)</li>
-        <li><strong>Line 9:</strong> 執行輸出 "10為正數"</li>
+        <li><strong>Line 7:</strong> 檢查 <code>num > 0</code>，因為 10 > 0 條件成立 (true)[cite: 2]</li>
+        <li><strong>Line 9:</strong> 執行印出 "10為正數"[cite: 2]</li>
       </ul>
     </div>
   </div>
 
-  <!-- Slide 6: if...else 敘述 -->
+  <!-- Slide 7: if...else 敘述 -->
   <div class="slide">
-    <h2>5. if...else 敘述</h2>
+    <h2>6. if...else 敘述</h2>
     <pre><code>if (判斷條件) {
-    敘述主體 1; // 條件成立執行
+    敘述主體 1; /* 條件成立執行 */
 } else {
-    叙述主體 2; // 條件不成立執行
+    敘述主體 2; /* 條件不成立執行 */
 }</code></pre>
-    <h3>範例：判斷奇偶數 (能否被 2 整除)</h3>
-    <button class="reveal-btn" onclick="toggleAnswer('ifelse-code')">點擊顯示核心條件程式碼</button>
+    <h3>範例：輸入整數判斷能否被 2 整除</h3>
+    <button class="reveal-btn" onclick="toggleAnswer('ifelse-code')">點擊顯示判斷程式碼</button>
     <div id="ifelse-code" class="answer-block">
       <pre><code>if (num % 2 == 0) {
     cout << "此數能被2整除" << endl;
@@ -265,11 +288,11 @@ if (num > 0) {
     </div>
   </div>
 
-  <!-- Slide 7: 課後練習 1 & 2 -->
+  <!-- Slide 8: 課後練習 1 & 2 -->
   <div class="slide">
     <h2>課後練習 (1/3)</h2>
-    <p><strong>Q1. 成績判斷，空格 A 應填入什麼？</strong></p>
-    <p><code>if ( ______A______ ) { cout &lt;&lt; "及格"; }</code></p>
+    <p><strong>Q1. 成績及格判斷，空格 A 應填入什麼？</strong></p>
+    <p><code>if ( ______A______ ) { cout &lt;&lt; "此學生成績及格"; }</code></p>
     <button class="reveal-btn" onclick="toggleAnswer('q1-ans')">顯示解答</button>
     <div id="q1-ans" class="answer-block"><code>score >= 60</code></div>
 
@@ -285,59 +308,60 @@ if (num > 0) {
     </div>
   </div>
 
-  <!-- Slide 8: 課後練習 3 & 4 -->
+  <!-- Slide 9: 課後練習 3 & 4 -->
   <div class="slide">
     <h2>課後練習 (2/3)</h2>
     <p><strong>Q3. 計算 BMI 程式輸出結果為何？ ( weight=63.5, height=1.73 )</strong></p>
     <button class="reveal-btn" onclick="toggleAnswer('q3-ans')">顯示計算結果</button>
     <div id="q3-ans" class="answer-block">
-      <p>BMI ≈ 63.5 / (1.73²) = 21.2169</p>
+      <p>BMI = 63.5 / (1.73²) ≈ 21.2169</p>
       <p><strong>輸出結果：</strong> <code>此學生BMI正常，BMI結果為: 21.2169</code></p>
     </div>
 
     <hr>
-    <p><strong>Q4. 除錯題：找出程式中的 5 個錯誤</strong></p>
+    <p><strong>Q4. 除錯題：指出 5 個錯誤點</strong></p>
     <button class="reveal-btn" onclick="toggleAnswer('q4-ans')">顯示錯誤修復表</button>
     <div id="q4-ans" class="answer-block">
       <table>
-        <tr><th>行號</th><th>修正後的程式碼 / 錯誤原因</th></tr>
-        <tr><td>Line 9</td><td><code>if (num == (int)num)</code> (比較需用 ==，非賦值 =)</td></tr>
-        <tr><td>Line 10</td><td><code>cout &lt;&lt; num &lt;&lt; " 是整數。" &lt;&lt; endl;</code> (漏掉分號 ;)</td></tr>
-        <tr><td>Line 11</td><td><code>} else {</code> (else 後不需再加判斷條件語法)</td></tr>
-        <tr><td>Line 12</td><td>全形句號需修正或確認字串格式</td></tr>
+        <tr><th>行號</th><th>修正後的程式碼 / 錯誤說明</th></tr>
+        <tr><td>Line 9</td><td><code>if (num == (int)num)</code> (比較要用 ==，不是單個 =)</td></tr>
+        <tr><td>Line 10</td><td><code>cout &lt;&lt; num &lt;&lt; " 是整數。" &lt;&lt; endl;</code> (結尾漏掉分號 ;)</td></tr>
+        <tr><td>Line 11</td><td><code>} else {</code> (else 語法後面不可接條件判斷)</td></tr>
+        <tr><td>Line 12</td><td>全形引號或結尾漏掉標準引號號碼</td></tr>
         <tr><td>Line 15</td><td><code>return 0;</code> (漏掉分號 ;)</td></tr>
       </table>
     </div>
   </div>
 
-  <!-- Slide 9: 課後練習 5 -->
+  <!-- Slide 10: 課後練習 5 -->
   <div class="slide">
-    <h2>課後練習 (3/3)</h2>
-    <p><strong>Q5. 流程圖繪製邏輯：魯迪與洛琪希猜數字遊戲</strong></p>
-    <p>題目：隨機數 1-100，比較誰猜的數字較接近。魯迪接近則輸出一，否則輸出洛琪希贏。</p>
-    <button class="reveal-btn" onclick="toggleAnswer('q5-ans')">顯示解答流程構想</button>
+    <h2>課後練習 (3/3) - 流程圖繪製</h2>
+    <p><strong>Q5. 魯迪與洛琪希猜數字遊戲流程圖：</strong></p>
+    <p>隨機數字 1-100，假設沒有平手，比較誰猜的數字較接近。魯迪接近則輸出「魯迪贏」，反之輸出「洛琪希贏」[cite: 2]。</p>
+    
+    <button class="reveal-btn" onclick="toggleAnswer('q5-ans')">顯示解答流程圖</button>
     <div id="q5-ans" class="answer-block">
-      <ol>
-        <li><strong>開始 (Start)</strong></li>
-        <li><strong>輸入/取得：</strong>魯迪猜測值 A、洛琪希猜測值 B、目標答案 Ans</li>
-        <li><strong>計算距離：</strong>DiffA = |A - Ans|, DiffB = |B - Ans|</li>
-        <li><strong>條件判斷 (菱形)：</strong> <code>DiffA < DiffB</code>
-          <ul>
-            <li><strong>True:</strong> 輸出 "魯迪贏"</li>
-            <li><strong>False:</strong> 輸出 "洛琪希贏"</li>
-          </ul>
-        </li>
-        <li><strong>結束 (End)</strong></li>
-      </ol>
+      <div class="flowchart-box">
+        <div class="mermaid">
+          graph TD
+            Start([Start]) --> Input[輸入：魯迪猜測數 A、洛琪希猜測數 B<br>取得目標隨機數 Target]
+            Input --> Calc[計算距離：<br>DistA = |A - Target|<br>DistB = |B - Target|]
+            Calc --> Cond{DistA < DistB}
+            Cond -- True --> Rudy[輸出：魯迪贏]
+            Cond -- False --> Roxy[輸出：洛琪希贏]
+            Rudy --> END([END])
+            Roxy --> END
+        </div>
+      </div>
     </div>
   </div>
 
 </div>
 
-<!-- 底部導覽控制列 -->
+<!-- 底部導覽列 -->
 <div class="controls">
   <button class="btn-nav" id="prevBtn" onclick="changeSlide(-1)">上一頁</button>
-  <span id="pageIndicator">Page 1 / 9</span>
+  <span id="pageIndicator">Page 1 / 10</span>
   <button class="btn-nav" id="nextBtn" onclick="changeSlide(1)">下一頁</button>
 </div>
 
@@ -364,18 +388,15 @@ if (num > 0) {
     updateSlide();
   }
 
-  // 挖空點擊展開/隱藏
   function toggleBlank(element) {
     element.classList.toggle('revealed');
   }
 
-  // 解答區塊切換
   function toggleAnswer(id) {
     const target = document.getElementById(id);
     target.classList.toggle('show');
   }
 
-  // 鍵盤左右鍵控制
   document.addEventListener('keydown', (e) => {
     if (e.key === "ArrowLeft") changeSlide(-1);
     if (e.key === "ArrowRight") changeSlide(1);
