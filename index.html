@@ -5,8 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>4-1 選擇結構與運算子 互動講義PPT</title>
   <!-- 引入 Mermaid.js 用於即時渲染流程圖 -->
-  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
-  <script>mermaid.initialize({startOnLoad:true});</script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      mermaid.initialize({ startOnLoad: true });
+    });
+  </script>
   <style>
     :root {
       --bg-color: #f4f6f9;
@@ -232,13 +236,13 @@
   <!-- Slide 5: 颱風假流程圖範例 -->
   <div class="slide">
     <h2>4. 範例：颱風假風力判斷流程圖</h2>
-    <p><strong>標準：</strong>「依據氣象預報，平均風力可達7級以上或陣風可達10級以上」</p>
+    <p><strong>標準：</strong>「依據氣象預報，平均風力可達7級以上或陣風可達10級以上」[cite: 2]</p>
     
     <div class="flowchart-box">
       <div class="mermaid">
         graph TD
           Start([Start]) --> Input[目前陣風級數]
-          Input --> Cond{達7級以上 || 陣風可達10級以上}
+          Input --> Cond{"達7級以上 &#124;&#124; 陣風可達10級以上"}
           Cond -- True --> Holiday[放颱風假]
           Cond -- False --> NoHoliday[不放颱風假]
           Holiday --> END([END])
@@ -262,7 +266,7 @@ if (num > 0) {
     cout << "10為正數";
 }</code></pre>
       <ul>
-        <li><strong>Line 6:</strong> 宣告整數變數 <code>num = 10</code></li>
+        <li><strong>Line 6:</strong> 宣告整數變數 <code>num = 10</code>[cite: 2]</li>
         <li><strong>Line 7:</strong> 檢查 <code>num > 0</code>，因為 10 > 0 條件成立 (true)[cite: 2]</li>
         <li><strong>Line 9:</strong> 執行印出 "10為正數"[cite: 2]</li>
       </ul>
@@ -344,9 +348,9 @@ if (num > 0) {
       <div class="flowchart-box">
         <div class="mermaid">
           graph TD
-            Start([Start]) --> Input[輸入：魯迪猜測數 A、洛琪希猜測數 B<br>取得目標隨機數 Target]
-            Input --> Calc[計算距離：<br>DistA = |A - Target|<br>DistB = |B - Target|]
-            Calc --> Cond{DistA < DistB}
+            Start([Start]) --> Input["輸入：魯迪猜測數 A、洛琪希猜測數 B<br>取得目標隨機數 Target"]
+            Input --> Calc["計算距離：<br>DistA = |A - Target|<br>DistB = |B - Target|"]
+            Calc --> Cond{DistA &lt; DistB}
             Cond -- True --> Rudy[輸出：魯迪贏]
             Cond -- False --> Roxy[輸出：洛琪希贏]
             Rudy --> END([END])
@@ -395,6 +399,10 @@ if (num > 0) {
   function toggleAnswer(id) {
     const target = document.getElementById(id);
     target.classList.toggle('show');
+    // 當解答打開時重新跑一次渲染，確保動態展開的流程圖顯示正常
+    if (window.mermaid) {
+      mermaid.contentLoaded();
+    }
   }
 
   document.addEventListener('keydown', (e) => {
