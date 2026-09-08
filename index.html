@@ -13,6 +13,18 @@
     <style>
         .reveal h1, .reveal h2, .reveal h3, .reveal h4 { text-transform: none; font-family: "Microsoft JhengHei", sans-serif; }
         .reveal p, .reveal li, .reveal td, .reveal th { font-size: 0.8em; line-height: 1.5; }
+        
+        /* 解決頁面被截斷問題：允許簡報頁面自動調整高度與捲動 */
+        .reveal .slides section {
+            max-height: 90vh !important;
+            overflow-y: auto !important;
+            padding: 10px 20px !important;
+            box-sizing: border-box;
+        }
+        /* 自訂捲動條樣式避免影響美觀 */
+        .reveal .slides section::-webkit-scrollbar { width: 6px; }
+        .reveal .slides section::-webkit-scrollbar-thumb { background: #bd93f9; border-radius: 3px; }
+
         .highlight-box { background: rgba(255,255,255,0.1); padding: 12px 18px; border-radius: 8px; margin-bottom: 12px; }
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; }
         
@@ -93,6 +105,7 @@
             border: 1px solid #6272a4;
             padding: 8px 12px;
             text-align: center;
+            vertical-align: middle;
         }
         table.custom-table th { background: #44475a; color: #50fa7b; }
 
@@ -102,6 +115,7 @@
         .node-diamond { fill: #6272a4; stroke: #ff79c6; stroke-width: 2; }
         .node-start { fill: #50fa7b; stroke: #50fa7b; stroke-width: 2; }
         .node-start-text { fill: #282a36; font-weight: bold; }
+        .node-io { fill: #44475a; stroke: #8be9fd; stroke-width: 2; }
         .line { stroke: #f8f8f2; stroke-width: 2; marker-end: url(#arrow); }
         .line-text { fill: #ffb86c; font-size: 11px; }
 
@@ -143,32 +157,32 @@
             <section>
                 <h3>🤔 生活中的選擇結構</h3>
                 <div class="highlight-box" style="text-align: left;">
-                    <p><b>問：</b>想一想，在學校生活中，有沒有什麼概念或實例有用到選擇結構？</p>
-                    <p style="color: #ffb86c;">👉 例如：成績需要達 <b>60 分</b>，若沒有 60 分則判定為不及格，否則為及格。</p>
+                    <p><b>問：</b>想一想，在學校生活中，有沒有什麼概念或實例有用到選擇結構？[cite: 1]</p>
+                    <p style="color: #ffb86c;">👉 例如：成績需要達 <b>60 分</b>，若沒有 60 分則判定為不及格，否則為及格。[cite: 1]</p>
                 </div>
-                <div class="fragment highlight-box" style="text-align: left; border-left: 5px solid #bd93f9;">
-                    <p><b>反思填空練習：</b></p>
+                <div class="highlight-box" style="text-align: left; border-left: 5px solid #bd93f9;">
+                    <p><b>反思填空練習：</b>[cite: 1]</p>
                     <ul>
-                        <li><b>情況：</b>考試成績結算</li>
-                        <li><b>條件：</b>成績 &lt; 60 分</li>
-                        <li><b>選擇結構問句：</b>如果分數低於 60 分，則顯示不及格，否則顯示及格。</li>
+                        <li><b>情況：</b>考試成績結算[cite: 1]</li>
+                        <li><b>條件：</b>成績 &lt; 60 分[cite: 1]</li>
+                        <li><b>選擇結構問句：</b>如果分數低於 60 分，則顯示不及格，否則顯示及格。[cite: 1]</li>
                     </ul>
                 </div>
-                <div class="fragment highlight-box" style="text-align: left; border-left: 5px solid #ff79c6;">
-                    <p>💡 <b>選擇結構定義：</b>當我們希望依據<b>條件成立與否</b>來決定執行特定程式或順序時，即稱為選擇結構。</p>
+                <div class="highlight-box" style="text-align: left; border-left: 5px solid #ff79c6;">
+                    <p>💡 <b>選擇結構定義：</b>當我們希望依據<b>條件成立與否</b>來決定執行特定程式或順序時，即稱為選擇結構。[cite: 1]</p>
                 </div>
             </section>
 
             <!-- Slide 3: 關係運算子 -->
             <section>
                 <h3>🔢 關係運算子 (Relational Operators)</h3>
-                <p style="text-align: left;">電腦使用「關係運算子」比較數值是否達到或低於標準。比較結果只有兩種可能性：</p>
+                <p style="text-align: left;">電腦使用「關係運算子」比較數值是否達到或低於標準[cite: 1]。比較結果只有兩種可能性[cite: 1]：</p>
                 <div style="display: flex; gap: 10px; margin-bottom: 10px;">
                     <div style="flex:1; background: rgba(80, 250, 123, 0.2); padding: 8px; border-radius: 6px;">
-                        <b>成立：</b>回傳 <span style="color:#50fa7b; font-weight:bold;">True</span> (電腦內部值為 <b>1</b>)
+                        <b>成立：</b>回傳 <span style="color:#50fa7b; font-weight:bold;">True</span> (電腦內部值為 <b>1</b>)[cite: 1]
                     </div>
                     <div style="flex:1; background: rgba(255, 85, 85, 0.2); padding: 8px; border-radius: 6px;">
-                        <b>不成立：</b>回傳 <span style="color:#ff5555; font-weight:bold;">False</span> (電腦內部值為 <b>0</b>)
+                        <b>不成立：</b>回傳 <span style="color:#ff5555; font-weight:bold;">False</span> (電腦內部值為 <b>0</b>)[cite: 1]
                     </div>
                 </div>
                 
@@ -177,46 +191,94 @@
                         <tr><th>符號</th><th>運算子名稱</th><th>範例</th><th>代表意義</th></tr>
                     </thead>
                     <tbody>
-                        <tr><td><code>&gt;</code></td><td>大於</td><td><code>5 &gt; 1</code></td><td>檢查 5 是否大於 1 (True)</td></tr>
-                        <tr><td><code>&lt;</code></td><td>小於</td><td><code>1 &lt; 5</code></td><td>檢查 1 是否小於 5 (True)</td></tr>
-                        <tr><td><code>&gt;=</code></td><td>大於或等於</td><td><code>Price &gt;= 100</code></td><td>Price 至少為 100</td></tr>
-                        <tr><td><code>&lt;=</code></td><td>小於或等於</td><td><code>Price &lt;= 100</code></td><td>Price 至多為 100</td></tr>
-                        <tr><td><code>==</code></td><td>等於 (注意是雙等號)</td><td><code>Price == 100</code></td><td>檢查 Price 是否剛好 100</td></tr>
-                        <tr><td><code>!=</code></td><td>不等於</td><td><code>5 != 1</code></td><td>檢查 5 是否不等於 1 (True)</td></tr>
+                        <tr><td><code>&gt;</code></td><td>大於</td><td><code>5 &gt; 1</code></td><td>檢查 5 是否大於 1 (True)[cite: 1]</td></tr>
+                        <tr><td><code>&lt;</code></td><td>小於</td><td><code>1 &lt; 5</code></td><td>檢查 1 是否小於 5 (True)[cite: 1]</td></tr>
+                        <tr><td><code>&gt;=</code></td><td>大於或等於</td><td><code>Price &gt;= 100</code></td><td>Price 至少為 100[cite: 1]</td></tr>
+                        <tr><td><code>&lt;=</code></td><td>小於或等於</td><td><code>Price &lt;= 100</code></td><td>Price 至多為 100[cite: 1]</td></tr>
+                        <tr><td><code>==</code></td><td>等於 (注意是雙等號)</td><td><code>Price == 100</code></td><td>檢查 Price 是否剛好 100[cite: 1]</td></tr>
+                        <tr><td><code>!=</code></td><td>不等於</td><td><code>5 != 1</code></td><td>檢查 5 是否不等於 1 (True)[cite: 1]</td></tr>
                     </tbody>
                 </table>
             </section>
 
-            <!-- Slide 4: 流程圖符號與颱風假範例 -->
+            <!-- Slide 4: 流程圖符號與圖案介紹 -->
             <section>
-                <h3>📐 流程圖常用符號與範例</h3>
+                <h3>📐 流程圖常見符號與說明</h3>
+                <p style="font-size:0.75em; text-align:left; color:#bd93f9;">在撰寫程式前先繪製流程圖，能協助釐清邏輯與程式執行順序[cite: 1]：</p>
+                <table class="custom-table">
+                    <thead>
+                        <tr><th>符號圖案</th><th>名稱</th><th>代表意義</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <svg width="70" height="26">
+                                    <rect x="5" y="3" width="60" height="20" rx="10" class="node-start" />
+                                </svg>
+                            </td>
+                            <td><b>開始 / 結束</b>[cite: 1]</td>
+                            <td>橢圓/圓角矩形，代表程式的起點與終點[cite: 1]。</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <svg width="70" height="26">
+                                    <line x1="10" y1="13" x2="60" y2="13" class="line" />
+                                </svg>
+                            </td>
+                            <td><b>程式執行方向</b>[cite: 1]</td>
+                            <td>箭頭，指示程式流程執行的順序與方向[cite: 1]。</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <svg width="70" height="26">
+                                    <rect x="5" y="3" width="60" height="20" class="node-rect" />
+                                </svg>
+                            </td>
+                            <td><b>設定 / 程序</b>[cite: 1]</td>
+                            <td>長方形，用於變數設定或資料算術運算[cite: 1]。</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <svg width="70" height="26">
+                                    <polygon points="35,2 65,13 35,24 5,13" class="node-diamond" />
+                                </svg>
+                            </td>
+                            <td><b>決策 / 條件</b>[cite: 1]</td>
+                            <td>菱形，條件判斷區，分出 True / False 分支[cite: 1]。</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <svg width="70" height="26">
+                                    <polygon points="15,3 65,3 55,23 5,23" class="node-io" />
+                                </svg>
+                            </td>
+                            <td><b>輸出 / 輸入</b>[cite: 1]</td>
+                            <td>平行四邊形，用於資料的讀取(Input)或顯示(Output)[cite: 1]。</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Slide 5: 颱風假實例與隨堂練習 -->
+            <section>
+                <h3>🌀 流程圖實例與隨堂練習</h3>
                 <div class="grid-2">
-                    <div>
-                        <p style="font-weight: bold; color: #8be9fd;">常見流程圖符號：</p>
-                        <table class="custom-table">
-                            <tr><th>符號名稱</th><th>代表意義</th></tr>
-                            <tr><td>開始 / 結束</td><td>橢圓形，程式起終點</td></tr>
-                            <tr><td>設定 / 程序</td><td>長方形，資料處理或運算</td></tr>
-                            <tr><td>決策 / 條件</td><td>菱形，條件判斷 (True/False)</td></tr>
-                            <tr><td>輸出 / 輸入</td><td>平行四邊形，資料 Input/Output</td></tr>
-                        </table>
-                    </div>
-                    <div>
-                        <p style="font-weight: bold; color: #ffb86c;">颱風假放假標準範例：</p>
-                        <p style="font-size: 0.75em;">「平均風力達 7 級以上 OR 陣風達 10 級以上」</p>
+                    <div class="highlight-box">
+                        <p style="font-weight: bold; color: #ffb86c; margin-top:0;">颱風假放假標準範例：[cite: 1]</p>
+                        <p style="font-size: 0.75em;">「平均風力達 7 級以上 OR 陣風達 10 級以上」[cite: 1]</p>
                         <button class="interactive-btn blue-btn" onclick="openModal('modal-typhoon')">🖼️ 點擊查看「颱風假流程圖」</button>
-                        
-                        <div class="highlight-box" style="margin-top: 15px;">
-                            <p style="font-size: 0.75em;">✏️ <b>隨堂練習：</b>輸入一個數字，大於 0 顯示正數，反之顯示負數。</p>
-                            <button class="interactive-btn green-btn" onclick="openModal('modal-practice1')">💡 查看練習流程圖解答</button>
-                        </div>
+                    </div>
+                    <div class="highlight-box">
+                        <p style="font-weight: bold; color: #50fa7b; margin-top:0;">✏️ 動手做練習：[cite: 1]</p>
+                        <p style="font-size: 0.75em;">輸入一個數字，如果輸入的數字大於 0 則顯示正數，反之為負數[cite: 1]。</p>
+                        <button class="interactive-btn green-btn" onclick="openModal('modal-practice1')">💡 查看練習流程圖解答</button>
                     </div>
                 </div>
             </section>
 
-            <!-- Slide 5: if 敘述與按鍵式程式講解 -->
+            <!-- Slide 6: if 敘述與按鍵式程式講解 -->
             <section>
-                <h3>1. if 敘述 (單向選擇)</h3>
+                <h3>1. if 敘述 (單向選擇)[cite: 1]</h3>
                 <div class="grid-2" style="grid-template-columns: 1.1fr 0.9fr;">
                     <div>
                         <!-- C++ Code Block -->
@@ -236,20 +298,20 @@ int main() {
                         <!-- 按鈕點擊解釋 -->
                         <div style="margin-top: 5px;">
                             <p style="font-size: 0.7em; margin:2px 0;">👇 點擊按鈕進行逐行程式解析：</p>
-                            <button class="interactive-btn" onclick="explainCode('code-if', 'L5', '第 5 行：宣告整數變數 num，並賦予初始值 10。')">L5: 變數宣告</button>
-                            <button class="interactive-btn" onclick="explainCode('code-if', 'L6', '第 6 行：if (num > 0) 判斷條件。因 10 > 0 為真 (True)，故執行大括號內部。')">L6: if 條件判斷</button>
-                            <button class="interactive-btn" onclick="explainCode('code-if', 'L7', '第 7 行：在螢幕印出字串「10為正數」。')">L7: 印出結果</button>
-                            <button class="interactive-btn" onclick="explainCode('code-if', 'L9', '第 9 行：return 0; 代表程式正常執行完畢並回傳 0。')">L9: 結束程式</button>
+                            <button class="interactive-btn" onclick="explainCode('code-if', 'L5', '第 6 行：宣告整數變數 num，並給予初始值 10。')">L5: 變數宣告[cite: 1]</button>
+                            <button class="interactive-btn" onclick="explainCode('code-if', 'L6', '第 7 行：檢查 num 是否大於 0。因 10 > 0 條件成立（True），會進入大括號。')">L6: if 條件判斷[cite: 1]</button>
+                            <button class="interactive-btn" onclick="explainCode('code-if', 'L7', '第 9 行：在螢幕上輸出字串「10為正數」。')">L7: 印出結果[cite: 1]</button>
+                            <button class="interactive-btn" onclick="explainCode('code-if', 'L9', '第 12 行：return 0; 代表程式正常結束並返回。')">L9: 結束程式[cite: 1]</button>
                         </div>
                     </div>
 
                     <div>
                         <div class="highlight-box">
-                            <h4>📋 語法格式</h4>
+                            <h4>📋 語法格式[cite: 1]</h4>
                             <pre><code class="language-cpp">if (判斷條件) {
     敘述主體;
 }</code></pre>
-                            <p style="font-size: 0.75em;">當判斷條件成立 (True) 時執行主體；不成立則直接跳過。</p>
+                            <p style="font-size: 0.75em;">如果條件成立，就會執行後面敘述；不成立則不會執行[cite: 1]。</p>
                         </div>
                         <!-- 顯示解析結果 -->
                         <div id="explain-display-if" class="line-explain-display">
@@ -259,9 +321,9 @@ int main() {
                 </div>
             </section>
 
-            <!-- Slide 6: if...else 敘述與按鍵式程式講解 -->
+            <!-- Slide 7: if...else 敘述與按鍵式程式講解 -->
             <section>
-                <h3>2. if...else 敘述 (雙向選擇)</h3>
+                <h3>2. if...else 敘述 (雙向選擇)[cite: 1]</h3>
                 <div class="grid-2" style="grid-template-columns: 1.1fr 0.9fr;">
                     <div>
                         <!-- C++ Code Block -->
@@ -285,19 +347,19 @@ int main() {
                         <!-- 按鈕點擊解釋 -->
                         <div style="margin-top: 5px;">
                             <p style="font-size: 0.7em; margin:2px 0;">👇 點擊按鈕進行逐行程式解析：</p>
-                            <button class="interactive-btn" onclick="explainCode('code-ifelse', 'L6-7', '第 6-7 行：提示使用者輸入，並透過 cin 讀取數字存入 num 變數。')">L6-7: 輸入讀取</button>
-                            <button class="interactive-btn" onclick="explainCode('code-ifelse', 'L8-9', '第 8-9 行：% 為取餘數運算。若 (num % 2) == 0 成立（偶數），印出「能被2整除」。')">L8-9: if 成立分支</button>
-                            <button class="interactive-btn" onclick="explainCode('code-ifelse', 'L10-11', '第 10-11 行：else 代表條件不成立（餘數不為0，奇數），執行「不能被2整除」。')">L10-11: else 分支</button>
+                            <button class="interactive-btn" onclick="explainCode('code-ifelse', 'L6-7', '第 8-9 行：顯示提示文字，並透過 cin 讀取使用者輸入的值存入 num。')">L6-7: 輸入讀取[cite: 1]</button>
+                            <button class="interactive-btn" onclick="explainCode('code-ifelse', 'L8-9', '第 11-14 行：% 為取餘數運算。若餘數等於 0（偶數），印出「此數能被2整除」。')">L8-9: if 成立分支[cite: 1]</button>
+                            <button class="interactive-btn" onclick="explainCode('code-ifelse', 'L10-11', '第 15-18 行：若餘數不等於 0（奇數），則執行 else 分支印出「此數不能被2整除」。')">L10-11: else 分支[cite: 1]</button>
                         </div>
                     </div>
 
                     <div>
                         <div class="highlight-box">
-                            <h4>📋 語法格式</h4>
+                            <h4>📋 語法格式[cite: 1]</h4>
                             <pre><code class="language-cpp">if (判斷條件) {
-    敘述主體1; // 條件成立執行
+    敘述主體1; /* 條件成立執行 */
 } else {
-    敘述主體2; // 條件不成立執行
+    敘述主體2; /* 條件不成立執行 */
 }</code></pre>
                         </div>
                         <!-- 顯示解析結果 -->
@@ -308,51 +370,51 @@ int main() {
                 </div>
             </section>
 
-            <!-- Slide 7: 課後練習 (1 ~ 3 題) -->
+            <!-- Slide 8: 課後練習 (1 ~ 3 題) -->
             <section>
-                <h3>📝 課後練習測驗 (1 ~ 3 題)</h3>
+                <h3>📝 課後練習測驗 (1 ~ 3 題)[cite: 1]</h3>
                 <div style="font-size: 0.8em; text-align: left;">
                     
                     <!-- 第 1 題 -->
                     <div class="highlight-box">
-                        <b>Q1. 成績及格判斷：空格 A 應填入何者？</b>
-                        <p style="margin:2px 0; font-family: monospace;">if ( ______A______ ) { cout &lt;&lt; "此學生成績及格"; }</p>
+                        <b>Q1. 成績及格判斷：空格 A 應填入何者？[cite: 1]</b>
+                        <p style="margin:2px 0; font-family: monospace;">if ( ______A______ ) { cout &lt;&lt; "此學生成績及格"; }[cite: 1]</p>
                         <button class="interactive-btn" onclick="toggleAnswer('ans-1')">💡 顯示解答</button>
-                        <div id="ans-1" class="answer-box"><b>解答：</b> <code>score >= 60</code></div>
+                        <div id="ans-1" class="answer-box"><b>解答：</b> <code>score >= 60</code>[cite: 1]</div>
                     </div>
 
                     <!-- 第 2 題 -->
                     <div class="highlight-box">
-                        <b>Q2. 體重判斷：體重超過 90kg 印出過重，反之正常。</b>
+                        <b>Q2. 體重判斷：體重超過 90kg 印出過重，反之正常。[cite: 1]</b>
                         <button class="interactive-btn" onclick="toggleAnswer('ans-2')">💡 顯示解答</button>
                         <div id="ans-2" class="answer-box">
                             <b>解答：</b><br>
                             <code>if (weight > 90) { cout &lt;&lt; "此學生體重過重" &lt;&lt; endl; }</code><br>
-                            <code>else { cout &lt;&lt; "此學生體重正常" &lt;&lt; endl; }</code>
+                            <code>else { cout &lt;&lt; "此學生體重正常" &lt;&lt; endl; }</code>[cite: 1]
                         </div>
                     </div>
 
                     <!-- 第 3 題 -->
                     <div class="highlight-box">
-                        <b>Q3. BMI 計算結果輸出：(weight=63.5, height=1.73)</b>
+                        <b>Q3. BMI 計算結果輸出：(weight=63.5, height=1.73)[cite: 1]</b>
                         <button class="interactive-btn" onclick="toggleAnswer('ans-3')">💡 顯示解答</button>
                         <div id="ans-3" class="answer-box">
                             <b>解答：</b><br>
-                            BMI = $63.5 / (1.73^2) \approx 21.2169$<br>
-                            因為 $18.5 \le 21.2169 < 24$ 成立，故輸出：<br>
-                            <span style="color:#50fa7b;">此學生BMI正常，BMI結果為: 21.2169</span>
+                            $BMI = 63.5 / (1.73^2) \approx 21.2169$[cite: 1]<br>
+                            因為 $18.5 \le 21.2169 < 24$ 條件成立[cite: 1]，故輸出：<br>
+                            <span style="color:#50fa7b;">此學生BMI正常，BMI結果為: 21.2169</span>[cite: 1]
                         </div>
                     </div>
 
                 </div>
             </section>
 
-            <!-- Slide 8: 課後練習 (第 4 題 除錯題) -->
+            <!-- Slide 9: 課後練習 (第 4 題 除錯題) -->
             <section>
-                <h3>🐛 課後練習 Q4：程式碼除錯 (找 5 個錯誤)</h3>
+                <h3>🐛 課後練習 Q4：程式碼除錯 (找 5 個錯誤)[cite: 1]</h3>
                 <div class="grid-2" style="grid-template-columns: 1fr 1fr;">
                     <div>
-                        <p style="font-size:0.75em; color:#ff79c6;">請找出以下程式碼中的 5 處錯誤：</p>
+                        <p style="font-size:0.75em; color:#ff79c6;">請指出以下程式碼中的 5 個錯誤並修正：[cite: 1]</p>
                         <pre><code class="language-cpp" data-trim data-noescape>
 1: #include <iostream>
 2: 
@@ -379,21 +441,21 @@ int main() {
                             <table class="custom-table">
                                 <tr><th>行數</th><th>錯誤原因</th><th>正確寫法</th></tr>
                                 <tr><td>L2</td><td>缺少命名空間</td><td><code>using namespace std;</code></td></tr>
-                                <tr><td>L9</td><td>誤用賦值符號 <code>=</code></td><td>應改為比較符號 <code>==</code></td></tr>
-                                <tr><td>L10</td><td>行末缺少分號 <code>;</code></td><td><code>&lt;&lt; endl;</code></td></tr>
-                                <tr><td>L11</td><td><code>else</code> 後不該加條件</td><td>直接寫 <code>else {</code> 即可</td></tr>
-                                <tr><td>L15</td><td><code>return 0</code> 缺少分號</td><td><code>return 0;</code></td></tr>
+                                <tr><td>L9</td><td>誤用賦值符號 <code>=</code>[cite: 1]</td><td>應改為比較符號 <code>==</code></td></tr>
+                                <tr><td>L10</td><td>行末缺少分號 <code>;</code>[cite: 1]</td><td><code>&lt;&lt; endl;</code></td></tr>
+                                <tr><td>L11</td><td><code>else</code> 後不該加條件[cite: 1]</td><td>直接寫 <code>else {</code> 即可</td></tr>
+                                <tr><td>L15</td><td><code>return 0</code> 缺少分號[cite: 1]</td><td><code>return 0;</code></td></tr>
                             </table>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- Slide 9: 課後練習 (第 5 題 猜數字流程圖) -->
+            <!-- Slide 10: 課後練習 (第 5 題 猜數字流程圖) -->
             <section>
-                <h3>🎮 課後練習 Q5：猜數字遊戲流程圖</h3>
+                <h3>🎮 課後練習 Q5：猜數字遊戲流程圖[cite: 1]</h3>
                 <div class="highlight-box" style="text-align: left;">
-                    <p><b>題目說明：</b>魯迪與洛琪希玩猜數字遊戲 (1~100)。比較兩人誰猜的數字比較接近目標。假設沒有平手：若魯迪較接近則輸出「魯迪贏」，反之則輸出「洛琪希贏」。</p>
+                    <p><b>題目說明：</b>魯迪與洛琪希玩猜數字遊戲 (1~100)。比較兩人誰猜的數字比較接近目標。假設沒有平手：若魯迪較接近則輸出魯迪贏，反之則輸出洛琪希贏[cite: 1]。</p>
                 </div>
                 
                 <div style="text-align: center; margin-top: 20px;">
@@ -401,13 +463,13 @@ int main() {
                 </div>
             </section>
 
-            <!-- Slide 10: 總結 -->
+            <!-- Slide 11: 總結 -->
             <section>
                 <h2>總結</h2>
                 <ul style="line-height: 2; font-size: 0.9em;">
-                    <li>關係運算子比較結果為 <b>True (1)</b> 或 <b>False (0)</b>。</li>
-                    <li>特別注意：程式中的「等於」要寫成 <code style="color:#ff79c6;">==</code>，一個 <code style="color:#ff79c6;">=</code> 是賦值！</li>
-                    <li>單一條件成立時用 <b>if</b>；有正反兩種情況時用 <b>if...else</b>。</li>
+                    <li>關係運算子比較結果為 <b>True (1)</b> 或 <b>False (0)</b>[cite: 1]。</li>
+                    <li>特別注意：程式中的「等於」要寫成 <code style="color:#ff79c6;">==</code>，一個 <code style="color:#ff79c6;">=</code> 是賦值[cite: 1]！</li>
+                    <li>單一條件成立時用 <b>if</b>[cite: 1]；有正反兩種情況時用 <b>if...else</b>[cite: 1]。</li>
                 </ul>
                 <p style="margin-top: 30px; color: #50fa7b;">🎉 恭喜完成 4-1 選擇結構與運算子基礎學習！</p>
             </section>
@@ -419,7 +481,7 @@ int main() {
     <div id="modal-typhoon" class="modal-overlay">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-typhoon')">✕</button>
-            <h4 style="margin-top:0; color:#bd93f9;">颱風假風力判斷 流程圖</h4>
+            <h4 style="margin-top:0; color:#bd93f9;">颱風假風力判斷 流程圖[cite: 1]</h4>
             <svg width="450" height="320" viewBox="0 0 450 320">
                 <rect x="175" y="10" width="100" height="34" rx="17" class="node-start" />
                 <text x="225" y="27" class="node-start-text">Start</text>
@@ -459,13 +521,13 @@ int main() {
     <div id="modal-practice1" class="modal-overlay">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-practice1')">✕</button>
-            <h4 style="margin-top:0; color:#50fa7b;">數字正負數判斷 流程圖</h4>
+            <h4 style="margin-top:0; color:#50fa7b;">數字正負數判斷 流程圖[cite: 1]</h4>
             <svg width="400" height="280" viewBox="0 0 400 280">
                 <rect x="150" y="10" width="100" height="30" rx="15" class="node-start" />
                 <text x="200" y="25" class="node-start-text">開始</text>
 
                 <line x1="200" y1="40" x2="200" y2="65" class="line" />
-                <rect x="140" y="65" width="120" height="30" class="node-rect" />
+                <polygon points="150,65 260,65 250,95 140,95" class="node-io" />
                 <text x="200" y="80">輸入數字 num</text>
 
                 <line x1="200" y1="95" x2="200" y2="120" class="line" />
@@ -474,18 +536,19 @@ int main() {
 
                 <line x1="270" y1="145" x2="310" y2="145" class="line" />
                 <text x="285" y="135" class="line-text">是</text>
-                <rect x="270" y="180" width="80" height="30" class="node-rect" />
+                <polygon points="280,180 350,180 340,210 270,210" class="node-io" />
                 <text x="310" y="195">顯示「正數」</text>
                 <line x1="310" y1="145" x2="310" y2="180" class="line" />
 
                 <line x1="200" y1="170" x2="200" y2="180" class="line" />
                 <text x="215" y="175" class="line-text">否</text>
-                <rect x="150" y="180" width="100" height="30" class="node-rect" />
-                <text x="200" y="195">顯示「負數/零」</text>
+                <polygon points="150,180 250,180 240,210 140,210" class="node-io" />
+                <text x="195" y="195">顯示「負數/零」</text>
 
-                <line x1="200" y1="210" x2="200" y2="240" class="line" />
+                <line x1="195" y1="210" x2="195" y2="240" stroke="#f8f8f2" stroke-width="2" />
                 <line x1="310" y1="210" x2="310" y2="240" stroke="#f8f8f2" stroke-width="2" />
                 <line x1="310" y1="240" x2="250" y2="240" class="line" />
+                <line x1="195" y1="240" x2="200" y2="240" class="line" />
                 <rect x="150" y="225" width="100" height="30" rx="15" class="node-start" />
                 <text x="200" y="240" class="node-start-text">結束</text>
             </svg>
@@ -496,7 +559,7 @@ int main() {
     <div id="modal-game" class="modal-overlay">
         <div class="modal-content">
             <button class="close-btn" onclick="closeModal('modal-game')">✕</button>
-            <h4 style="margin-top:0; color:#ffb86c;">猜數字遊戲 流程圖解答</h4>
+            <h4 style="margin-top:0; color:#ffb86c;">猜數字遊戲 流程圖解答[cite: 1]</h4>
             <svg width="450" height="300" viewBox="0 0 450 300">
                 <rect x="175" y="10" width="100" height="30" rx="15" class="node-start" />
                 <text x="225" y="25" class="node-start-text">Start</text>
@@ -512,21 +575,21 @@ int main() {
                 <!-- True -->
                 <line x1="120" y1="145" x2="70" y2="145" class="line" />
                 <text x="95" y="135" class="line-text">True</text>
-                <rect x="20" y="180" width="100" height="30" class="node-rect" />
-                <text x="70" y="195">輸出「魯迪贏」</text>
-                <line x1="70" y1="145" x2="70" y2="180" class="line" />
+                <polygon points="20,180 120,180 110,210 10,210" class="node-io" />
+                <text x="65" y="195">輸出「魯迪贏」</text>
+                <line x1="70" y1="145" x2="65" y2="180" class="line" />
 
                 <!-- False -->
                 <line x1="330" y1="145" x2="380" y2="145" class="line" />
                 <text x="355" y="135" class="line-text">False</text>
-                <rect x="330" y="180" width="100" height="30" class="node-rect" />
+                <polygon points="330,180 440,180 430,210 320,210" class="node-io" />
                 <text x="380" y="195">輸出「洛琪希贏」</text>
                 <line x1="380" y1="145" x2="380" y2="180" class="line" />
 
                 <!-- End -->
-                <line x1="70" y1="210" x2="70" y2="250" stroke="#f8f8f2" stroke-width="2" />
+                <line x1="65" y1="210" x2="65" y2="250" stroke="#f8f8f2" stroke-width="2" />
                 <line x1="380" y1="210" x2="380" y2="250" stroke="#f8f8f2" stroke-width="2" />
-                <line x1="70" y1="250" x2="175" y2="250" class="line" />
+                <line x1="65" y1="250" x2="175" y2="250" class="line" />
                 <line x1="380" y1="250" x2="275" y2="250" class="line" />
                 <rect x="175" y="235" width="100" height="30" rx="15" class="node-start" />
                 <text x="225" y="250" class="node-start-text">END</text>
