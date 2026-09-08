@@ -1,641 +1,574 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>4-1 選擇結構與運算子 互動講義PPT</title>
-  <style>
-    :root {
-      --bg-color: #f4f6f9;
-      --card-bg: #ffffff;
-      --primary-color: #2c3e50;
-      --accent-color: #27ae60;
-      --code-bg: #1e1e1e;
-      --text-color: #333;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>選擇結構 4-1：認識選擇結構與運算子</title>
+    <!-- Reveal.js CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/dracula.min.css">
+    <!-- Code Highlight Theme -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
+    
+    <style>
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 { text-transform: none; font-family: "Microsoft JhengHei", sans-serif; }
+        .reveal p, .reveal li, .reveal td, .reveal th { font-size: 0.8em; line-height: 1.5; }
+        .highlight-box { background: rgba(255,255,255,0.1); padding: 12px 18px; border-radius: 8px; margin-bottom: 12px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; }
+        
+        /* 互動按鈕樣式 */
+        .interactive-btn {
+            background-color: #ff79c6;
+            color: #282a36;
+            border: none;
+            padding: 8px 14px;
+            font-size: 0.8em;
+            font-weight: bold;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 4px 2px;
+            transition: 0.3s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        .interactive-btn:hover { background-color: #ffb86c; transform: translateY(-2px); }
+        .blue-btn { background-color: #8be9fd; }
+        .green-btn { background-color: #50fa7b; }
+        
+        /* 燈箱/全螢幕彈窗 (Modal Overlay) */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        .modal-content {
+            background: #282a36;
+            border: 2px solid #bd93f9;
+            border-radius: 12px;
+            padding: 20px;
+            max-width: 90vw;
+            max-height: 85vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.7);
+            color: #f8f8f2;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px; right: 15px;
+            background: #ff5555;
+            color: white;
+            border: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 32px; height: 32px;
+            cursor: pointer;
+        }
 
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: "Segoe UI", "Microsoft JhengHei", sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      overflow: hidden;
-    }
+        .answer-box {
+            display: none;
+            margin-top: 10px;
+            background: rgba(80, 250, 123, 0.2);
+            border-left: 5px solid #50fa7b;
+            padding: 10px 15px;
+            border-radius: 4px;
+            text-align: left;
+            font-size: 0.85em;
+        }
+        code { font-family: "Fira Code", Consolas, monospace !important; }
 
-    .deck-container {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-    }
+        /* 表格樣式 */
+        table.custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+            font-size: 0.75em;
+        }
+        table.custom-table th, table.custom-table td {
+            border: 1px solid #6272a4;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        table.custom-table th { background: #44475a; color: #50fa7b; }
 
-    .slide {
-      display: none;
-      width: 90%;
-      max-width: 1000px;
-      height: 82vh;
-      background: var(--card-bg);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-      border-radius: 12px;
-      padding: 35px 40px;
-      box-sizing: border-box;
-      overflow-y: auto;
-      animation: fadeIn 0.4s ease-in-out;
-    }
+        /* SVG 圖形與文字樣式 */
+        svg text { font-family: "Microsoft JhengHei", sans-serif; fill: #f8f8f2; font-size: 13px; text-anchor: middle; dominant-baseline: middle; }
+        .node-rect { fill: #44475a; stroke: #bd93f9; stroke-width: 2; rx: 6px; }
+        .node-diamond { fill: #6272a4; stroke: #ff79c6; stroke-width: 2; }
+        .node-start { fill: #50fa7b; stroke: #50fa7b; stroke-width: 2; }
+        .node-start-text { fill: #282a36; font-weight: bold; }
+        .line { stroke: #f8f8f2; stroke-width: 2; marker-end: url(#arrow); }
+        .line-text { fill: #ffb86c; font-size: 11px; }
 
-    .slide.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    h1, h2 {
-      color: var(--primary-color);
-      border-bottom: 3px solid var(--accent-color);
-      padding-bottom: 8px;
-      margin-top: 0;
-    }
-
-    .blank {
-      background-color: #f1c40f;
-      color: transparent;
-      padding: 2px 10px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.3s;
-      user-select: none;
-      display: inline-block;
-      font-weight: bold;
-    }
-
-    .blank.revealed {
-      background-color: #e8f8f5;
-      color: #27ae60;
-      border: 1px solid #27ae60;
-    }
-
-    .reveal-btn {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 8px 16px;
-      margin-top: 10px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: background 0.2s;
-    }
-
-    .reveal-btn:hover {
-      background-color: #2980b9;
-    }
-
-    .answer-block {
-      display: none;
-      background-color: #e8f8f5;
-      border-left: 5px solid var(--accent-color);
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 4px;
-    }
-
-    .answer-block.show {
-      display: block;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 15px 0;
-    }
-
-    th, td {
-      border: 1px solid #ddd;
-      padding: 8px 12px;
-      text-align: center;
-      vertical-align: middle;
-    }
-
-    th {
-      background-color: #f2f2f2;
-    }
-
-    pre {
-      background-color: var(--code-bg);
-      color: #dcdcdc;
-      padding: 15px;
-      border-radius: 6px;
-      overflow-x: auto;
-      font-family: "Consolas", monospace;
-    }
-
-    /* CSS 流程圖符號樣式展示 */
-    .symbol-shape {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      margin: 0 auto;
-      font-size: 0.85rem;
-      font-weight: bold;
-      color: #2c3e50;
-      background-color: #eef2f7;
-      border: 2px solid #34495e;
-      box-sizing: border-box;
-    }
-
-    /* 橢圓形 */
-    .shape-oval {
-      width: 100px;
-      height: 40px;
-      border-radius: 20px;
-    }
-
-    /* 箭頭 */
-    .shape-arrow {
-      font-size: 1.5rem;
-      border: none;
-      background: none;
-      color: #34495e;
-    }
-
-    /* 長方形 (程序) */
-    .shape-rect {
-      width: 110px;
-      height: 40px;
-      border-radius: 2px;
-    }
-
-    /* 菱形 (條件) */
-    .shape-diamond-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 60px;
-    }
-    .shape-diamond {
-      width: 50px;
-      height: 50px;
-      transform: rotate(45deg);
-      border: 2px solid #34495e;
-      background-color: #fef9e7;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-    .shape-diamond span {
-      transform: rotate(-45deg);
-      font-size: 0.75rem;
-    }
-
-    /* 平行四邊形 (輸入/輸出) */
-    .shape-parallelogram {
-      width: 110px;
-      height: 40px;
-      transform: skewX(-20deg);
-      background-color: #e8f8f5;
-    }
-    .shape-parallelogram span {
-      transform: skewX(20deg);
-    }
-
-    /* 檔案符號 */
-    .shape-file {
-      width: 90px;
-      height: 45px;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-      position: relative;
-    }
-
-    /* 連接點 (圓形) */
-    .shape-circle {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      background-color: #fcf3cf;
-    }
-
-    /* --- 實體流程圖構建樣式 --- */
-    .flow-chart {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-      margin: 15px 0;
-    }
-
-    .node-oval {
-      width: 140px;
-      height: 40px;
-      border-radius: 20px;
-      border: 2px solid #2c3e50;
-      background: #e8f8f5;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-    }
-
-    .node-rect {
-      min-width: 160px;
-      padding: 8px 15px;
-      border: 2px solid #2c3e50;
-      background: #ffffff;
-      border-radius: 3px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .node-para {
-      min-width: 180px;
-      padding: 8px 15px;
-      border: 2px solid #2c3e50;
-      background: #ebf5fb;
-      transform: skewX(-15deg);
-      text-align: center;
-      font-weight: bold;
-    }
-    .node-para span {
-      display: block;
-      transform: skewX(15deg);
-    }
-
-    .node-diamond {
-      width: 120px;
-      height: 120px;
-      border: 2px solid #f39c12;
-      background: #fef9e7;
-      transform: rotate(45deg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 10px 0;
-    }
-    .node-diamond span {
-      transform: rotate(-45deg);
-      text-align: center;
-      font-size: 0.85rem;
-      font-weight: bold;
-      width: 130px;
-    }
-
-    .branch-container {
-      display: flex;
-      justify-content: space-around;
-      width: 100%;
-      max-width: 550px;
-    }
-
-    .branch-path {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .branch-tag {
-      font-weight: bold;
-      font-size: 0.85rem;
-      color: #e67e22;
-    }
-
-    .controls {
-      height: 60px;
-      background: var(--primary-color);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 30px;
-      color: white;
-    }
-
-    .btn-nav {
-      background: var(--accent-color);
-      color: white;
-      border: none;
-      padding: 8px 18px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1rem;
-    }
-
-    .btn-nav:disabled {
-      background: #7f8c8d;
-      cursor: not-allowed;
-    }
-  </style>
+        /* 逐行解釋高亮區 */
+        .line-explain-display {
+            background: rgba(139, 233, 253, 0.15);
+            border-left: 4px solid #8be9fd;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 4px;
+            min-height: 48px;
+            text-align: left;
+            font-size: 0.8em;
+            color: #f8f8f2;
+        }
+    </style>
 </head>
 <body>
+    <!-- 共通 SVG 箭頭定義 -->
+    <svg style="display:none;">
+        <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#f8f8f2"/>
+            </marker>
+        </defs>
+    </svg>
 
-<div class="deck-container">
+    <div class="reveal">
+        <div class="slides">
 
-  <!-- Slide 1: 標題頁 -->
-  <div class="slide active">
-    <h1 style="margin-top: 100px; font-size: 2.5rem; text-align: center;">4-1 認識選擇結構與運算子</h1>
-    <p style="text-align: center; font-size: 1.2rem; color: #666;">單元講義互動簡報</p>
-  </div>
+            <!-- Slide 1: 標題頁 -->
+            <section>
+                <h2>選擇結構 4-1</h2>
+                <h1>認識選擇結構與運算子</h1>
+                <p style="color: #bd93f9;">設計程式邏輯與流程控制的起點</p>
+            </section>
 
-  <!-- Slide 2: 生活思考 -->
-  <div class="slide">
-    <h2>1. 什麼是選擇結構？</h2>
-    <p>在學校生活中，有沒有什麼概念或是實例有用到選擇結構的？</p>
-    <p><strong>範例：</strong>成績達到 60 分判定為及格，否則判定為不及格。</p>
-    <hr>
-    <h3>舉例反思（點擊黃色按鈕查看答案）：</h3>
-    <p>情況：<span class="blank" onclick="toggleBlank(this)">請學生發表（如：買滿額折扣商品）</span></p>
-    <p>條件：<span class="blank" onclick="toggleBlank(this)">消費金額滿 1000 元</span></p>
-    <p>問句：<span class="blank" onclick="toggleBlank(this)">如果消費滿 1000 元則打 9 折，否則維持原價。</span></p>
-    <p style="margin-top:20px; font-style: italic; color:#555;">
-      💡 結論：當我們希望依據<strong>條件成立與否</strong>來決定執行特定程式時，稱之為<strong>選擇結構</strong>。
-    </p>
-  </div>
+            <!-- Slide 2: 思考與引入 -->
+            <section>
+                <h3>🤔 生活中的選擇結構</h3>
+                <div class="highlight-box" style="text-align: left;">
+                    <p><b>問：</b>想一想，在學校生活中，有沒有什麼概念或實例有用到選擇結構？</p>
+                    <p style="color: #ffb86c;">👉 例如：成績需要達 <b>60 分</b>，若沒有 60 分則判定為不及格，否則為及格。</p>
+                </div>
+                <div class="fragment highlight-box" style="text-align: left; border-left: 5px solid #bd93f9;">
+                    <p><b>反思填空練習：</b></p>
+                    <ul>
+                        <li><b>情況：</b>考試成績結算</li>
+                        <li><b>條件：</b>成績 &lt; 60 分</li>
+                        <li><b>選擇結構問句：</b>如果分數低於 60 分，則顯示不及格，否則顯示及格。</li>
+                    </ul>
+                </div>
+                <div class="fragment highlight-box" style="text-align: left; border-left: 5px solid #ff79c6;">
+                    <p>💡 <b>選擇結構定義：</b>當我們希望依據<b>條件成立與否</b>來決定執行特定程式或順序時，即稱為選擇結構。</p>
+                </div>
+            </section>
 
-  <!-- Slide 3: 關係運算子 -->
-  <div class="slide">
-    <h2>2. 關係運算子與比較</h2>
-    <p>程式需要先學會「如何做判斷」，利用運算子來比較數值。</p>
-    <table>
-      <tr><th>符號</th><th>運算子名稱</th><th>範例</th></tr>
-      <tr><td>&gt;</td><td>大於</td><td>5 &gt; 1</td></tr>
-      <tr><td>&lt;</td><td>小於</td><td>1 &lt; 5</td></tr>
-      <tr><td>&gt;=</td><td>大於等於</td><td>Price &gt;= 100</td></tr>
-      <tr><td>&lt;=</td><td>小於等於</td><td>Price &lt;= 100</td></tr>
-      <tr><td>==</td><td>等於</td><td>Price == 100</td></tr>
-      <tr><td>!=</td><td>不等於</td><td>5 != 1</td></tr>
-    </table>
-    <h3>判斷結果（點擊揭曉）：</h3>
-    <p>成立：回傳 <span class="blank" onclick="toggleBlank(this)">True</span>（內部儲存為 <span class="blank" onclick="toggleBlank(this)">1</span>）</p>
-    <p>不成立：回傳 <span class="blank" onclick="toggleBlank(this)">False</span>（內部儲存為 <span class="blank" onclick="toggleBlank(this)">0</span>）</p>
-  </div>
+            <!-- Slide 3: 關係運算子 -->
+            <section>
+                <h3>🔢 關係運算子 (Relational Operators)</h3>
+                <p style="text-align: left;">電腦使用「關係運算子」比較數值是否達到或低於標準。比較結果只有兩種可能性：</p>
+                <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                    <div style="flex:1; background: rgba(80, 250, 123, 0.2); padding: 8px; border-radius: 6px;">
+                        <b>成立：</b>回傳 <span style="color:#50fa7b; font-weight:bold;">True</span> (電腦內部值為 <b>1</b>)
+                    </div>
+                    <div style="flex:1; background: rgba(255, 85, 85, 0.2); padding: 8px; border-radius: 6px;">
+                        <b>不成立：</b>回傳 <span style="color:#ff5555; font-weight:bold;">False</span> (電腦內部值為 <b>0</b>)
+                    </div>
+                </div>
+                
+                <table class="custom-table">
+                    <thead>
+                        <tr><th>符號</th><th>運算子名稱</th><th>範例</th><th>代表意義</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>&gt;</code></td><td>大於</td><td><code>5 &gt; 1</code></td><td>檢查 5 是否大於 1 (True)</td></tr>
+                        <tr><td><code>&lt;</code></td><td>小於</td><td><code>1 &lt; 5</code></td><td>檢查 1 是否小於 5 (True)</td></tr>
+                        <tr><td><code>&gt;=</code></td><td>大於或等於</td><td><code>Price &gt;= 100</code></td><td>Price 至少為 100</td></tr>
+                        <tr><td><code>&lt;=</code></td><td>小於或等於</td><td><code>Price &lt;= 100</code></td><td>Price 至多為 100</td></tr>
+                        <tr><td><code>==</code></td><td>等於 (注意是雙等號)</td><td><code>Price == 100</code></td><td>檢查 Price 是否剛好 100</td></tr>
+                        <tr><td><code>!=</code></td><td>不等於</td><td><code>5 != 1</code></td><td>檢查 5 是否不等於 1 (True)</td></tr>
+                    </tbody>
+                </table>
+            </section>
 
-  <!-- Slide 4: 流程圖常用符號 -->
-  <div class="slide">
-    <h2>3. 流程圖常用符號對照表</h2>
-    <table>
-      <tr>
-        <th style="width: 30%;">符號名稱</th>
-        <th style="width: 35%;">標準圖示</th>
-        <th style="width: 35%;">功能說明</th>
-      </tr>
-      <tr>
-        <td><strong>開始 / 結束符號</strong></td>
-        <td><div class="symbol-shape shape-oval">Start / End</div></td>
-        <td>程式的起點與終點</td>
-      </tr>
-      <tr>
-        <td><strong>程式執行方向</strong></td>
-        <td><div class="symbol-shape shape-arrow">↓</div></td>
-        <td>指示流程執行順序</td>
-      </tr>
-      <tr>
-        <td><strong>設定 / 程序</strong></td>
-        <td><div class="symbol-shape shape-rect">變數處理 / 計算</div></td>
-        <td>執行指令或資料處置</td>
-      </tr>
-      <tr>
-        <td><strong>決策 / 條件判斷</strong></td>
-        <td>
-          <div class="shape-diamond-wrap">
-            <div class="shape-diamond"><span>條件？</span></div>
-          </div>
-        </td>
-        <td>根據條件成立與否分流</td>
-      </tr>
-      <tr>
-        <td><strong>檔案</strong></td>
-        <td><div class="symbol-shape shape-file">檔案文件</div></td>
-        <td>代表讀取或輸出檔案</td>
-      </tr>
-      <tr>
-        <td><strong>輸出 / 輸入</strong></td>
-        <td><div class="symbol-shape shape-parallelogram"><span>輸入 / 輸出</span></div></td>
-        <td>使用者輸入或螢幕印出</td>
-      </tr>
-      <tr>
-        <td><strong>連接點</strong></td>
-        <td><div class="symbol-shape shape-circle">A</div></td>
-        <td>跨頁或複雜路徑連接</td>
-      </tr>
-    </table>
-  </div>
+            <!-- Slide 4: 流程圖符號與颱風假範例 -->
+            <section>
+                <h3>📐 流程圖常用符號與範例</h3>
+                <div class="grid-2">
+                    <div>
+                        <p style="font-weight: bold; color: #8be9fd;">常見流程圖符號：</p>
+                        <table class="custom-table">
+                            <tr><th>符號名稱</th><th>代表意義</th></tr>
+                            <tr><td>開始 / 結束</td><td>橢圓形，程式起終點</td></tr>
+                            <tr><td>設定 / 程序</td><td>長方形，資料處理或運算</td></tr>
+                            <tr><td>決策 / 條件</td><td>菱形，條件判斷 (True/False)</td></tr>
+                            <tr><td>輸出 / 輸入</td><td>平行四邊形，資料 Input/Output</td></tr>
+                        </table>
+                    </div>
+                    <div>
+                        <p style="font-weight: bold; color: #ffb86c;">颱風假放假標準範例：</p>
+                        <p style="font-size: 0.75em;">「平均風力達 7 級以上 OR 陣風達 10 級以上」</p>
+                        <button class="interactive-btn blue-btn" onclick="openModal('modal-typhoon')">🖼️ 點擊查看「颱風假流程圖」</button>
+                        
+                        <div class="highlight-box" style="margin-top: 15px;">
+                            <p style="font-size: 0.75em;">✏️ <b>隨堂練習：</b>輸入一個數字，大於 0 顯示正數，反之顯示負數。</p>
+                            <button class="interactive-btn green-btn" onclick="openModal('modal-practice1')">💡 查看練習流程圖解答</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-  <!-- Slide 5: 颱風假流程圖 -->
-  <div class="slide">
-    <h2>4. 範例：颱風假風力判斷流程圖</h2>
-    <p><strong>標準：</strong>「依據氣象預報，平均風力可達7級以上或陣風可達10級以上」</p>
-    
-    <div class="flow-chart">
-      <div class="node-oval">Start</div>
-      <div class="shape-arrow">↓</div>
-      
-      <div class="node-para"><span>目前陣風級數</span></div>
-      <div class="shape-arrow">↓</div>
-      
-      <div class="node-diamond">
-        <span>達7級以上 ||<br>陣風可達10級以上？</span>
-      </div>
-      
-      <div class="branch-container">
-        <div class="branch-path">
-          <span class="branch-tag">True (成立)</span>
-          <div class="shape-arrow">↓</div>
-          <div class="node-rect" style="border-color:#27ae60; background:#e8f8f5;">放颱風假</div>
-        </div>
-        <div class="branch-path">
-          <span class="branch-tag">False (不成立)</span>
-          <div class="shape-arrow">↓</div>
-          <div class="node-rect" style="border-color:#c0392b; background:#fadbd8;">不放颱風假</div>
-        </div>
-      </div>
-      
-      <div class="shape-arrow">↓</div>
-      <div class="node-oval">END</div>
-    </div>
-  </div>
+            <!-- Slide 5: if 敘述與按鍵式程式講解 -->
+            <section>
+                <h3>1. if 敘述 (單向選擇)</h3>
+                <div class="grid-2" style="grid-template-columns: 1.1fr 0.9fr;">
+                    <div>
+                        <!-- C++ Code Block -->
+                        <pre><code class="language-cpp" id="code-if" data-trim data-noescape>
+#include &lt;iostream&gt;
+using namespace std;
 
-  <!-- Slide 6: if 敘述 -->
-  <div class="slide">
-    <h2>5. if 敘述</h2>
-    <pre><code>if (判斷條件) {
+int main() {
+    int num = 10;
+    if (num > 0) {
+        cout &lt;&lt; "10為正數";
+    }
+    return 0;
+}
+                        </code></pre>
+                        
+                        <!-- 按鈕點擊解釋 -->
+                        <div style="margin-top: 5px;">
+                            <p style="font-size: 0.7em; margin:2px 0;">👇 點擊按鈕進行逐行程式解析：</p>
+                            <button class="interactive-btn" onclick="explainCode('code-if', 'L5', '第 5 行：宣告整數變數 num，並賦予初始值 10。')">L5: 變數宣告</button>
+                            <button class="interactive-btn" onclick="explainCode('code-if', 'L6', '第 6 行：if (num > 0) 判斷條件。因 10 > 0 為真 (True)，故執行大括號內部。')">L6: if 條件判斷</button>
+                            <button class="interactive-btn" onclick="explainCode('code-if', 'L7', '第 7 行：在螢幕印出字串「10為正數」。')">L7: 印出結果</button>
+                            <button class="interactive-btn" onclick="explainCode('code-if', 'L9', '第 9 行：return 0; 代表程式正常執行完畢並回傳 0。')">L9: 結束程式</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="highlight-box">
+                            <h4>📋 語法格式</h4>
+                            <pre><code class="language-cpp">if (判斷條件) {
     敘述主體;
 }</code></pre>
-    <p><strong>說明：</strong>如果括號中的判斷條件成立，就會執行後面的敘述；不成立則不執行。</p>
-    <h3>範例：判斷數字 10 是否為正數</h3>
-    <button class="reveal-btn" onclick="toggleAnswer('if-explain')">點擊查看程式與說明</button>
-    <div id="if-explain" class="answer-block">
-      <pre><code>int num = 10;
-if (num > 0) {
-    cout << "10為正數";
-}</code></pre>
-      <ul>
-        <li><strong>Line 6:</strong> 宣告整數變數 <code>num = 10</code></li>
-        <li><strong>Line 7:</strong> 檢查 <code>num > 0</code>，因為 10 > 0 條件成立 (true)</li>
-        <li><strong>Line 9:</strong> 執行印出 "10為正數"</li>
-      </ul>
-    </div>
-  </div>
+                            <p style="font-size: 0.75em;">當判斷條件成立 (True) 時執行主體；不成立則直接跳過。</p>
+                        </div>
+                        <!-- 顯示解析結果 -->
+                        <div id="explain-display-if" class="line-explain-display">
+                            👈 點擊左側按鈕即可觀看該行程式碼的詳細說明！
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-  <!-- Slide 7: if...else 敘述 -->
-  <div class="slide">
-    <h2>6. if...else 敘述</h2>
-    <pre><code>if (判斷條件) {
-    敘述主體 1; /* 條件成立執行 */
+            <!-- Slide 6: if...else 敘述與按鍵式程式講解 -->
+            <section>
+                <h3>2. if...else 敘述 (雙向選擇)</h3>
+                <div class="grid-2" style="grid-template-columns: 1.1fr 0.9fr;">
+                    <div>
+                        <!-- C++ Code Block -->
+                        <pre><code class="language-cpp" id="code-ifelse" data-trim data-noescape>
+#include &lt;iostream&gt;
+using namespace std;
+
+int main() {
+    int num = 0;
+    cout &lt;&lt; "請輸入一個整數: ";
+    cin &gt;&gt; num;
+    if ((num % 2) == 0) {
+        cout &lt;&lt; "此數能被2整除" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "此數不能被2整除" &lt;&lt; endl;
+    }
+    return 0;
+}
+                        </code></pre>
+
+                        <!-- 按鈕點擊解釋 -->
+                        <div style="margin-top: 5px;">
+                            <p style="font-size: 0.7em; margin:2px 0;">👇 點擊按鈕進行逐行程式解析：</p>
+                            <button class="interactive-btn" onclick="explainCode('code-ifelse', 'L6-7', '第 6-7 行：提示使用者輸入，並透過 cin 讀取數字存入 num 變數。')">L6-7: 輸入讀取</button>
+                            <button class="interactive-btn" onclick="explainCode('code-ifelse', 'L8-9', '第 8-9 行：% 為取餘數運算。若 (num % 2) == 0 成立（偶數），印出「能被2整除」。')">L8-9: if 成立分支</button>
+                            <button class="interactive-btn" onclick="explainCode('code-ifelse', 'L10-11', '第 10-11 行：else 代表條件不成立（餘數不為0，奇數），執行「不能被2整除」。')">L10-11: else 分支</button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="highlight-box">
+                            <h4>📋 語法格式</h4>
+                            <pre><code class="language-cpp">if (判斷條件) {
+    敘述主體1; // 條件成立執行
 } else {
-    敘述主體 2; /* 條件不成立執行 */
+    敘述主體2; // 條件不成立執行
 }</code></pre>
-    <h3>範例：輸入整數判斷能否被 2 整除</h3>
-    <button class="reveal-btn" onclick="toggleAnswer('ifelse-code')">點擊顯示判斷程式碼</button>
-    <div id="ifelse-code" class="answer-block">
-      <pre><code>if (num % 2 == 0) {
-    cout << "此數能被2整除" << endl;
-} else {
-    cout << "此數不能被2整除" << endl;
-}</code></pre>
-    </div>
-  </div>
+                        </div>
+                        <!-- 顯示解析結果 -->
+                        <div id="explain-display-ifelse" class="line-explain-display">
+                            👈 點擊左側按鈕即可觀看該行程式碼的詳細說明！
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-  <!-- Slide 8: 課後練習 1 & 2 -->
-  <div class="slide">
-    <h2>課後練習 (1/3)</h2>
-    <p><strong>Q1. 成績及格判斷，空格 A 應填入什麼？</strong></p>
-    <p><code>if ( ______A______ ) { cout &lt;&lt; "此學生成績及格"; }</code></p>
-    <button class="reveal-btn" onclick="toggleAnswer('q1-ans')">顯示解答</button>
-    <div id="q1-ans" class="answer-block"><code>score >= 60</code></div>
+            <!-- Slide 7: 課後練習 (1 ~ 3 題) -->
+            <section>
+                <h3>📝 課後練習測驗 (1 ~ 3 題)</h3>
+                <div style="font-size: 0.8em; text-align: left;">
+                    
+                    <!-- 第 1 題 -->
+                    <div class="highlight-box">
+                        <b>Q1. 成績及格判斷：空格 A 應填入何者？</b>
+                        <p style="margin:2px 0; font-family: monospace;">if ( ______A______ ) { cout &lt;&lt; "此學生成績及格"; }</p>
+                        <button class="interactive-btn" onclick="toggleAnswer('ans-1')">💡 顯示解答</button>
+                        <div id="ans-1" class="answer-box"><b>解答：</b> <code>score >= 60</code></div>
+                    </div>
 
-    <hr>
-    <p><strong>Q2. 體重超過 90 公斤印出過重，否則正常。</strong></p>
-    <button class="reveal-btn" onclick="toggleAnswer('q2-ans')">顯示解答程式碼</button>
-    <div id="q2-ans" class="answer-block">
-      <pre><code>if (weight > 90) {
-    cout << "此學生體重過重" << endl;
-} else {
-    cout << "此學生體重正常" << endl;
-}</code></pre>
-    </div>
-  </div>
+                    <!-- 第 2 題 -->
+                    <div class="highlight-box">
+                        <b>Q2. 體重判斷：體重超過 90kg 印出過重，反之正常。</b>
+                        <button class="interactive-btn" onclick="toggleAnswer('ans-2')">💡 顯示解答</button>
+                        <div id="ans-2" class="answer-box">
+                            <b>解答：</b><br>
+                            <code>if (weight > 90) { cout &lt;&lt; "此學生體重過重" &lt;&lt; endl; }</code><br>
+                            <code>else { cout &lt;&lt; "此學生體重正常" &lt;&lt; endl; }</code>
+                        </div>
+                    </div>
 
-  <!-- Slide 9: 課後練習 3 & 4 -->
-  <div class="slide">
-    <h2>課後練習 (2/3)</h2>
-    <p><strong>Q3. 計算 BMI 程式輸出結果為何？ ( weight=63.5, height=1.73 )</strong></p>
-    <button class="reveal-btn" onclick="toggleAnswer('q3-ans')">顯示計算結果</button>
-    <div id="q3-ans" class="answer-block">
-      <p>BMI = 63.5 / (1.73²) ≈ 21.2169</p>
-      <p><strong>輸出結果：</strong> <code>此學生BMI正常，BMI結果為: 21.2169</code></p>
-    </div>
+                    <!-- 第 3 題 -->
+                    <div class="highlight-box">
+                        <b>Q3. BMI 計算結果輸出：(weight=63.5, height=1.73)</b>
+                        <button class="interactive-btn" onclick="toggleAnswer('ans-3')">💡 顯示解答</button>
+                        <div id="ans-3" class="answer-box">
+                            <b>解答：</b><br>
+                            BMI = $63.5 / (1.73^2) \approx 21.2169$<br>
+                            因為 $18.5 \le 21.2169 < 24$ 成立，故輸出：<br>
+                            <span style="color:#50fa7b;">此學生BMI正常，BMI結果為: 21.2169</span>
+                        </div>
+                    </div>
 
-    <hr>
-    <p><strong>Q4. 除錯題：指出 5 個錯誤點</strong></p>
-    <button class="reveal-btn" onclick="toggleAnswer('q4-ans')">顯示錯誤修復表</button>
-    <div id="q4-ans" class="answer-block">
-      <table>
-        <tr><th>行號</th><th>修正後的程式碼 / 錯誤說明</th></tr>
-        <tr><td>Line 9</td><td><code>if (num == (int)num)</code> (比較要用 ==，不是單個 =)</td></tr>
-        <tr><td>Line 10</td><td><code>cout &lt;&lt; num &lt;&lt; " 是整數。" &lt;&lt; endl;</code> (結尾漏掉分號 ;)</td></tr>
-        <tr><td>Line 11</td><td><code>} else {</code> (else 語法後面不可接條件判斷)</td></tr>
-        <tr><td>Line 12</td><td>全形引號或結尾漏掉標準引號號碼</td></tr>
-        <tr><td>Line 15</td><td><code>return 0;</code> (漏掉分號 ;)</td></tr>
-      </table>
-    </div>
-  </div>
+                </div>
+            </section>
 
-  <!-- Slide 10: 課後練習 5 -->
-  <div class="slide">
-    <h2>課後練習 (3/3) - 流程圖繪製</h2>
-    <p><strong>Q5. 魯迪與洛琪希猜數字遊戲流程圖：</strong></p>
-    <p>隨機數字 1-100，假設沒有平手，比較誰猜的數字較接近。魯迪接近則輸出「魯迪贏」，反之輸出「洛琪希贏」。</p>
-    
-    <button class="reveal-btn" onclick="toggleAnswer('q5-ans')">顯示解答流程圖</button>
-    <div id="q5-ans" class="answer-block">
-      <div class="flow-chart">
-        <div class="node-oval">Start</div>
-        <div class="shape-arrow">↓</div>
-        
-        <div class="node-para"><span>輸入猜測值 A (魯迪)、B (洛琪希) 及隨機數 Target</span></div>
-        <div class="shape-arrow">↓</div>
-        
-        <div class="node-rect">計算距離：DistA = |A - Target|, DistB = |B - Target|</div>
-        <div class="shape-arrow">↓</div>
-        
-        <div class="node-diamond">
-          <span>DistA &lt; DistB ？</span>
+            <!-- Slide 8: 課後練習 (第 4 題 除錯題) -->
+            <section>
+                <h3>🐛 課後練習 Q4：程式碼除錯 (找 5 個錯誤)</h3>
+                <div class="grid-2" style="grid-template-columns: 1fr 1fr;">
+                    <div>
+                        <p style="font-size:0.75em; color:#ff79c6;">請找出以下程式碼中的 5 處錯誤：</p>
+                        <pre><code class="language-cpp" data-trim data-noescape>
+1: #include <iostream>
+2: 
+3: int main() {
+4:     double num;
+5:     cout << "請輸入一個數字: ";
+6:     cin >> num;
+7: 
+8:     // 判斷是否輸入為整數
+9:     if (num = (int)num) {
+10:        cout << num << " 是整數。" << endl
+11:    } else (num != (int)num) {
+12:        cout << num << " 不是整數。" << endl;
+13:    }
+14: 
+15:    return 0
+16: }
+                        </code></pre>
+                    </div>
+
+                    <div>
+                        <button class="interactive-btn blue-btn" onclick="toggleAnswer('ans-4')" style="width:100%;">💡 點擊查看 5 個錯誤修正對照表</button>
+                        <div id="ans-4" class="answer-box" style="font-size:0.7em;">
+                            <table class="custom-table">
+                                <tr><th>行數</th><th>錯誤原因</th><th>正確寫法</th></tr>
+                                <tr><td>L2</td><td>缺少命名空間</td><td><code>using namespace std;</code></td></tr>
+                                <tr><td>L9</td><td>誤用賦值符號 <code>=</code></td><td>應改為比較符號 <code>==</code></td></tr>
+                                <tr><td>L10</td><td>行末缺少分號 <code>;</code></td><td><code>&lt;&lt; endl;</code></td></tr>
+                                <tr><td>L11</td><td><code>else</code> 後不該加條件</td><td>直接寫 <code>else {</code> 即可</td></tr>
+                                <tr><td>L15</td><td><code>return 0</code> 缺少分號</td><td><code>return 0;</code></td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 9: 課後練習 (第 5 題 猜數字流程圖) -->
+            <section>
+                <h3>🎮 課後練習 Q5：猜數字遊戲流程圖</h3>
+                <div class="highlight-box" style="text-align: left;">
+                    <p><b>題目說明：</b>魯迪與洛琪希玩猜數字遊戲 (1~100)。比較兩人誰猜的數字比較接近目標。假設沒有平手：若魯迪較接近則輸出「魯迪贏」，反之則輸出「洛琪希贏」。</p>
+                </div>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="interactive-btn green-btn" onclick="openModal('modal-game')">🖼️ 點擊檢視「猜數字遊戲流程圖解答」</button>
+                </div>
+            </section>
+
+            <!-- Slide 10: 總結 -->
+            <section>
+                <h2>總結</h2>
+                <ul style="line-height: 2; font-size: 0.9em;">
+                    <li>關係運算子比較結果為 <b>True (1)</b> 或 <b>False (0)</b>。</li>
+                    <li>特別注意：程式中的「等於」要寫成 <code style="color:#ff79c6;">==</code>，一個 <code style="color:#ff79c6;">=</code> 是賦值！</li>
+                    <li>單一條件成立時用 <b>if</b>；有正反兩種情況時用 <b>if...else</b>。</li>
+                </ul>
+                <p style="margin-top: 30px; color: #50fa7b;">🎉 恭喜完成 4-1 選擇結構與運算子基礎學習！</p>
+            </section>
+
         </div>
-        
-        <div class="branch-container">
-          <div class="branch-path">
-            <span class="branch-tag">True</span>
-            <div class="shape-arrow">↓</div>
-            <div class="node-para" style="background:#e8f8f5;"><span>輸出：魯迪贏</span></div>
-          </div>
-          <div class="branch-path">
-            <span class="branch-tag">False</span>
-            <div class="shape-arrow">↓</div>
-            <div class="node-para" style="background:#fadbd8;"><span>輸出：洛琪希贏</span></div>
-          </div>
-        </div>
-        
-        <div class="shape-arrow">↓</div>
-        <div class="node-oval">END</div>
-      </div>
     </div>
-  </div>
 
-</div>
+    <!-- ===== 燈箱 1: 颱風假流程圖 Modal ===== -->
+    <div id="modal-typhoon" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('modal-typhoon')">✕</button>
+            <h4 style="margin-top:0; color:#bd93f9;">颱風假風力判斷 流程圖</h4>
+            <svg width="450" height="320" viewBox="0 0 450 320">
+                <rect x="175" y="10" width="100" height="34" rx="17" class="node-start" />
+                <text x="225" y="27" class="node-start-text">Start</text>
 
-<!-- 底部導覽列 -->
-<div class="controls">
-  <button class="btn-nav" id="prevBtn" onclick="changeSlide(-1)">上一頁</button>
-  <span id="pageIndicator">Page 1 / 10</span>
-  <button class="btn-nav" id="nextBtn" onclick="changeSlide(1)">下一頁</button>
-</div>
+                <line x1="225" y1="44" x2="225" y2="70" class="line" />
+                <rect x="150" y="70" width="150" height="35" class="node-rect" />
+                <text x="225" y="87.5">讀取目前陣風級數</text>
 
-<script>
-  let currentSlide = 0;
-  const slides = document.querySelectorAll('.slide');
-  const pageIndicator = document.getElementById('pageIndicator');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
+                <line x1="225" y1="105" x2="225" y2="135" class="line" />
+                <polygon points="225,135 340,165 225,195 110,165" class="node-diamond" />
+                <text x="225" y="165" style="font-size:11px;">達7級以上 || 陣風達10級以上</text>
 
-  function updateSlide() {
-    slides.forEach((slide, index) => {
-      slide.classList.toggle('active', index === currentSlide);
-    });
-    pageIndicator.innerText = `Page ${currentSlide + 1} / ${slides.length}`;
-    prevBtn.disabled = currentSlide === 0;
-    nextBtn.disabled = currentSlide === slides.length - 1;
-  }
+                <!-- True 路線 -->
+                <line x1="340" y1="165" x2="380" y2="165" class="line" />
+                <text x="355" y="155" class="line-text">True</text>
+                <rect x="335" y="210" width="90" height="35" class="node-rect" />
+                <text x="380" y="227.5">放颱風假</text>
+                <line x1="380" y1="165" x2="380" y2="210" class="line" />
 
-  function changeSlide(direction) {
-    currentSlide += direction;
-    if (currentSlide < 0) currentSlide = 0;
-    if (currentSlide >= slides.length) currentSlide = slides.length - 1;
-    updateSlide();
-  }
+                <!-- False 路線 -->
+                <line x1="225" y1="195" x2="225" y2="227.5" class="line" />
+                <text x="240" y="205" class="line-text">False</text>
+                <rect x="170" y="227.5" width="110" height="35" class="node-rect" />
+                <text x="225" y="245">不放颱風假</text>
 
-  function toggleBlank(element) {
-    element.classList.toggle('revealed');
-  }
+                <!-- 結束 -->
+                <line x1="225" y1="262.5" x2="225" y2="285" class="line" />
+                <line x1="380" y1="245" x2="380" y2="285" stroke="#f8f8f2" stroke-width="2" />
+                <line x1="380" y1="285" x2="275" y2="285" class="line" />
+                <rect x="175" y="268" width="100" height="34" rx="17" class="node-start" />
+                <text x="225" y="285" class="node-start-text">END</text>
+            </svg>
+        </div>
+    </div>
 
-  function toggleAnswer(id) {
-    const target = document.getElementById(id);
-    target.classList.toggle('show');
-  }
+    <!-- ===== 燈箱 2: 隨堂練習 1 流程圖 Modal ===== -->
+    <div id="modal-practice1" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('modal-practice1')">✕</button>
+            <h4 style="margin-top:0; color:#50fa7b;">數字正負數判斷 流程圖</h4>
+            <svg width="400" height="280" viewBox="0 0 400 280">
+                <rect x="150" y="10" width="100" height="30" rx="15" class="node-start" />
+                <text x="200" y="25" class="node-start-text">開始</text>
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === "ArrowLeft") changeSlide(-1);
-    if (e.key === "ArrowRight") changeSlide(1);
-  });
+                <line x1="200" y1="40" x2="200" y2="65" class="line" />
+                <rect x="140" y="65" width="120" height="30" class="node-rect" />
+                <text x="200" y="80">輸入數字 num</text>
 
-  updateSlide();
-</script>
+                <line x1="200" y1="95" x2="200" y2="120" class="line" />
+                <polygon points="200,120 270,145 200,170 130,145" class="node-diamond" />
+                <text x="200" y="145">num > 0</text>
 
+                <line x1="270" y1="145" x2="310" y2="145" class="line" />
+                <text x="285" y="135" class="line-text">是</text>
+                <rect x="270" y="180" width="80" height="30" class="node-rect" />
+                <text x="310" y="195">顯示「正數」</text>
+                <line x1="310" y1="145" x2="310" y2="180" class="line" />
+
+                <line x1="200" y1="170" x2="200" y2="180" class="line" />
+                <text x="215" y="175" class="line-text">否</text>
+                <rect x="150" y="180" width="100" height="30" class="node-rect" />
+                <text x="200" y="195">顯示「負數/零」</text>
+
+                <line x1="200" y1="210" x2="200" y2="240" class="line" />
+                <line x1="310" y1="210" x2="310" y2="240" stroke="#f8f8f2" stroke-width="2" />
+                <line x1="310" y1="240" x2="250" y2="240" class="line" />
+                <rect x="150" y="225" width="100" height="30" rx="15" class="node-start" />
+                <text x="200" y="240" class="node-start-text">結束</text>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ===== 燈箱 3: 猜數字遊戲流程圖 Modal ===== -->
+    <div id="modal-game" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal('modal-game')">✕</button>
+            <h4 style="margin-top:0; color:#ffb86c;">猜數字遊戲 流程圖解答</h4>
+            <svg width="450" height="300" viewBox="0 0 450 300">
+                <rect x="175" y="10" width="100" height="30" rx="15" class="node-start" />
+                <text x="225" y="25" class="node-start-text">Start</text>
+
+                <line x1="225" y1="40" x2="225" y2="65" class="line" />
+                <rect x="110" y="65" width="230" height="30" class="node-rect" />
+                <text x="225" y="80">計算兩人的差距 diff_魯迪 與 diff_洛琪希</text>
+
+                <line x1="225" y1="95" x2="225" y2="120" class="line" />
+                <polygon points="225,120 330,145 225,170 120,145" class="node-diamond" />
+                <text x="225" y="145" style="font-size:11px;">diff_魯迪 < diff_洛琪希</text>
+
+                <!-- True -->
+                <line x1="120" y1="145" x2="70" y2="145" class="line" />
+                <text x="95" y="135" class="line-text">True</text>
+                <rect x="20" y="180" width="100" height="30" class="node-rect" />
+                <text x="70" y="195">輸出「魯迪贏」</text>
+                <line x1="70" y1="145" x2="70" y2="180" class="line" />
+
+                <!-- False -->
+                <line x1="330" y1="145" x2="380" y2="145" class="line" />
+                <text x="355" y="135" class="line-text">False</text>
+                <rect x="330" y="180" width="100" height="30" class="node-rect" />
+                <text x="380" y="195">輸出「洛琪希贏」</text>
+                <line x1="380" y1="145" x2="380" y2="180" class="line" />
+
+                <!-- End -->
+                <line x1="70" y1="210" x2="70" y2="250" stroke="#f8f8f2" stroke-width="2" />
+                <line x1="380" y1="210" x2="380" y2="250" stroke="#f8f8f2" stroke-width="2" />
+                <line x1="70" y1="250" x2="175" y2="250" class="line" />
+                <line x1="380" y1="250" x2="275" y2="250" class="line" />
+                <rect x="175" y="235" width="100" height="30" rx="15" class="node-start" />
+                <text x="225" y="250" class="node-start-text">END</text>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Reveal.js JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            plugins: [ RevealHighlight ]
+        });
+
+        // 答案開關顯示
+        function toggleAnswer(id) {
+            var ans = document.getElementById(id);
+            if (ans.style.display === "none" || ans.style.display === "") {
+                ans.style.display = "block";
+            } else {
+                ans.style.display = "none";
+            }
+        }
+
+        // Modal 彈窗控制
+        function openModal(id) {
+            document.getElementById(id).style.display = "flex";
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = "none";
+        }
+
+        // 按鍵點擊逐行程式解說
+        function explainCode(codeBlockId, lineLabel, explanation) {
+            var displayId = codeBlockId === 'code-if' ? 'explain-display-if' : 'explain-display-ifelse';
+            var displayElem = document.getElementById(displayId);
+            
+            displayElem.innerHTML = '📌 <b>[' + lineLabel + ' 解析]：</b> ' + explanation;
+        }
+    </script>
 </body>
 </html>
