@@ -21,7 +21,7 @@
         }
         .reveal pre code {
             max-height: 400px;
-            font-size: 1.1em;
+            font-size: 1em;
             line-height: 1.4;
             padding: 15px;
             border-radius: 8px;
@@ -84,7 +84,7 @@
             font-size: 0.85em;
         }
         
-        /* Modal (燈箱) 樣式 */
+        /* Modal 燈箱樣式 */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -133,14 +133,14 @@
             color: #282a36;
             text-align: center;
         }
-        .shape-oval { background: #8be9fd; border-radius: 20px; } /* 起止 */
-        .shape-rect { background: #50fa7b; border-radius: 4px; }  /* 處理 */
-        .shape-diamond { background: #ffb86c; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); padding: 12px 20px; } /* 判斷 */
-        .shape-parallelogram { background: #ff79c6; transform: skew(-20deg); } /* 輸入/輸出 */
-        .shape-document { background: #f1fa8c; border-radius: 2px 2px 10px 2px; position: relative; } /* 檔案 */
-        .shape-connector { background: #bd93f9; border-radius: 50%; width: 30px; height: 30px; line-height: 30px; padding: 0; } /* 連接點 */
+        .shape-oval { background: #8be9fd; border-radius: 20px; }
+        .shape-rect { background: #50fa7b; border-radius: 4px; }
+        .shape-diamond { background: #ffb86c; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); padding: 12px 20px; }
+        .shape-parallelogram { background: #ff79c6; transform: skew(-20deg); }
+        .shape-document { background: #f1fa8c; border-radius: 2px 2px 10px 2px; }
+        .shape-connector { background: #bd93f9; border-radius: 50%; width: 30px; height: 30px; line-height: 30px; padding: 0; }
 
-        /* 程式碼說明互動顯示區 */
+        /* 程式碼解說顯示區 */
         .explain-box {
             background-color: #383a59;
             border: 1px solid #6272a4;
@@ -165,14 +165,14 @@
     <div class="reveal">
         <div class="slides">
 
-            <!-- Title Slide -->
+            <!-- Title -->
             <section>
                 <h2>C++ 程式設計入門</h2>
                 <h3>單向與雙向選擇結構</h3>
                 <p style="font-size: 0.8em; color: #6272a4;">基礎邏輯判斷：<code>if</code> 與 <code>if-else</code> 敘述</p>
             </section>
 
-            <!-- 觀念介紹：單向選擇結構 (if) -->
+            <!-- 觀念：if -->
             <section>
                 <h3>1. 單向選擇結構 (if)</h3>
                 <p style="font-size: 0.8em; text-align: left;">
@@ -180,11 +180,9 @@
                 </p>
                 <div style="display: flex; gap: 20px; align-items: flex-start;">
                     <div style="flex: 1.2;">
-                        <pre><code class="language-cpp" id="code-if">
-<span class="line-clickable" onclick="explainCode('code-if', '第1行', 'if 是關鍵字，小括號 () 內填入判斷條件。')">if (條件式) {</span>
+                        <pre><code class="language-cpp" id="code-if"><span class="line-clickable" onclick="explainCode('code-if', '第1行', 'if 是關鍵字，小括號 () 內填入判斷條件。')">if (條件式) {</span>
 <span class="line-clickable" onclick="explainCode('code-if', '第2行', '當條件成立 (true) 時，才會執行大括號內的敘述。')">    // 條件成立時執行的程式碼;</span>
-<span class="line-clickable" onclick="explainCode('code-if', '第3行', '大括號 } 結束程式區塊。')">}</span>
-                        </code></pre>
+<span class="line-clickable" onclick="explainCode('code-if', '第3行', '大括號 } 結束程式區塊。')">}</span></code></pre>
                         <div id="explain-display-if" class="explain-box">
                             💡 點擊上方的程式碼行，即可查看詳細說明。
                         </div>
@@ -196,7 +194,7 @@
                 </div>
             </section>
 
-            <!-- 觀念介紹：雙向選擇結構 (if-else) -->
+            <!-- 觀念：if-else -->
             <section>
                 <h3>2. 雙向選擇結構 (if-else)</h3>
                 <p style="font-size: 0.8em; text-align: left;">
@@ -204,13 +202,11 @@
                 </p>
                 <div style="display: flex; gap: 20px; align-items: flex-start;">
                     <div style="flex: 1.2;">
-                        <pre><code class="language-cpp" id="code-ifelse">
-<span class="line-clickable" onclick="explainCode('code-ifelse', '第1行', '評估條件是否成立。')">if (條件式) {</span>
+                        <pre><code class="language-cpp" id="code-ifelse"><span class="line-clickable" onclick="explainCode('code-ifelse', '第1行', '評估條件是否成立。')">if (條件式) {</span>
 <span class="line-clickable" onclick="explainCode('code-ifelse', '第2行', '條件成立 (true) 時執行的程式碼。')">    // 條件成立執行的程式區塊 A;</span>
 <span class="line-clickable" onclick="explainCode('code-ifelse', '第3行', 'else 表示「否則」，當條件不成立時進到這裡。')">} else {</span>
 <span class="line-clickable" onclick="explainCode('code-ifelse', '第4行', '條件不成立 (false) 時執行的程式碼。')">    // 條件不成立執行的程式區塊 B;</span>
-<span class="line-clickable" onclick="explainCode('code-ifelse', '第5行', '結束雙向選擇結構。')">}</span>
-                        </code></pre>
+<span class="line-clickable" onclick="explainCode('code-ifelse', '第5行', '結束雙向選擇結構。')">}</span></code></pre>
                         <div id="explain-display-ifelse" class="explain-box">
                             💡 點擊上方的程式碼行，即可查看詳細說明。
                         </div>
@@ -221,24 +217,22 @@
                 </div>
             </section>
 
-            <!-- 互動填空練習：單向選擇結構 -->
+            <!-- 填空練習 -->
             <section>
                 <h3>填空練習：及格判斷</h3>
                 <p style="font-size: 0.85em;">輸入分數 <code>score</code>，若大於等於 60 分則印出 "Pass"。</p>
                 
-                <pre><code class="language-cpp">
-int score;
-cin >> score;
+                <pre><code class="language-cpp">int score;
+cin &gt;&gt; score;
 
 <span class="blank" id="b1" onclick="revealBlank('b1', 'if')">???</span> (score <span class="blank" id="b2" onclick="revealBlank('b2', '>=')">???</span> 60) {
-    cout << "Pass" << endl;
-}
-                </code></pre>
+    cout &lt;&lt; "Pass" &lt;&lt; endl;
+}</code></pre>
 
                 <button class="btn-reveal" onclick="revealBlanks(['b1', 'b2'], ['if', '>='])">揭曉解答</button>
             </section>
 
-            <!-- 實作題 Q1 -->
+            <!-- Q1 -->
             <section>
                 <h3>Q1：判斷是否成年</h3>
                 <p style="font-size: 0.8em; text-align: left;">
@@ -246,25 +240,23 @@ cin >> score;
                 </p>
                 <button class="btn-reveal" onclick="toggleAnswer('ans-q1')">查看參考解答</button>
                 <div id="ans-q1" class="answer-box">
-                    <pre><code class="language-cpp">
-#include &lt;iostream&gt;
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
 using namespace std;
 
 int main() {
     int age;
-    cin >> age;
-    if (age < 18) {
-        cout << "Child" << endl;
+    cin &gt;&gt; age;
+    if (age &lt; 18) {
+        cout &lt;&lt; "Child" &lt;&lt; endl;
     } else {
-        cout << "Adult" << endl;
+        cout &lt;&lt; "Adult" &lt;&lt; endl;
     }
     return 0;
-}
-                    </code></pre>
+}</code></pre>
                 </div>
             </section>
 
-            <!-- 實作題 Q2 -->
+            <!-- Q2 -->
             <section>
                 <h3>Q2：奇數與偶數判斷</h3>
                 <p style="font-size: 0.8em; text-align: left;">
@@ -272,25 +264,23 @@ int main() {
                 </p>
                 <button class="btn-reveal" onclick="toggleAnswer('ans-q2')">查看參考解答</button>
                 <div id="ans-q2" class="answer-box">
-                    <pre><code class="language-cpp">
-#include &lt;iostream&gt;
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
 using namespace std;
 
 int main() {
     int num;
-    cin >> num;
+    cin &gt;&gt; num;
     if (num % 2 == 0) {
-        cout << num << " 是偶數" << endl;
+        cout &lt;&lt; num &lt;&lt; " 是偶數" &lt;&lt; endl;
     } else {
-        cout << num << " 是奇數" << endl;
+        cout &lt;&lt; num &lt;&lt; " 是奇數" &lt;&lt; endl;
     }
     return 0;
-}
-                    </code></pre>
+}</code></pre>
                 </div>
             </section>
 
-            <!-- 實作題 Q3 -->
+            <!-- Q3 -->
             <section>
                 <h3>Q3：折扣計算問題</h3>
                 <p style="font-size: 0.8em; text-align: left;">
@@ -298,24 +288,22 @@ int main() {
                 </p>
                 <button class="btn-reveal" onclick="toggleAnswer('ans-q3')">查看參考解答</button>
                 <div id="ans-q3" class="answer-box">
-                    <pre><code class="language-cpp">
-#include &lt;iostream&gt;
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
 using namespace std;
 
 int main() {
     double total;
-    cin >> total;
-    if (total >= 1000) {
+    cin &gt;&gt; total;
+    if (total &gt;= 1000) {
         total = total * 0.9;
     }
-    cout << "最終應付金額：" << total << endl;
+    cout &lt;&lt; "最終應付金額：" &lt;&lt; total &lt;&lt; endl;
     return 0;
-}
-                    </code></pre>
+}</code></pre>
                 </div>
             </section>
 
-            <!-- 實作題 Q4 -->
+            <!-- Q4 -->
             <section>
                 <h3>Q4：兩數求最大值 (Max)</h3>
                 <p style="font-size: 0.8em; text-align: left;">
@@ -323,25 +311,23 @@ int main() {
                 </p>
                 <button class="btn-reveal" onclick="toggleAnswer('ans-q4')">查看參考解答</button>
                 <div id="ans-q4" class="answer-box">
-                    <pre><code class="language-cpp">
-#include &lt;iostream&gt;
+                    <pre><code class="language-cpp">#include &lt;iostream&gt;
 using namespace std;
 
 int main() {
     int a, b;
-    cin >> a >> b;
-    if (a > b) {
-        cout << "較大值為：" << a << endl;
+    cin &gt;&gt; a &gt;&gt; b;
+    if (a &gt; b) {
+        cout &lt;&lt; "較大值為：" &lt;&lt; a &lt;&lt; endl;
     } else {
-        cout << "較大值為：" << b << endl;
+        cout &lt;&lt; "較大值為：" &lt;&lt; b &lt;&lt; endl;
     }
     return 0;
-}
-                    </code></pre>
+}</code></pre>
                 </div>
             </section>
 
-            <!-- 總結與結尾 -->
+            <!-- Summary -->
             <section>
                 <h2>總結</h2>
                 <ul style="font-size: 0.85em; line-height: 1.8;">
@@ -354,7 +340,7 @@ int main() {
         </div>
     </div>
 
-    <!-- Modal 1: 流程圖符號對照表（已加入：檔案、連接點符號） -->
+    <!-- Modal 1: 流程圖符號（已包含檔案與連接點） -->
     <div id="modal-flow-symbols" class="modal-overlay">
         <div class="modal-content">
             <span class="modal-close" onclick="closeModal('modal-flow-symbols')">&times;</span>
@@ -377,7 +363,7 @@ int main() {
                     <tr style="border-bottom: 1px solid #44475a;">
                         <td style="padding: 8px;"><span class="flow-shape shape-parallelogram">輸入/輸出</span></td>
                         <td><strong>平行四邊形 (I/O)</strong></td>
-                        <td>代表資料的輸入或輸出（如：<code>cin >> score</code>、<code>cout << "Pass"</code>）。</td>
+                        <td>代表資料的輸入或輸出（如：<code>cin &gt;&gt; score</code>）。</td>
                     </tr>
                     <tr style="border-bottom: 1px solid #44475a;">
                         <td style="padding: 8px;"><span class="flow-shape shape-diamond">條件</span></td>
@@ -389,17 +375,15 @@ int main() {
                         <td><strong>矩形 (Process)</strong></td>
                         <td>代表運算或資料處理（如：<code>total = total * 0.9</code>）。</td>
                     </tr>
-                    <!-- 補全：檔案符號 -->
                     <tr style="border-bottom: 1px solid #44475a;">
                         <td style="padding: 8px;"><span class="flow-shape shape-document">檔案</span></td>
                         <td><strong>檔案/文件 (Document)</strong></td>
                         <td>代表檔案輸入/輸出或報表輸出（如：讀取 <code>data.txt</code>、產生紀錄檔）。</td>
                     </tr>
-                    <!-- 補全：連接點符號 -->
                     <tr style="border-bottom: 1px solid #44475a;">
                         <td style="padding: 8px;"><span class="flow-shape shape-connector">A</span></td>
                         <td><strong>連接點 (Connector)</strong></td>
-                        <td>用於複雜流程圖中連結跨頁或不同區塊的流程線，避免線條交叉混亂。</td>
+                        <td>用於跨頁或複雜流程圖中連結不同區塊，避免線條交叉混亂。</td>
                     </tr>
                 </tbody>
             </table>
@@ -444,19 +428,17 @@ int main() {
         </div>
     </div>
 
-    <!-- Reveal.js JavaScript & 互動邏輯 Script -->
+    <!-- JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
 
     <script>
-        // 1. 初始化 Reveal.js 簡報引擎
         Reveal.initialize({
             hash: true,
             slideNumber: true,
             plugins: [ RevealHighlight ]
         });
 
-        // 2. 揭曉單一挖空答案
         function revealBlank(blankId, answerText) {
             const el = document.getElementById(blankId);
             if (el) {
@@ -467,57 +449,37 @@ int main() {
             }
         }
 
-        // 3. 批次揭曉多個挖空答案
         function revealBlanks(blankIds, answers) {
             blankIds.forEach((id, index) => {
                 revealBlank(id, answers[index]);
             });
         }
 
-        // 4. 切換解答顯示/隱藏狀態 (適用於 Q1~Q4)
         function toggleAnswer(answerId) {
             const ansBox = document.getElementById(answerId);
             if (ansBox) {
-                if (ansBox.style.display === "block") {
-                    ansBox.style.display = "none";
-                } else {
-                    ansBox.style.display = "block";
-                }
+                ansBox.style.display = (ansBox.style.display === "block") ? "none" : "block";
             }
         }
 
-        // 5. 燈箱 Modal 控制 (開啟與關閉)
         function openModal(modalId) {
             const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = "flex";
-            }
+            if (modal) modal.style.display = "flex";
         }
 
         function closeModal(modalId) {
             const modal = document.getElementById(modalId);
-            if (modal) {
-                modal.style.display = "none";
-            }
+            if (modal) modal.style.display = "none";
         }
 
-        // 點擊 Modal 外部背景時自動關閉
         window.onclick = function(event) {
             if (event.target.classList.contains('modal-overlay')) {
                 event.target.style.display = "none";
             }
         };
 
-        // 6. 程式碼逐行互動解說功能
         function explainCode(codeBlockId, lineLabel, explanation) {
-            let displayBoxId = "";
-            
-            if (codeBlockId === 'code-if') {
-                displayBoxId = 'explain-display-if';
-            } else if (codeBlockId === 'code-ifelse') {
-                displayBoxId = 'explain-display-ifelse';
-            }
-
+            let displayBoxId = (codeBlockId === 'code-if') ? 'explain-display-if' : 'explain-display-ifelse';
             const displayBox = document.getElementById(displayBoxId);
             if (displayBox) {
                 displayBox.innerHTML = `<strong style="color:#8be9fd;">[${lineLabel}]：</strong> ${explanation}`;
