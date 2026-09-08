@@ -3,95 +3,74 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C++ 選擇結構：單向與雙向選擇結構教學</title>
-
+    <title>選擇結構與switch...case教學簡報</title>
     <!-- Reveal.js CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/dracula.min.css">
-    <!-- Highlight.js Code Theme -->
+    <!-- Code Highlight Theme -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
-
     <style>
-        .reveal h1, .reveal h2, .reveal h3 {
-            text-transform: none;
-        }
-        .reveal pre {
-            box-shadow: none;
-            width: 100%;
-        }
-        .reveal pre code {
-            max-height: 400px;
-            font-size: 1em;
-            line-height: 1.4;
-            padding: 15px;
-            border-radius: 8px;
-        }
-        .highlight-inline {
-            background-color: #ff79c6;
-            color: #f8f8f2;
-            padding: 2px 6px;
-            border-radius: 4px;
-        }
-        .blank {
-            display: inline-block;
-            border-bottom: 2px dashed #f1fa8c;
-            min-width: 80px;
-            text-align: center;
-            color: #f1fa8c;
-            cursor: pointer;
-            font-weight: bold;
-            padding: 0 5px;
-        }
-        .blank:hover {
-            background-color: rgba(241, 250, 140, 0.2);
-        }
-        .btn-reveal {
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 { text-transform: none; font-family: "Microsoft JhengHei", "PingFang TC", sans-serif; }
+        .reveal p, .reveal li { font-size: 0.8em; line-height: 1.6; }
+        .highlight-box { background: rgba(255,255,255,0.08); padding: 15px; border-radius: 8px; margin-bottom: 12px; }
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left; }
+        .grid-2-code { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 15px; text-align: left; }
+        
+        /* 挖空按鈕與答案樣式 */
+        .fill-blank-btn {
             background-color: #bd93f9;
             color: #282a36;
             border: none;
-            padding: 8px 16px;
-            font-size: 0.8em;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 2px 10px;
             font-weight: bold;
-            margin-top: 10px;
-        }
-        .btn-reveal:hover {
-            background-color: #ff79c6;
-        }
-        .btn-modal {
-            background-color: #8be9fd;
-            color: #282a36;
-            border: none;
-            padding: 8px 16px;
-            font-size: 0.8em;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-left: 10px;
-        }
-        .btn-modal:hover {
-            background-color: #50fa7b;
-        }
-        .answer-box {
-            display: none;
-            background-color: #44475a;
-            border-left: 5px solid #50fa7b;
-            padding: 15px;
-            margin-top: 15px;
             border-radius: 4px;
-            text-align: left;
+            cursor: pointer;
+            margin: 0 4px;
+            display: inline-block;
+            transition: 0.2s;
+        }
+        .fill-blank-btn:hover { background-color: #ff79c6; color: #fff; }
+        .blank-ans {
+            display: none;
+            color: #50fa7b;
+            font-weight: bold;
+            background: rgba(80, 250, 123, 0.15);
+            padding: 2px 8px;
+            border-radius: 4px;
+            border-bottom: 2px solid #50fa7b;
+        }
+
+        /* 互動式程式碼行解釋 */
+        .code-line {
+            padding: 6px 10px;
+            margin: 4px 0;
+            border-radius: 4px;
+            cursor: pointer;
+            background: rgba(255,255,255,0.05);
+            border-left: 4px solid transparent;
+            transition: all 0.2s;
+            font-family: monospace;
             font-size: 0.85em;
         }
-        
-        /* Modal 燈箱樣式 */
+        .code-line:hover, .code-line.active {
+            background: rgba(189, 147, 249, 0.2);
+            border-left-color: #ff79c6;
+        }
+        .code-explain-box {
+            background: #282a36;
+            border: 2px solid #bd93f9;
+            padding: 15px;
+            border-radius: 8px;
+            min-height: 120px;
+            color: #f8f8f2;
+            font-size: 0.85em;
+        }
+
+        /* Modal 流程圖彈出視窗 */
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.85);
             z-index: 9999;
             justify-content: center;
@@ -99,65 +78,40 @@
         }
         .modal-content {
             background: #282a36;
-            color: #f8f8f2;
-            padding: 30px;
+            padding: 25px;
             border-radius: 12px;
-            max-width: 850px;
-            width: 90%;
-            max-height: 85vh;
+            max-width: 80%;
+            max-height: 85%;
             overflow-y: auto;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            position: relative;
-            text-align: left;
+            border: 2px solid #ff79c6;
+            box-shadow: 0 0 20px rgba(255, 121, 198, 0.4);
+            text-align: center;
+            color: #f8f8f2;
         }
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 28px;
+        .close-modal-btn {
+            background: #ff5555;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
             cursor: pointer;
-            color: #ff5555;
+            float: right;
             font-weight: bold;
         }
-        .modal-close:hover {
-            color: #ff79c6;
-        }
+        .close-modal-btn:hover { background: #ff6e6e; }
 
-        /* 流程圖視覺樣式 */
-        .flow-shape {
-            display: inline-block;
-            padding: 8px 15px;
-            margin: 5px;
-            font-size: 0.85em;
-            font-weight: bold;
-            color: #282a36;
+        /* 表格樣式 */
+        table.styled-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75em;
+        }
+        table.styled-table th, table.styled-table td {
+            border: 1px solid #6272a4;
+            padding: 8px 12px;
             text-align: center;
         }
-        .shape-oval { background: #8be9fd; border-radius: 20px; }
-        .shape-rect { background: #50fa7b; border-radius: 4px; }
-        .shape-diamond { background: #ffb86c; clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%); padding: 12px 20px; }
-        .shape-parallelogram { background: #ff79c6; transform: skew(-20deg); }
-        .shape-document { background: #f1fa8c; border-radius: 2px 2px 10px 2px; }
-        .shape-connector { background: #bd93f9; border-radius: 50%; width: 30px; height: 30px; line-height: 30px; padding: 0; }
-
-        /* 程式碼解說顯示區 */
-        .explain-box {
-            background-color: #383a59;
-            border: 1px solid #6272a4;
-            border-radius: 6px;
-            padding: 12px;
-            margin-top: 10px;
-            font-size: 0.85em;
-            color: #f8f8f2;
-            min-height: 48px;
-            text-align: left;
-        }
-        .line-clickable {
-            cursor: pointer;
-        }
-        .line-clickable:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
+        table.styled-table th { background: #44475a; color: #50fa7b; }
     </style>
 </head>
 <body>
@@ -165,325 +119,440 @@
     <div class="reveal">
         <div class="slides">
 
-            <!-- Title -->
+            <!-- 頁面 1: 主標題 -->
             <section>
-                <h2>C++ 程式設計入門</h2>
-                <h3>單向與雙向選擇結構</h3>
-                <p style="font-size: 0.8em; color: #6272a4;">基礎邏輯判斷：<code>if</code> 與 <code>if-else</code> 敘述</p>
+                <h2>單元選擇結構與程式邏輯</h2>
+                <h1>選擇結構 & switch...case 詳解</h1>
+                <p style="color: #bd93f9;">從觀念、運算子、if 判斷到 switch...case 應用</p>
             </section>
 
-            <!-- 觀念：if -->
+            <!-- 頁面 2: 講義 4-1 認識選擇結構與反思 -->
             <section>
-                <h3>1. 單向選擇結構 (if)</h3>
-                <p style="font-size: 0.8em; text-align: left;">
-                    當程式滿足<span class="highlight-inline">特定條件</span>時才執行某段程式碼；若條件不成立，則直接跳過。
-                </p>
-                <div style="display: flex; gap: 20px; align-items: flex-start;">
-                    <div style="flex: 1.2;">
-                        <pre><code class="language-cpp" id="code-if"><span class="line-clickable" onclick="explainCode('code-if', '第1行', 'if 是關鍵字，小括號 () 內填入判斷條件。')">if (條件式) {</span>
-<span class="line-clickable" onclick="explainCode('code-if', '第2行', '當條件成立 (true) 時，才會執行大括號內的敘述。')">    // 條件成立時執行的程式碼;</span>
-<span class="line-clickable" onclick="explainCode('code-if', '第3行', '大括號 } 結束程式區塊。')">}</span></code></pre>
-                        <div id="explain-display-if" class="explain-box">
-                            💡 點擊上方的程式碼行，即可查看詳細說明。
+                <h3>1. 認識選擇結構與生活反思</h3>
+                <div class="highlight-box" style="text-align: left;">
+                    <p><b>思考：</b>在學校生活中，是否有依據條件決定執行順序的例子？</p>
+                    <p>例如：成績達 60 分為及格，未達 60 分則為不及格。</p>
+                </div>
+                <div class="highlight-box" style="text-align: left;">
+                    <h4>舉例反思（點擊按鈕顯示參考答案）：</h4>
+                    <p><b>情況：</b> 體育課測驗 800 公尺跑步 <button class="fill-blank-btn" onclick="toggleBlank(this)">顯示答案</button><span class="blank-ans">測驗跑步速度</span></p>
+                    <p><b>條件：</b> 時間小於 240 秒 <button class="fill-blank-btn" onclick="toggleBlank(this)">顯示答案</button><span class="blank-ans">時間 <= 240秒</span></p>
+                    <p><b>選擇結構問句：</b> 如果跑步時間小於等於 240 秒則通過，否則不通過。 <button class="fill-blank-btn" onclick="toggleBlank(this)">顯示答案</button><span class="blank-ans">If (時間 <= 240) Pass Else Fail</span></p>
+                </div>
+            </section>
+
+            <!-- 頁面 3: 關係運算子與 True/False 挖空 -->
+            <section>
+                <h3>2. 關係運算子 (Relational Operators)</h3>
+                <p style="text-align: left;">電腦使用關係運算子比較兩個數值或變數：</p>
+                <table class="styled-table">
+                    <thead>
+                        <tr><th>符號</th><th>運算子名稱</th><th>範例</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><code>&gt;</code></td><td>大於</td><td>5 &gt; 1</td></tr>
+                        <tr><td><code>&lt;</code></td><td>小於</td><td>1 &lt; 5</td></tr>
+                        <tr><td><code>&gt;=</code></td><td>大於等於</td><td>Price &gt;= 100</td></tr>
+                        <tr><td><code>&lt;=</code></td><td>小於等於</td><td>Price &lt;= 100</td></tr>
+                        <tr><td><code>==</code></td><td>等於 (相等)</td><td>Price == 100</td></tr>
+                        <tr><td><code>!=</code></td><td>不等於</td><td>5 != 1</td></tr>
+                    </tbody>
+                </table>
+                <div class="highlight-box" style="margin-top: 15px; text-align: left;">
+                    <p>比較結果只有兩種可能性：</p>
+                    <ul>
+                        <li>成立：回傳 <button class="fill-blank-btn" onclick="toggleBlank(this)">顯示</button><span class="blank-ans">True</span> (內部儲存為 <button class="fill-blank-btn" onclick="toggleBlank(this)">顯示</button><span class="blank-ans">1</span>)</li>
+                        <li>不成立：回傳 <button class="fill-blank-btn" onclick="toggleBlank(this)">顯示</button><span class="blank-ans">False</span> (內部儲存為 <button class="fill-blank-btn" onclick="toggleBlank(this)">顯示</button><span class="blank-ans">0</span>)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 頁面 4: 流程圖符號與颱風假範例 -->
+            <section>
+                <h3>3. 流程圖常用符號與實例</h3>
+                <div class="grid-2">
+                    <div>
+                        <table class="styled-table">
+                            <tr><th>符號類型</th><th>說明</th></tr>
+                            <tr><td>橢圓形</td><td>開始 / 結束</td></tr>
+                            <tr><td>平行四邊形</td><td>輸出 / 輸入</td></tr>
+                            <tr><td>矩形</td><td>設定 / 處理程序</td></tr>
+                            <tr><td>菱形</td><td>決策 / 條件判斷</td></tr>
+                        </table>
+                    </div>
+                    <div>
+                        <div class="highlight-box">
+                            <h4>🌀 颱風假風力標準</h4>
+                            <p>平均風力達 7 級以上或陣風達 10 級以上。</p>
+                            <button class="fill-blank-btn" style="padding: 8px 15px; margin-top: 10px;" onclick="openModal('typhoonModal')">🔍 按此查看颱風假流程圖</button>
                         </div>
                     </div>
-                    <div style="flex: 0.8; text-align: center;">
-                        <button class="btn-modal" onclick="openModal('modal-flow-symbols')">📌 流程圖符號對照</button>
-                        <button class="btn-modal" onclick="openModal('modal-if-flow')" style="margin-top:10px;">📊 if 流程圖</button>
+                </div>
+            </section>
+
+            <!-- 頁面 5: if 敘述與互動解釋 -->
+            <section>
+                <h3>4. if 敘述（單向選擇）</h3>
+                <div class="grid-2-code">
+                    <div>
+                        <p style="font-size:0.8em; margin:0 0 5px 0;">👇 點擊程式碼各行，查看右側詳細解析：</p>
+                        <div class="code-line" onclick="showCodeExplain('if-1', this)">#include &lt;iostream&gt;<br>using namespace std;</div>
+                        <div class="code-line" onclick="showCodeExplain('if-2', this)">int main() {</div>
+                        <div class="code-line" onclick="showCodeExplain('if-3', this)">&nbsp;&nbsp;int num = 10;</div>
+                        <div class="code-line" onclick="showCodeExplain('if-4', this)">&nbsp;&nbsp;if (num &gt; 0) {</div>
+                        <div class="code-line" onclick="showCodeExplain('if-5', this)">&nbsp;&nbsp;&nbsp;&nbsp;cout &lt;&lt; "10為正數";<br>&nbsp;&nbsp;}</div>
+                        <div class="code-line" onclick="showCodeExplain('if-6', this)">&nbsp;&nbsp;return 0;<br>}</div>
+                    </div>
+                    <div>
+                        <div class="code-explain-box" id="if-explain">
+                            💡 請點擊左側的程式碼內容以查看說明。
+                        </div>
+                        <button class="fill-blank-btn" style="margin-top: 15px; width: 100%; padding: 8px;" onclick="openModal('ifFlowModal')">📌 點擊檢視：判斷正數流程圖</button>
                     </div>
                 </div>
             </section>
 
-            <!-- 觀念：if-else -->
+            <!-- 頁面 6: if...else 敘述與互動解釋 -->
             <section>
-                <h3>2. 雙向選擇結構 (if-else)</h3>
-                <p style="font-size: 0.8em; text-align: left;">
-                    當條件成立時執行 A 區塊，條件<span class="highlight-inline">不成立</span>時則執行 B 區塊（二選一）。
-                </p>
-                <div style="display: flex; gap: 20px; align-items: flex-start;">
-                    <div style="flex: 1.2;">
-                        <pre><code class="language-cpp" id="code-ifelse"><span class="line-clickable" onclick="explainCode('code-ifelse', '第1行', '評估條件是否成立。')">if (條件式) {</span>
-<span class="line-clickable" onclick="explainCode('code-ifelse', '第2行', '條件成立 (true) 時執行的程式碼。')">    // 條件成立執行的程式區塊 A;</span>
-<span class="line-clickable" onclick="explainCode('code-ifelse', '第3行', 'else 表示「否則」，當條件不成立時進到這裡。')">} else {</span>
-<span class="line-clickable" onclick="explainCode('code-ifelse', '第4行', '條件不成立 (false) 時執行的程式碼。')">    // 條件不成立執行的程式區塊 B;</span>
-<span class="line-clickable" onclick="explainCode('code-ifelse', '第5行', '結束雙向選擇結構。')">}</span></code></pre>
-                        <div id="explain-display-ifelse" class="explain-box">
-                            💡 點擊上方的程式碼行，即可查看詳細說明。
+                <h3>5. if...else 敘述（雙向選擇）</h3>
+                <div class="grid-2-code">
+                    <div>
+                        <p style="font-size:0.8em; margin:0 0 5px 0;">👇 點擊程式碼查看奇偶數判斷說明：</p>
+                        <div class="code-line" onclick="showCodeExplain('ifelse-1', this)">int num = 0;<br>cout &lt;&lt; "請輸入一個整數: ";<br>cin &gt;&gt; num;</div>
+                        <div class="code-line" onclick="showCodeExplain('ifelse-2', this)">if (num % 2 == 0) {</div>
+                        <div class="code-line" onclick="showCodeExplain('ifelse-3', this)">&nbsp;&nbsp;cout &lt;&lt; "此數能被2整除" &lt;&lt; endl;<br>}</div>
+                        <div class="code-line" onclick="showCodeExplain('ifelse-4', this)">else {</div>
+                        <div class="code-line" onclick="showCodeExplain('ifelse-5', this)">&nbsp;&nbsp;cout &lt;&lt; "此數不能被2整除" &lt;&lt; endl;<br>}</div>
+                    </div>
+                    <div>
+                        <div class="code-explain-box" id="ifelse-explain">
+                            💡 請點擊左側程式碼檢視講解。
+                        </div>
+                        <button class="fill-blank-btn" style="margin-top: 15px; width: 100%; padding: 8px;" onclick="openModal('evenFlowModal')">📌 點擊檢視：能被2整除流程圖</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 頁面 7: 選擇結構 4-3：switch...case 介紹 (原簡報 Slide 1 & 2) -->
+            <section>
+                <h2>選擇結構 4-3</h2>
+                <h1>switch...case 介紹</h1>
+                <p style="color: #bd93f9;">多重條件選擇的優雅解法</p>
+                <hr style="border-color: #6272a4;">
+                <div class="highlight-box" style="text-align: left; font-size: 0.85em;">
+                    <p>💡 <b>回顧：</b>使用 <code>if...else if...else</code> 處理「範圍判斷」（例如：溫度 &gt; 30 度）。</p>
+                    <p>⚠️ <b>痛點：</b>遇到「固定選項/特定數值」時（如選單按鍵 1, 2, 3），連串 <code>else if</code> 顯得冗長混亂。</p>
+                    <p>✨ <b>解法：</b><b>switch...case</b> 能精準比對特定選項，大幅提升可讀性與執行效率！</p>
+                </div>
+            </section>
+
+            <!-- 頁面 8: switch...case 生活範例 -->
+            <section>
+                <h3>switch...case 生活範例與語法</h3>
+                <div class="grid-2">
+                    <div class="highlight-box">
+                        <h4>🛗 電梯按鈕</h4>
+                        <ul>
+                            <li>按 <b>「3」</b> 樓 ➔ 精準停在 3 樓（無需判斷 &gt; 10 或 &lt; 0）。</li>
+                            <li>按 <b>「99」</b> 樓 ➔ 觸發 <code>default</code> 顯示「無此樓層」。</li>
+                        </ul>
+                    </div>
+                    <div class="highlight-box">
+                        <h4>🥤 自動販賣機</h4>
+                        <ul>
+                            <li>按 <b>「2 號」</b> ➔ 掉出拿鐵咖啡。</li>
+                            <li>按未設定按鈕 ➔ 觸發 <code>default</code> 退回硬幣。</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 頁面 9: switch...case 語法與點擊解釋 -->
+            <section>
+                <h3>switch...case 語法結構</h3>
+                <div class="grid-2-code">
+                    <div>
+                        <div class="code-line" onclick="showCodeExplain('sw-1', this)">switch (控制表達式) {</div>
+                        <div class="code-line" onclick="showCodeExplain('sw-2', this)">&nbsp;&nbsp;case 等值條件1:<br>&nbsp;&nbsp;&nbsp;&nbsp;// 執行程式碼1<br>&nbsp;&nbsp;&nbsp;&nbsp;break;</div>
+                        <div class="code-line" onclick="showCodeExplain('sw-3', this)">&nbsp;&nbsp;case 等值條件2:<br>&nbsp;&nbsp;&nbsp;&nbsp;// 執行程式碼2<br>&nbsp;&nbsp;&nbsp;&nbsp;break;</div>
+                        <div class="code-line" onclick="showCodeExplain('sw-4', this)">&nbsp;&nbsp;default:<br>&nbsp;&nbsp;&nbsp;&nbsp;// 預設程式碼<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>}</div>
+                    </div>
+                    <div>
+                        <div class="code-explain-box" id="sw-explain">
+                            💡 點擊左側 switch 語法各區塊查看詳細功能說明！
                         </div>
                     </div>
-                    <div style="flex: 0.8; text-align: center;">
-                        <button class="btn-modal" onclick="openModal('modal-ifelse-flow')">📊 if-else 流程圖</button>
-                    </div>
                 </div>
             </section>
 
-            <!-- 填空練習 -->
+            <!-- 頁面 10: 課後練習題 1 ~ 3 -->
             <section>
-                <h3>填空練習：及格判斷</h3>
-                <p style="font-size: 0.85em;">輸入分數 <code>score</code>，若大於等於 60 分則印出 "Pass"。</p>
-                
-                <pre><code class="language-cpp">int score;
-cin &gt;&gt; score;
-
-<span class="blank" id="b1" onclick="revealBlank('b1', 'if')">???</span> (score <span class="blank" id="b2" onclick="revealBlank('b2', '>=')">???</span> 60) {
-    cout &lt;&lt; "Pass" &lt;&lt; endl;
-}</code></pre>
-
-                <button class="btn-reveal" onclick="revealBlanks(['b1', 'b2'], ['if', '>='])">揭曉解答</button>
-            </section>
-
-            <!-- Q1 -->
-            <section>
-                <h3>Q1：判斷是否成年</h3>
-                <p style="font-size: 0.8em; text-align: left;">
-                    請撰寫一段 C++ 程式碼，讀取使用者輸入的年齡 <code>age</code>，若年齡小於 18 歲，請印出 <code>"Child"</code>，否則印出 <code>"Adult"</code>。
-                </p>
-                <button class="btn-reveal" onclick="toggleAnswer('ans-q1')">查看參考解答</button>
-                <div id="ans-q1" class="answer-box">
-                    <pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-int main() {
-    int age;
-    cin &gt;&gt; age;
-    if (age &lt; 18) {
-        cout &lt;&lt; "Child" &lt;&lt; endl;
-    } else {
-        cout &lt;&lt; "Adult" &lt;&lt; endl;
-    }
-    return 0;
-}</code></pre>
+                <h3>🧠 課後檢測 (1 ~ 3 題)</h3>
+                <div class="highlight-box" style="text-align: left; font-size: 0.8em;">
+                    <p><b>Q1. 成績判斷空格 A 應填入？</b></p>
+                    <p>答案：<button class="fill-blank-btn" onclick="toggleBlank(this)">點擊顯示答案</button><span class="blank-ans">score >= 60</span></p>
+                </div>
+                <div class="highlight-box" style="text-align: left; font-size: 0.8em;">
+                    <p><b>Q2. 體重判斷超過 90kg 過重，否則正常：</b></p>
+                    <p>答案：<button class="fill-blank-btn" onclick="toggleBlank(this)">點擊顯示答案</button><span class="blank-ans">if (weight > 90) { cout << "過重"; } else { cout << "正常"; }</span></p>
+                </div>
+                <div class="highlight-box" style="text-align: left; font-size: 0.8em;">
+                    <p><b>Q3. weight=63.5, height=1.73，BMI 程式輸出結果？</b></p>
+                    <p>答案：<button class="fill-blank-btn" onclick="toggleBlank(this)">點擊顯示答案</button><span class="blank-ans">此學生BMI正常，BMI結果為: 21.2169</span></p>
                 </div>
             </section>
 
-            <!-- Q2 -->
+            <!-- 頁面 11: 課後練習 4（除錯題） -->
             <section>
-                <h3>Q2：奇數與偶數判斷</h3>
-                <p style="font-size: 0.8em; text-align: left;">
-                    輸入一個整數 <code>num</code>，請利用餘數運算子 <code>%</code> 與 <code>if-else</code> 判斷該數是奇數還是偶數。
-                </p>
-                <button class="btn-reveal" onclick="toggleAnswer('ans-q2')">查看參考解答</button>
-                <div id="ans-q2" class="answer-box">
-                    <pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-int main() {
-    int num;
-    cin &gt;&gt; num;
-    if (num % 2 == 0) {
-        cout &lt;&lt; num &lt;&lt; " 是偶數" &lt;&lt; endl;
-    } else {
-        cout &lt;&lt; num &lt;&lt; " 是奇數" &lt;&lt; endl;
-    }
-    return 0;
-}</code></pre>
-                </div>
+                <h3>🔧 課後練習 4：程式除錯 (共 5 處錯誤)</h3>
+                <p style="font-size: 0.75em; text-align: left;">點擊按鈕查看各行錯誤處與修正：</p>
+                <table class="styled-table">
+                    <thead>
+                        <tr><th>錯誤行數</th><th>原程式碼問題</th><th>修正後正確程式碼</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>第 9 行</td>
+                            <td>賦值符號 <code>=</code> 誤用</td>
+                            <td><button class="fill-blank-btn" onclick="toggleBlank(this)">顯示修正</button><span class="blank-ans">if (num == (int)num)</span></td>
+                        </tr>
+                        <tr>
+                            <td>第 10 行</td>
+                            <td>結尾缺少分號 <code>;</code></td>
+                            <td><button class="fill-blank-btn" onclick="toggleBlank(this)">顯示修正</button><span class="blank-ans">cout &lt;&lt; num &lt;&lt; " 是整數。" &lt;&lt; endl;</span></td>
+                        </tr>
+                        <tr>
+                            <td>第 11 行</td>
+                            <td><code>else</code> 後面不應接條件式</td>
+                            <td><button class="fill-blank-btn" onclick="toggleBlank(this)">顯示修正</button><span class="blank-ans">else {  (或改用 else if)</span></td>
+                        </tr>
+                        <tr>
+                            <td>第 1-2 行</td>
+                            <td>未包含標準標頭檔與命名空間</td>
+                            <td><button class="fill-blank-btn" onclick="toggleBlank(this)">顯示修正</button><span class="blank-ans">#include &lt;iostream&gt;<br>using namespace std;</span></td>
+                        </tr>
+                        <tr>
+                            <td>第 15 行</td>
+                            <td><code>return 0</code> 漏掉分號 <code>;</code></td>
+                            <td><button class="fill-blank-btn" onclick="toggleBlank(this)">顯示修正</button><span class="blank-ans">return 0;</span></td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
 
-            <!-- Q3 -->
+            <!-- 頁面 12: 課後練習 5（猜數字流程圖繪製） -->
             <section>
-                <h3>Q3：折扣計算問題</h3>
-                <p style="font-size: 0.8em; text-align: left;">
-                    某商店舉辦促銷活動：若消費總金額 <code>total</code> 滿 1000 元（含），即可享有 9 折優惠；否則維持原價。請計算並印出最終應付金額。
-                </p>
-                <button class="btn-reveal" onclick="toggleAnswer('ans-q3')">查看參考解答</button>
-                <div id="ans-q3" class="answer-box">
-                    <pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-int main() {
-    double total;
-    cin &gt;&gt; total;
-    if (total &gt;= 1000) {
-        total = total * 0.9;
-    }
-    cout &lt;&lt; "最終應付金額：" &lt;&lt; total &lt;&lt; endl;
-    return 0;
-}</code></pre>
+                <h3>🎲 課後練習 5：猜數字遊戲流程圖</h3>
+                <div class="highlight-box" style="text-align: left;">
+                    <p><b>題目說明：</b>魯迪與洛琪希玩猜數字遊戲（1-100），假設沒有平手。猜的數字較接近者獲勝。</p>
                 </div>
+                <button class="fill-blank-btn" style="padding: 12px 24px; font-size: 1em; margin-top: 20px;" onclick="openModal('guessGameModal')">
+                    🚀 按此彈出檢視「猜數字遊戲流程圖」
+                </button>
             </section>
 
-            <!-- Q4 -->
-            <section>
-                <h3>Q4：兩數求最大值 (Max)</h3>
-                <p style="font-size: 0.8em; text-align: left;">
-                    輸入兩個整數 <code>a</code> 與 <code>b</code>，請利用 <code>if-else</code> 找到較大的數值並印出。
-                </p>
-                <button class="btn-reveal" onclick="toggleAnswer('ans-q4')">查看參考解答</button>
-                <div id="ans-q4" class="answer-box">
-                    <pre><code class="language-cpp">#include &lt;iostream&gt;
-using namespace std;
-
-int main() {
-    int a, b;
-    cin &gt;&gt; a &gt;&gt; b;
-    if (a &gt; b) {
-        cout &lt;&lt; "較大值為：" &lt;&lt; a &lt;&lt; endl;
-    } else {
-        cout &lt;&lt; "較大值為：" &lt;&lt; b &lt;&lt; endl;
-    }
-    return 0;
-}</code></pre>
-                </div>
-            </section>
-
-            <!-- Summary -->
+            <!-- 頁面 13: 總結 -->
             <section>
                 <h2>總結</h2>
-                <ul style="font-size: 0.85em; line-height: 1.8;">
-                    <li><strong>單向選擇 (if)</strong>：條件成立才執行，不成立則跳過。</li>
-                    <li><strong>雙向選擇 (if-else)</strong>：二選一，條件成立執行 A，不成立執行 B。</li>
-                    <li><strong>關係運算子</strong>：<code>==</code>、<code>!=</code>、<code>&gt;</code>、<code>&lt;</code>、<code>&gt;=</code>、<code>&lt;=</code>。</li>
+                <ul style="line-height: 2; text-align: left; display: inline-block;">
+                    <li>固定值、多選項判斷 ➔ 優先使用 <b>switch...case</b>。</li>
+                    <li>範圍大小判斷 ➔ 使用 <b>if...else if...else</b>。</li>
+                    <li>關係運算子：<code>==</code> 代表相等、<code>!=</code> 代表不相等等。</li>
+                    <li>別忘了在每個 case 結束時加上 <b><code>break;</code></b>！</li>
                 </ul>
+                <p style="margin-top: 30px; color: #50fa7b;"><b>Q & A 時間 / 準備進入程式實作！</b></p>
             </section>
 
         </div>
     </div>
 
-    <!-- Modal 1: 流程圖符號（已包含檔案與連接點） -->
-    <div id="modal-flow-symbols" class="modal-overlay">
+    <!-- ===== 彈出視窗 (Modal) 區域 ===== -->
+
+    <!-- Modal 1: 颱風假流程圖 -->
+    <div id="typhoonModal" class="modal-overlay">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeModal('modal-flow-symbols')">&times;</span>
-            <h3>標準流程圖符號對照說明</h3>
-            <p style="font-size: 0.85em; color: #a6e22e;">在繪製程式邏輯時，不同的形狀代表不同的功能與意涵：</p>
-            <table style="width: 100%; border-collapse: collapse; font-size: 0.85em; margin-top: 15px;">
-                <thead>
-                    <tr style="border-bottom: 2px solid #6272a4; text-align: left;">
-                        <th style="padding: 8px;">符號圖示</th>
-                        <th style="padding: 8px;">名稱</th>
-                        <th style="padding: 8px;">功能說明與範例</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr style="border-bottom: 1px solid #44475a;">
-                        <td style="padding: 8px;"><span class="flow-shape shape-oval">端點</span></td>
-                        <td><strong>起止符號 (Terminator)</strong></td>
-                        <td>代表流程的開始或結束（如：開始、結束）。</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #44475a;">
-                        <td style="padding: 8px;"><span class="flow-shape shape-parallelogram">輸入/輸出</span></td>
-                        <td><strong>平行四邊形 (I/O)</strong></td>
-                        <td>代表資料的輸入或輸出（如：<code>cin &gt;&gt; score</code>）。</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #44475a;">
-                        <td style="padding: 8px;"><span class="flow-shape shape-diamond">條件</span></td>
-                        <td><strong>菱形 (Decision)</strong></td>
-                        <td>進行條件判斷，依據「是(True)」或「否(False)」分流。</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #44475a;">
-                        <td style="padding: 8px;"><span class="flow-shape shape-rect">處理</span></td>
-                        <td><strong>矩形 (Process)</strong></td>
-                        <td>代表運算或資料處理（如：<code>total = total * 0.9</code>）。</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #44475a;">
-                        <td style="padding: 8px;"><span class="flow-shape shape-document">檔案</span></td>
-                        <td><strong>檔案/文件 (Document)</strong></td>
-                        <td>代表檔案輸入/輸出或報表輸出（如：讀取 <code>data.txt</code>、產生紀錄檔）。</td>
-                    </tr>
-                    <tr style="border-bottom: 1px solid #44475a;">
-                        <td style="padding: 8px;"><span class="flow-shape shape-connector">A</span></td>
-                        <td><strong>連接點 (Connector)</strong></td>
-                        <td>用於跨頁或複雜流程圖中連結不同區塊，避免線條交叉混亂。</td>
-                    </tr>
-                </tbody>
-            </table>
+            <button class="close-modal-btn" onclick="closeModal('typhoonModal')">關閉 ✖</button>
+            <h3>🌀 颱風假風力判斷流程圖</h3>
+            <svg width="400" height="280" viewBox="0 0 400 280">
+                <ellipse cx="200" cy="30" rx="60" ry="20" fill="#6272a4" stroke="#f8f8f2" stroke-width="2"/>
+                <text x="200" y="35" fill="#fff" text-anchor="middle" font-size="14">Start</text>
+                
+                <line x1="200" y1="50" x2="200" y2="80" stroke="#f8f8f2" stroke-width="2" marker-end="url(#arrow)"/>
+                
+                <polygon points="200,80 320,130 200,180 80,130" fill="#bd93f9" stroke="#f8f8f2" stroke-width="2"/>
+                <text x="200" y="125" fill="#282a36" text-anchor="middle" font-size="12" font-weight="bold">達7級以上 ||</text>
+                <text x="200" y="142" fill="#282a36" text-anchor="middle" font-size="12" font-weight="bold">陣風達10級以上</text>
+                
+                <!-- True 邊 -->
+                <line x1="320" y1="130" x2="370" y2="130" stroke="#50fa7b" stroke-width="2"/>
+                <text x="340" y="120" fill="#50fa7b" font-size="12">True</text>
+                <rect x="310" y="190" width="80" height="40" rx="5" fill="#50fa7b"/>
+                <text x="350" y="215" fill="#282a36" text-anchor="middle" font-size="12" font-weight="bold">放颱風假</text>
+                <line x1="370" y1="130" x2="370" y2="190" stroke="#50fa7b" stroke-width="2"/>
+
+                <!-- False 邊 -->
+                <line x1="80" y1="130" x2="30" y2="130" stroke="#ff5555" stroke-width="2"/>
+                <text x="45" y="120" fill="#ff5555" font-size="12">False</text>
+                <rect x="0" y="190" width="80" height="40" rx="5" fill="#ff5555"/>
+                <text x="40" y="215" fill="#fff" text-anchor="middle" font-size="12" font-weight="bold">不放颱風假</text>
+                <line x1="30" y1="130" x2="30" y2="190" stroke="#ff5555" stroke-width="2"/>
+            </svg>
         </div>
     </div>
 
-    <!-- Modal 2: if 流程圖 -->
-    <div id="modal-if-flow" class="modal-overlay">
-        <div class="modal-content" style="text-align: center;">
-            <span class="modal-close" onclick="closeModal('modal-if-flow')">&times;</span>
-            <h3>if (單向選擇) 流程結構圖</h3>
-            <div style="margin-top: 20px; font-size: 0.9em; line-height: 1.8;">
-                <div><span class="flow-shape shape-oval">開始</span></div>
-                <div>↓</div>
-                <div><span class="flow-shape shape-diamond">條件是否成立？</span></div>
-                <div style="display: flex; justify-content: center; gap: 40px; margin: 10px 0;">
-                    <div><strong>[是 True]</strong><br>↓<br><span class="flow-shape shape-rect">執行內部程式碼</span><br>↓</div>
-                    <div><strong>[否 False]</strong><br>────────┐</div>
-                </div>
-                <div>↓</div>
-                <div><span class="flow-shape shape-connector">A</span> (繼續往下執行)</div>
-            </div>
+    <!-- Modal 2: if 正數判斷流程圖 -->
+    <div id="ifFlowModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal-btn" onclick="closeModal('ifFlowModal')">關閉 ✖</button>
+            <h3>正數判斷 (if 結構) 流程圖</h3>
+            <svg width="300" height="260" viewBox="0 0 300 260">
+                <ellipse cx="150" cy="25" rx="50" ry="18" fill="#6272a4"/>
+                <text x="150" y="29" fill="#fff" text-anchor="middle" font-size="12">開始</text>
+                
+                <line x1="150" y1="43" x2="150" y2="70" stroke="#fff" stroke-width="2"/>
+                
+                <polygon points="150,70 230,105 150,140 70,105" fill="#ffb86c"/>
+                <text x="150" y="110" fill="#282a36" text-anchor="middle" font-size="12" font-weight="bold">num > 0 ?</text>
+                
+                <line x1="230" y1="105" x2="270" y2="105" stroke="#50fa7b" stroke-width="2"/>
+                <line x1="270" y1="105" x2="270" y2="160" stroke="#50fa7b" stroke-width="2"/>
+                <rect x="220" y="160" width="90" height="35" rx="5" fill="#50fa7b"/>
+                <text x="265" y="182" fill="#282a36" text-anchor="middle" font-size="11" font-weight="bold">輸出 "10為正數"</text>
+
+                <line x1="150" y1="140" x2="150" y2="220" stroke="#fff" stroke-width="2"/>
+                <line x1="265" y1="195" x2="265" y2="220" stroke="#fff" stroke-width="2"/>
+                <line x1="150" y1="220" x2="265" y2="220" stroke="#fff" stroke-width="2"/>
+                
+                <ellipse cx="150" cy="240" rx="50" ry="18" fill="#6272a4"/>
+                <text x="150" y="244" fill="#fff" text-anchor="middle" font-size="12">結束</text>
+            </svg>
         </div>
     </div>
 
-    <!-- Modal 3: if-else 流程圖 -->
-    <div id="modal-ifelse-flow" class="modal-overlay">
-        <div class="modal-content" style="text-align: center;">
-            <span class="modal-close" onclick="closeModal('modal-ifelse-flow')">&times;</span>
-            <h3>if-else (雙向選擇) 流程結構圖</h3>
-            <div style="margin-top: 20px; font-size: 0.9em; line-height: 1.8;">
-                <div><span class="flow-shape shape-oval">開始</span></div>
-                <div>↓</div>
-                <div><span class="flow-shape shape-diamond">條件是否成立？</span></div>
-                <div style="display: flex; justify-content: center; gap: 50px; margin: 10px 0;">
-                    <div><strong>[是 True]</strong><br>↓<br><span class="flow-shape shape-rect">執行 A 區塊</span></div>
-                    <div><strong>[否 False]</strong><br>↓<br><span class="flow-shape shape-rect">執行 B 區塊</span></div>
-                </div>
-                <div>↓</div>
-                <div><span class="flow-shape shape-connector">1</span> (匯合並結束判斷)</div>
-            </div>
+    <!-- Modal 3: 能被2整除流程圖 -->
+    <div id="evenFlowModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal-btn" onclick="closeModal('evenFlowModal')">關閉 ✖</button>
+            <h3>偶數判斷 (if...else 結構) 流程圖</h3>
+            <svg width="360" height="240" viewBox="0 0 360 240">
+                <polygon points="180,20 270,55 180,90 90,55" fill="#ff79c6"/>
+                <text x="180" y="60" fill="#fff" text-anchor="middle" font-size="12" font-weight="bold">num % 2 == 0 ?</text>
+                
+                <!-- True -->
+                <line x1="270" y1="55" x2="310" y2="55" stroke="#50fa7b" stroke-width="2"/>
+                <line x1="310" y1="55" x2="310" y2="110" stroke="#50fa7b" stroke-width="2"/>
+                <rect x="250" y="110" width="100" height="40" fill="#50fa7b" rx="5"/>
+                <text x="300" y="135" fill="#282a36" text-anchor="middle" font-size="11" font-weight="bold">印出: 能被2整除</text>
+
+                <!-- False -->
+                <line x1="90" y1="55" x2="50" y2="55" stroke="#ff5555" stroke-width="2"/>
+                <line x1="50" y1="55" x2="50" y2="110" stroke="#ff5555" stroke-width="2"/>
+                <rect x="0" y="110" width="100" height="40" fill="#ff5555" rx="5"/>
+                <text x="50" y="135" fill="#fff" text-anchor="middle" font-size="11" font-weight="bold">印出: 不能被2整除</text>
+            </svg>
         </div>
     </div>
 
-    <!-- JS -->
+    <!-- Modal 4: 猜數字遊戲流程圖 -->
+    <div id="guessGameModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal-btn" onclick="closeModal('guessGameModal')">關閉 ✖</button>
+            <h3>🎲 魯迪與洛琪希猜數字流程圖</h3>
+            <svg width="420" height="300" viewBox="0 0 420 300">
+                <ellipse cx="210" cy="25" rx="50" ry="18" fill="#6272a4"/>
+                <text x="210" y="29" fill="#fff" text-anchor="middle" font-size="12">Start</text>
+                
+                <rect x="130" y="60" width="160" height="35" rx="5" fill="#44475a" stroke="#bd93f9"/>
+                <text x="210" y="82" fill="#fff" text-anchor="middle" font-size="11">輸入魯迪與洛琪希猜測值</text>
+                
+                <polygon points="210,115 340,155 210,195 80,155" fill="#ffb86c"/>
+                <text x="210" y="150" fill="#282a36" text-anchor="middle" font-size="11" font-weight="bold">魯迪差距 < 洛琪希差距 ?</text>
+                
+                <!-- True -->
+                <rect x="270" y="215" width="110" height="35" rx="5" fill="#50fa7b"/>
+                <text x="325" y="237" fill="#282a36" text-anchor="middle" font-size="11" font-weight="bold">輸出 "魯迪贏"</text>
+                
+                <!-- False -->
+                <rect x="40" y="215" width="110" height="35" rx="5" fill="#ff79c6"/>
+                <text x="95" y="237" fill="#282a36" text-anchor="middle" font-size="11" font-weight="bold">輸出 "洛琪希贏"</text>
+
+                <line x1="210" y1="43" x2="210" y2="60" stroke="#fff" stroke-width="2"/>
+                <line x1="210" y1="95" x2="210" y2="115" stroke="#fff" stroke-width="2"/>
+                <line x1="340" y1="155" x2="325" y2="155" stroke="#50fa7b" stroke-width="2"/>
+                <line x1="325" y1="155" x2="325" y2="215" stroke="#50fa7b" stroke-width="2"/>
+                <line x1="80" y1="155" x2="95" y2="155" stroke="#ff5555" stroke-width="2"/>
+                <line x1="95" y1="155" x2="95" y2="215" stroke="#ff5555" stroke-width="2"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Reveal.js JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
-
     <script>
+        // 初始化 Reveal.js，並設定自動響應尺寸與縮放
         Reveal.initialize({
             hash: true,
             slideNumber: true,
+            width: 1024,
+            height: 720,
+            margin: 0.05,
+            minScale: 0.2,
+            maxScale: 2.0,
             plugins: [ RevealHighlight ]
         });
 
-        function revealBlank(blankId, answerText) {
-            const el = document.getElementById(blankId);
-            if (el) {
-                el.textContent = answerText;
-                el.style.borderBottom = "none";
-                el.style.background = "rgba(80, 250, 123, 0.25)";
-                el.style.color = "#50fa7b";
+        // 挖空按鈕切換顯示/隱藏
+        function toggleBlank(btn) {
+            var ans = btn.nextElementSibling;
+            if (ans.style.display === "inline-block" || ans.style.display === "inline") {
+                ans.style.display = "none";
+                btn.textContent = "顯示";
+            } else {
+                ans.style.display = "inline-block";
+                btn.textContent = "隱藏";
             }
         }
 
-        function revealBlanks(blankIds, answers) {
-            blankIds.forEach((id, index) => {
-                revealBlank(id, answers[index]);
-            });
-        }
+        // 點擊程式碼顯示解釋資料
+        const codeExplanations = {
+            'if-1': '<b>#include &lt;iostream&gt;</b>：引進標準輸入輸出串流標頭檔。<br><b>using namespace std;</b>：使用標準命名空間，之後呼叫 cout/cin 無需前綴 std::。',
+            'if-2': '<b>int main() {</b>：程式執行的主入口點（Main Function）。',
+            'if-3': '<b>int num = 10;</b>：宣告一個整數變數 num，並將初始值設定為 10。',
+            'if-4': '<b>if (num &gt; 0)</b>：進行條件判斷，檢查 num 是否大於 0。此處 10 &gt; 0 為 <b>True</b>，故會進入大括號內部。',
+            'if-5': '<b>cout &lt;&lt; "10為正數";</b>：條件成立時執行此行，在螢幕畫面上印出 "10為正數"。',
+            'if-6': '<b>return 0;</b>：代表 main 函式正常執行完畢，傳回狀態碼 0 給作業系統。',
+            
+            'ifelse-1': '<b>int num = 0; cin &gt;&gt; num;</b>：宣告變數 num，並讀取使用者從鍵盤輸入的整數。',
+            'ifelse-2': '<b>if (num % 2 == 0)</b>：<code>%</code> 是取餘數運算子。若 num 除以 2 的餘數為 0，代表此數為<b>偶數</b>。',
+            'ifelse-3': '<b>cout &lt;&lt; "此數能被2整除";</b>：條件成立（偶數）時執行的敘述。',
+            'ifelse-4': '<b>else</b>：若 if 的條件不成立（餘數不為 0），程式將自動跳至此區塊執行。',
+            'ifelse-5': '<b>cout &lt;&lt; "此數不能被2整除";</b>：條件不成立（奇數）時執行的敘述。',
 
-        function toggleAnswer(answerId) {
-            const ansBox = document.getElementById(answerId);
-            if (ansBox) {
-                ansBox.style.display = (ansBox.style.display === "block") ? "none" : "block";
-            }
-        }
-
-        function openModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) modal.style.display = "flex";
-        }
-
-        function closeModal(modalId) {
-            const modal = document.getElementById(modalId);
-            if (modal) modal.style.display = "none";
-        }
-
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal-overlay')) {
-                event.target.style.display = "none";
-            }
+            'sw-1': '<b>switch (控制表達式)</b>：括號內填入變數或表達式，必須傳回<b>整數 (int)</b> 或 <b>字元 (char)</b> 等固定值。',
+            'sw-2': '<b>case 等值條件1:</b>：若控制表達式的值等於條件1，則從此處開始執行。<b>break;</b> 用於跳出 switch 區塊。',
+            'sw-3': '<b>case 等值條件2:</b>：若匹配條件2則執行此處。若漏寫 <b>break;</b>，會產生貫穿效應 (Fall-through) 繼續執行下方敘述。',
+            'sw-4': '<b>default:</b>：類似於 <code>else</code>，當前面所有的 case 均未符合時會執行此區塊。'
         };
 
-        function explainCode(codeBlockId, lineLabel, explanation) {
-            let displayBoxId = (codeBlockId === 'code-if') ? 'explain-display-if' : 'explain-display-ifelse';
-            const displayBox = document.getElementById(displayBoxId);
-            if (displayBox) {
-                displayBox.innerHTML = `<strong style="color:#8be9fd;">[${lineLabel}]：</strong> ${explanation}`;
+        function showCodeExplain(key, element) {
+            let container = element.parentElement.parentElement;
+            let explainBox = container.querySelector('.code-explain-box');
+            if (explainBox && codeExplanations[key]) {
+                explainBox.innerHTML = codeExplanations[key];
             }
+            // 切換 active 樣式
+            let lines = container.querySelectorAll('.code-line');
+            lines.forEach(l => l.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // Modal 彈出視窗控制
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
         }
     </script>
 </body>
