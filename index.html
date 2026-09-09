@@ -3,14 +3,14 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>選擇結構與switch...case教學簡報</title>
+    <title>選擇結構與 C++ 程式邏輯簡報</title>
     <!-- Reveal.js CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/dracula.min.css">
     <!-- Code Highlight Theme -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/monokai.min.css">
     <style>
-        /* 縮小全站標題尺寸，避免垂直擠壓與裁切 */
+        /* 縮小標題尺寸，防止垂直擠壓與裁切 */
         .reveal h1 { font-size: 1.8em !important; text-transform: none; font-family: "Microsoft JhengHei", sans-serif; margin-bottom: 10px; }
         .reveal h2 { font-size: 1.4em !important; text-transform: none; font-family: "Microsoft JhengHei", sans-serif; margin-bottom: 10px; }
         .reveal h3 { font-size: 1.1em !important; text-transform: none; font-family: "Microsoft JhengHei", sans-serif; margin-bottom: 10px; }
@@ -18,7 +18,7 @@
         .reveal p, .reveal li { font-size: 0.72em; line-height: 1.5; }
         
         .highlight-box { background: rgba(255,255,255,0.08); padding: 10px 14px; border-radius: 6px; margin-bottom: 8px; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left; }
+        .grid-2 { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 15px; text-align: left; }
         .grid-2-code { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 12px; text-align: left; }
         
         /* 挖空按鈕與答案樣式 */
@@ -114,19 +114,21 @@
         }
         .close-modal-btn:hover { background: #ff6e6e; }
 
-        /* 表格樣式優化 */
+        /* 表格樣式 */
         table.styled-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.7em;
+            font-size: 0.68em;
             margin-bottom: 10px;
         }
         table.styled-table th, table.styled-table td {
             border: 1px solid #6272a4;
-            padding: 6px 10px;
+            padding: 4px 8px;
             text-align: center;
+            vertical-align: middle;
         }
         table.styled-table th { background: #44475a; color: #50fa7b; }
+        .shape-svg { vertical-align: middle; }
     </style>
 </head>
 <body>
@@ -137,11 +139,11 @@
             <!-- 頁面 1: 主標題 -->
             <section>
                 <h2>單元選擇結構與程式邏輯</h2>
-                <h1>選擇結構 & switch...case 詳解</h1>
-                <p style="color: #bd93f9;">從觀念、運算子、if 判斷到 switch...case 應用</p>
+                <h1>C++ 選擇結構完整解析</h1>
+                <p style="color: #bd93f9;">從邏輯觀念、關係運算子到 if...else 多重條件判斷</p>
             </section>
 
-            <!-- 頁面 2: 講義 4-1 認識選擇結構與反思（修正為完全遮罩模式） -->
+            <!-- 頁面 2: 認識選擇結構與反思（完全遮罩模式） -->
             <section>
                 <h3>1. 認識選擇結構與生活反思</h3>
                 <div class="highlight-box" style="text-align: left;">
@@ -176,7 +178,7 @@
                 </div>
             </section>
 
-            <!-- 頁面 3: 關係運算子 (縮小表格與內聚高度，防止被切) -->
+            <!-- 頁面 3: 關係運算子 -->
             <section>
                 <h3>2. 關係運算子 (Relational Operators)</h3>
                 <p style="text-align: left; margin-bottom: 5px;">電腦使用關係運算子比較兩個數值或變數：</p>
@@ -202,17 +204,90 @@
                 </div>
             </section>
 
-            <!-- 頁面 4: 流程圖符號與颱風假範例 -->
+            <!-- 頁面 4: 流程圖符號與颱風假範例（顯示 7 個常用符號與圖樣） -->
             <section>
-                <h3>3. 流程圖常用符號與實例</h3>
+                <h3>3. 流程圖常用符號 (共 7 種)</h3>
                 <div class="grid-2">
                     <div>
                         <table class="styled-table">
-                            <tr><th>符號類型</th><th>說明</th></tr>
-                            <tr><td>橢圓形</td><td>開始 / 結束</td></tr>
-                            <tr><td>平行四邊形</td><td>輸出 / 輸入</td></tr>
-                            <tr><td>矩形</td><td>設定 / 處理程序</td></tr>
-                            <tr><td>菱形</td><td>決策 / 條件判斷</td></tr>
+                            <thead>
+                                <tr><th>圖樣</th><th>符號名稱</th><th>功能說明</th></tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <svg class="shape-svg" width="50" height="22" viewBox="0 0 50 22">
+                                            <rect x="2" y="2" width="46" height="18" rx="9" ry="9" fill="#bd93f9" stroke="#fff" stroke-width="1.5"/>
+                                        </svg>
+                                    </td>
+                                    <td>橢圓形</td>
+                                    <td>開始 / 結束</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <svg class="shape-svg" width="50" height="22" viewBox="0 0 50 22">
+                                            <polygon points="10,2 48,2 40,20 2,20" fill="#ffb86c" stroke="#fff" stroke-width="1.5"/>
+                                        </svg>
+                                    </td>
+                                    <td>平行四邊形</td>
+                                    <td>資料輸入 / 輸出</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <svg class="shape-svg" width="50" height="22" viewBox="0 0 50 22">
+                                            <rect x="3" y="2" width="44" height="18" fill="#8be9fd" stroke="#fff" stroke-width="1.5"/>
+                                        </svg>
+                                    </td>
+                                    <td>矩形</td>
+                                    <td>設定 / 處理程序</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <svg class="shape-svg" width="50" height="22" viewBox="0 0 50 22">
+                                            <polygon points="25,2 48,11 25,20 2,11" fill="#ff79c6" stroke="#fff" stroke-width="1.5"/>
+                                        </svg>
+                                    </td>
+                                    <td>菱形</td>
+                                    <td>決策 / 條件判斷</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <svg class="shape-svg" width="50" height="22" viewBox="0 0 50 22">
+                                            <circle cx="25" cy="11" r="8" fill="#50fa7b" stroke="#fff" stroke-width="1.5"/>
+                                        </svg>
+                                    </td>
+                                    <td>圓形</td>
+                                    <td>連接點 (跨頁/接續)</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <svg class="shape-svg" width="50" height="22" viewBox="0 0 50 22">
+                                            <defs>
+                                                <marker id="arrow1" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+                                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#f1fa8c"/>
+                                                </marker>
+                                            </defs>
+                                            <line x1="5" y1="11" x2="42" y2="11" stroke="#f1fa8c" stroke-width="2" marker-end="url(#arrow1)"/>
+                                        </svg>
+                                    </td>
+                                    <td>單向箭頭</td>
+                                    <td>流程方向指示</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <svg class="shape-svg" width="50" height="22" viewBox="0 0 50 22">
+                                            <defs>
+                                                <marker id="arrow2" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse">
+                                                    <path d="M 0 0 L 10 5 L 0 10 z" fill="#f1fa8c"/>
+                                                </marker>
+                                            </defs>
+                                            <line x1="8" y1="11" x2="42" y2="11" stroke="#f1fa8c" stroke-width="2" marker-start="url(#arrow2)" marker-end="url(#arrow2)"/>
+                                        </svg>
+                                    </td>
+                                    <td>雙向箭頭</td>
+                                    <td>雙向溝通 / 資料流動</td>
+                                </tr>
+                            </tbody>
                         </table>
                     </div>
                     <div>
@@ -225,7 +300,7 @@
                 </div>
             </section>
 
-            <!-- 頁面 5: if 敘述與互動解釋 -->
+            <!-- 頁面 5: if 敘述（單向選擇） -->
             <section>
                 <h3>4. if 敘述（單向選擇）</h3>
                 <div class="grid-2-code">
@@ -247,7 +322,7 @@
                 </div>
             </section>
 
-            <!-- 頁面 6: if...else 敘述 -->
+            <!-- 頁面 6: if...else 敘述（雙向選擇） -->
             <section>
                 <h3>5. if...else 敘述（雙向選擇）</h3>
                 <div class="grid-2-code">
@@ -268,58 +343,27 @@
                 </div>
             </section>
 
-            <!-- 頁面 7: switch...case 介紹 (已縮小字體與標題) -->
+            <!-- 頁面 7: if...else if...else 多重選擇 -->
             <section>
-                <h2>選擇結構 4-3</h2>
-                <h1>switch...case 介紹</h1>
-                <p style="color: #bd93f9; margin-bottom: 10px;">多重條件選擇的優雅解法</p>
-                <div class="highlight-box" style="text-align: left; font-size: 0.75em;">
-                    <p>💡 <b>回顧：</b>使用 <code>if...else if...else</code> 處理「範圍判斷」（例如：溫度 &gt; 30 度）。</p>
-                    <p>⚠️ <b>痛點：</b>遇到「固定選項/特定數值」時（如選單按鍵 1, 2, 3），連串 <code>else if</code> 顯得冗長混亂。</p>
-                    <p>✨ <b>解法：</b><b>switch...case</b> 能精準比對特定選項，大幅提升可讀性與執行效率！</p>
-                </div>
-            </section>
-
-            <!-- 頁面 8: switch...case 生活範例 -->
-            <section>
-                <h3>switch...case 生活範例</h3>
-                <div class="grid-2">
-                    <div class="highlight-box">
-                        <h4>🛗 電梯按鈕</h4>
-                        <ul>
-                            <li>按 <b>「3」</b> 樓 ➔ 精準停在 3 樓（無需判斷 &gt; 10 或 &lt; 0）。</li>
-                            <li>按 <b>「99」</b> 樓 ➔ 觸發 <code>default</code> 顯示「無此樓層」。</li>
-                        </ul>
-                    </div>
-                    <div class="highlight-box">
-                        <h4>🥤 自動販賣機</h4>
-                        <ul>
-                            <li>按 <b>「2 號」</b> ➔ 掉出拿鐵咖啡。</li>
-                            <li>按未設定按鈕 ➔ 觸發 <code>default</code> 退回硬幣。</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 頁面 9: switch...case 語法結構 -->
-            <section>
-                <h3>switch...case 語法結構</h3>
+                <h3>6. if...else if...else（多重選擇）</h3>
                 <div class="grid-2-code">
                     <div>
-                        <div class="code-line" onclick="showCodeExplain('sw-1', this)">switch (控制表達式) {</div>
-                        <div class="code-line" onclick="showCodeExplain('sw-2', this)">&nbsp;&nbsp;case 等值條件1:<br>&nbsp;&nbsp;&nbsp;&nbsp;// 執行程式碼1<br>&nbsp;&nbsp;&nbsp;&nbsp;break;</div>
-                        <div class="code-line" onclick="showCodeExplain('sw-3', this)">&nbsp;&nbsp;case 等值條件2:<br>&nbsp;&nbsp;&nbsp;&nbsp;// 執行程式碼2<br>&nbsp;&nbsp;&nbsp;&nbsp;break;</div>
-                        <div class="code-line" onclick="showCodeExplain('sw-4', this)">&nbsp;&nbsp;default:<br>&nbsp;&nbsp;&nbsp;&nbsp;// 預設程式碼<br>&nbsp;&nbsp;&nbsp;&nbsp;break;<br>}</div>
+                        <div class="code-line" onclick="showCodeExplain('elseif-1', this)">if (score &gt;= 90) {</div>
+                        <div class="code-line" onclick="showCodeExplain('elseif-2', this)">&nbsp;&nbsp;cout &lt;&lt; "優秀 (A)";<br>}</div>
+                        <div class="code-line" onclick="showCodeExplain('elseif-3', this)">else if (score &gt;= 60) {</div>
+                        <div class="code-line" onclick="showCodeExplain('elseif-4', this)">&nbsp;&nbsp;cout &lt;&lt; "及格 (B)";<br>}</div>
+                        <div class="code-line" onclick="showCodeExplain('elseif-5', this)">else {</div>
+                        <div class="code-line" onclick="showCodeExplain('elseif-6', this)">&nbsp;&nbsp;cout &lt;&lt; "不及格 (C)";<br>}</div>
                     </div>
                     <div>
-                        <div class="code-explain-box" id="sw-explain">
-                            💡 點擊左側 switch 語法各區塊查看詳細功能說明！
+                        <div class="code-explain-box" id="elseif-explain">
+                            💡 點擊左側程式碼，了解多重判斷由上而下的執行流程。
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- 頁面 10: 課後練習題 1 ~ 3 -->
+            <!-- 頁面 8: 課後練習題 1 ~ 3 -->
             <section>
                 <h3>🧠 課後檢測 (1 ~ 3 題)</h3>
                 <div class="highlight-box" style="text-align: left;">
@@ -336,7 +380,7 @@
                 </div>
             </section>
 
-            <!-- 頁面 11: 課後練習 4（除錯題） -->
+            <!-- 頁面 9: 課後練習 4（除錯題） -->
             <section>
                 <h3>🔧 課後練習 4：程式除錯 (共 5 處錯誤)</h3>
                 <table class="styled-table">
@@ -373,7 +417,7 @@
                 </table>
             </section>
 
-            <!-- 頁面 12: 課後練習 5（猜數字流程圖繪製） -->
+            <!-- 頁面 10: 課後練習 5（猜數字流程圖繪製） -->
             <section>
                 <h3>🎲 課後練習 5：猜數字遊戲流程圖</h3>
                 <div class="highlight-box" style="text-align: left;">
@@ -384,14 +428,14 @@
                 </button>
             </section>
 
-            <!-- 頁面 13: 總結 -->
+            <!-- 頁面 11: 總結 -->
             <section>
                 <h2>總結</h2>
                 <ul style="line-height: 1.8; text-align: left; display: inline-block;">
-                    <li>固定值、多選項判斷 ➔ 優先使用 <b>switch...case</b>。</li>
-                    <li>範圍大小判斷 ➔ 使用 <b>if...else if...else</b>。</li>
-                    <li>關係運算子：<code>==</code> 代表相等、<code>!=</code> 代表不相等等。</li>
-                    <li>別忘了在每個 case 結束時加上 <b><code>break;</code></b>！</li>
+                    <li>單一條件判斷 ➔ 使用 <b>if</b>。</li>
+                    <li>二選一條件分支 ➔ 使用 <b>if...else</b>。</li>
+                    <li>多重條件（範圍/階梯判斷） ➔ 使用 <b>if...else if...else</b>。</li>
+                    <li>關係運算子注意：比較相等務必使用 <b><code>==</code></b>（非賦值 <code>=</code>）。</li>
                 </ul>
                 <p style="margin-top: 20px; color: #50fa7b;"><b>Q & A 時間 / 準備進入程式實作！</b></p>
             </section>
@@ -517,7 +561,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/plugin/highlight/highlight.min.js"></script>
     <script>
-        // 初始化 Reveal.js，調整安全邊距 (margin) 與放縮比例 (minScale/maxScale) 避免畫面裁切
+        // 初始化 Reveal.js，縮小內邊距防止畫面被裁切
         Reveal.initialize({
             hash: true,
             slideNumber: true,
@@ -529,7 +573,7 @@
             plugins: [ RevealHighlight ]
         });
 
-        // 思考反思題：一鍵切換預設遮罩與參考答案
+        // 思考反思題：顯示/隱藏全部答案
         function toggleReflectionAns(btn) {
             const isHidden = document.getElementById('q1-ans').style.display !== 'inline-block';
             const displayAns = isHidden ? 'inline-block' : 'none';
@@ -543,7 +587,7 @@
             btn.textContent = isHidden ? '🙈 隱藏參考答案' : '💡 顯示參考答案';
         }
 
-        // 普通單一挖空按鈕切換
+        // 單一填空按鈕切換
         function toggleBlank(btn) {
             var ans = btn.nextElementSibling;
             if (ans.style.display === "inline-block" || ans.style.display === "inline") {
@@ -555,25 +599,27 @@
             }
         }
 
-        // 點擊程式碼顯示解釋資料
+        // 點擊程式碼顯示說明
         const codeExplanations = {
             'if-1': '<b>#include &lt;iostream&gt;</b>：引進標準輸入輸出串流標頭檔。<br><b>using namespace std;</b>：使用標準命名空間。',
-            'if-2': '<b>int main() {</b>：程式執行的主入口點（Main Function）。',
-            'if-3': '<b>int num = 10;</b>：宣告一個整數變數 num，並將初始值設定為 10。',
-            'if-4': '<b>if (num &gt; 0)</b>：判斷 num 是否大於 0。此處 10 &gt; 0 為 <b>True</b>，進入大括號內部。',
-            'if-5': '<b>cout &lt;&lt; "10為正數";</b>：條件成立時，在螢幕畫面上印出 "10為正數"。',
+            'if-2': '<b>int main() {</b>：程式執行的主入口點。',
+            'if-3': '<b>int num = 10;</b>：宣告一個整數變數 num，並賦予初始值 10。',
+            'if-4': '<b>if (num &gt; 0)</b>：判斷 num 是否大於 0。此處 10 &gt; 0 為 True，進入括號內。',
+            'if-5': '<b>cout &lt;&lt; "10為正數";</b>：條件成立時，於螢幕印出文字。',
             'if-6': '<b>return 0;</b>：傳回狀態碼 0，代表程式正常結束。',
             
-            'ifelse-1': '<b>int num = 0; cin &gt;&gt; num;</b>：宣告變數 num，並讀取使用者輸入的整數。',
-            'ifelse-2': '<b>if (num % 2 == 0)</b>：<code>%</code> 為取餘數運算子。餘數為 0 代表此數為<b>偶數</b>。',
-            'ifelse-3': '<b>cout &lt;&lt; "此數能被2整除";</b>：條件成立（偶數）時執行的敘述。',
-            'ifelse-4': '<b>else</b>：若條件不成立（餘數不為 0），跳至此區塊執行。',
-            'ifelse-5': '<b>cout &lt;&lt; "此數不能被2整除";</b>：條件不成立（奇數）時執行的敘述。',
+            'ifelse-1': '<b>cin &gt;&gt; num;</b>：讀取使用者輸入的整數並存入變數 num。',
+            'ifelse-2': '<b>if (num % 2 == 0)</b>：<code>%</code> 取餘數。餘數為 0 代表此數為偶數。',
+            'ifelse-3': '<b>cout &lt;&lt; "此數能被2整除";</b>：偶數時執行的程式區塊。',
+            'ifelse-4': '<b>else</b>：若上列條件不成立（餘數不為 0），跳至此處執行。',
+            'ifelse-5': '<b>cout &lt;&lt; "此數不能被2整除";</b>：奇數時執行的程式區塊。',
 
-            'sw-1': '<b>switch (控制表達式)</b>：括號內須為傳回<b>整數 (int)</b> 或 <b>字元 (char)</b> 的變數或算式。',
-            'sw-2': '<b>case 等值條件1:</b>：若值等於條件1，從此處執行。<b>break;</b> 跳出 switch。',
-            'sw-3': '<b>case 等值條件2:</b>：若匹配條件2則執行此處。若漏寫 <b>break;</b> 會發生貫穿 (Fall-through)。',
-            'sw-4': '<b>default:</b>：類似 <code>else</code>，當前面均未符合時執行的預設區塊。'
+            'elseif-1': '<b>if (score &gt;= 90)</b>：優先檢查第一層條件（成績是否達 90 分以上）。',
+            'elseif-2': '<b>cout &lt;&lt; "優秀 (A)";</b>：當成績大於等於 90 時執行，執行完後直接跳出整個判斷式。',
+            'elseif-3': '<b>else if (score &gt;= 60)</b>：若不滿 90 分，接著檢查是否達 60 分以上（介於 60 ~ 89 分）。',
+            'elseif-4': '<b>cout &lt;&lt; "及格 (B)";</b>：成績介於 60 ~ 89 分時執行。',
+            'elseif-5': '<b>else</b>：當上方所有 <code>if</code> 與 <code>else if</code> 都不成立時（小於 60 分）。',
+            'elseif-6': '<b>cout &lt;&lt; "不及格 (C)";</b>：不及格時執行的預設區塊。'
         };
 
         function showCodeExplain(key, element) {
@@ -587,7 +633,7 @@
             element.classList.add('active');
         }
 
-        // Modal 彈出視窗控制
+        // Modal 視窗開關控制
         function openModal(id) {
             document.getElementById(id).style.display = 'flex';
         }
