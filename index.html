@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C++ 選擇結構互動教學網頁</title>
+    <title>C++ 選擇結構完整互動教學網頁</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -49,9 +49,10 @@
         }
         nav a {
             color: white;
-            padding: 15px 20px;
+            padding: 14px 18px;
             text-decoration: none;
             font-weight: bold;
+            font-size: 0.95rem;
             transition: background 0.3s, color 0.3s;
             cursor: pointer;
         }
@@ -129,7 +130,7 @@
             margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
-        input, button {
+        input, button, select {
             padding: 10px 15px;
             font-size: 1rem;
             margin-top: 5px;
@@ -164,8 +165,8 @@
 <body>
 
 <header>
-    <h1>C++ 程式設計：選擇結構互動教學</h1>
-    <p>透過多視圖與動態網頁，輕鬆掌握邏輯判斷與流程圖設計！</p>
+    <h1>C++ 程式設計：選擇結構 4-1 完整互動教學</h1>
+    <p>匯集講義核心觀念、流程圖拆解、完整程式碼範例與學生易錯陷阱剖析</p>
 </header>
 
 <!-- 頂部導覽列：切換不同主題頁籤 -->
@@ -174,7 +175,8 @@
     <a onclick="switchTab('tab-score')" id="link-tab-score">2. 成績及格判斷 (&gt;=60)</a>
     <a onclick="switchTab('tab-ifelse')" id="link-tab-ifelse">3. if / if...else 架構</a>
     <a onclick="switchTab('tab-operators')" id="link-tab-operators">4. 關係運算子</a>
-    <a onclick="switchTab('tab-mistakes')" id="link-tab-mistakes">5. 學生易錯觀念陷阱</a>
+    <a onclick="switchTab('tab-examples')" id="link-tab-examples">5. 講義原版程式範例</a>
+    <a onclick="switchTab('tab-mistakes')" id="link-tab-mistakes">6. 學生易錯觀念陷阱</a>
 </nav>
 
 <div class="container">
@@ -194,7 +196,7 @@
         </table>
     </div>
 
-    <!-- 主主題二：成績大於 60 分的程式碼與流程圖說明 -->
+    <!-- 主題二：成績大於 60 分的程式碼與流程圖說明 -->
     <div id="tab-score" class="tab-content">
         <h2>成績及格判斷（&gt;=60 分）主題解析</h2>
         <p>這是最經典的生活化選擇結構範例：輸入學期成績，如果大於或等於 60 分則判定為及格，否則為不及格。</p>
@@ -265,16 +267,64 @@ int main() {
         <p>比較兩個數值或變數之間的關係。比較的結果只有兩種可能性：成立回傳 <code>true</code>（內部為 1），不成立回傳 <code>false</code>（內部為 0）。</p>
         <table>
             <tr><th>運算子符號</th><th>名稱</th><th>範例說明</th></tr>
-            <tr><td>&gt;</td><td>大於</td><td><code>5 &gt; 1</code> (成立)</td></tr>
-            <tr><td>&lt;</td><td>小於</td><td><code>1 &lt; 5</code> (成立)</td></tr>
-            <tr><td>&gt;=</td><td>大於或等於</td><td><code>score &gt;= 60</code></td></tr>
-            <tr><td>&lt;=</td><td>小於或等於</td><td><code>price &lt;= 100</code></td></tr>
-            <tr><td>==</td><td>等於</td><td><code>price == 100</code>（注意是兩個等號）</td></tr>
-            <tr><td>!=</td><td>不等於</td><td><code>5 != 1</code> (成立)</td></tr>
+            <tr><td>&gt;</td><td>大於</td><td><code>5 &gt; 1</code> (成立，回傳 1)</td></tr>
+            <tr><td>&lt;</td><td>小於</td><td><code>1 &lt; 5</code> (成立，回傳 1)</td></tr>
+            <tr><td>&gt;=</td><td>大於或等於</td><td><code>Price &gt;= 100</code></td></tr>
+            <tr><td>&lt;=</td><td>小於或等於</td><td><code>Price &lt;= 100</code></td></tr>
+            <tr><td>==</td><td>等於</td><td><code>Price == 100</code>（注意是兩個等號）</td></tr>
+            <tr><td>!=</td><td>不等於</td><td><code>5 != 1</code> (成立，回傳 1)</td></tr>
         </table>
     </div>
 
-    <!-- 主題五：學生易錯觀念與陷阱 -->
+    <!-- 主題五：講義原版程式範例與互動 -->
+    <div id="tab-examples" class="tab-content">
+        <h2>講義原版程式範例與互動測試</h2>
+        <p>此區收錄講義中的經典範例（如正數判斷、奇偶數判斷、BMI 邏輯），讓您直接在網頁上執行測試。</p>
+
+        <h3>範例 1：if 敘述 - 判斷數字是否為正數</h3>
+        <pre><code>int num = 10;
+if (num > 0) {
+    cout &lt;&lt; "10為正數";
+}</code></pre>
+        <div class="interactive-box">
+            <label>輸入數字測試：</label>
+            <input type="number" id="ifNumInput" value="10">
+            <button onclick="testIf()">執行測試</button>
+            <div id="ifResult" class="result"></div>
+        </div>
+
+        <h3>範例 2：if...else 敘述 - 判斷能否被 2 整除（奇偶數）</h3>
+        <pre><code>int num = 0;
+cin >> num;
+if ((num % 2) == 0) {
+    cout &lt;&lt; "此數能被2整除" &lt;&lt; endl;
+} else {
+    cout &lt;&lt; "此數不能被2整除" &lt;&lt; endl;
+}</code></pre>
+        <div class="interactive-box">
+            <label>輸入整數測試奇偶：</label>
+            <input type="number" id="oddEvenInput" value="4">
+            <button onclick="testOddEven()">判斷奇偶</button>
+            <div id="oddEvenResult" class="result"></div>
+        </div>
+
+        <h3>範例 3：複合條件判斷 - BMI 範圍運算</h3>
+        <pre><code>float weight = 63.5;
+float height = 1.73;
+float BMI = weight / (pow(height, 2));
+
+if (BMI >= 18.5 && BMI < 24) {
+    cout &lt;&lt; "此學生BMI正常，BMI結果為: " &lt;&lt; BMI;
+} else {
+    cout &lt;&lt; "此學生BMI不正常，BMI結果為: " &lt;&lt; BMI;
+}</code></pre>
+        <div class="interactive-box">
+            <button onclick="testBmi()">計算並顯示 BMI 結果</button>
+            <div id="bmiResult" class="result"></div>
+        </div>
+    </div>
+
+    <!-- 主題六：學生易錯觀念與陷阱 -->
     <div id="tab-mistakes" class="tab-content">
         <h2>⚠️ 學生最易犯錯的 5 大觀念與寫程式陷阱</h2>
 
@@ -307,38 +357,32 @@ int main() {
 
         <div class="warning-box">
             <h3>陷阱五：浮點數精確度與型態轉換迷思</h3>
-            <p><strong>正確觀念：</strong>在處理小數或強制轉型（如 <code>(int)</code>）時，電腦內部的二進位儲存可能產生微小誤差，設計條件時需特別注意數值精確度。</p>
+            <p><strong>正確觀念：</strong>在處理小數或強制轉型（如講義中類似 <code>(int)</code> 判斷整數的題目）時，電腦內部的二進位儲存可能產生微小誤差，設計條件時需特別注意運算子與型態。</p>
         </div>
     </div>
 
 </div>
 
 <footer>
-    &copy; 2026 C++ 選擇結構互動教學網頁 | 設計給認真學習程式的你
+    &copy; 2026 C++ 選擇結構 4-1 互動教學網頁 | 設計給認真學習程式的你
 </footer>
 
 <script>
     // 切換頁籤的 JavaScript 邏輯
     function switchTab(tabId) {
-        // 隱藏所有內容
         const contents = document.querySelectorAll('.tab-content');
         contents.forEach(content => content.classList.remove('active'));
 
-        // 移除所有導覽列連結的 active 樣式
         const links = document.querySelectorAll('nav a');
         links.forEach(link => link.classList.remove('active'));
 
-        // 顯示被點擊的頁籤內容
         document.getElementById(tabId).classList.add('active');
-        
-        // 幫對應的導覽列連結加上 active 樣式
         document.getElementById('link-' + tabId).classList.add('active');
         
-        // 捲動至頂部
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 成績測試互動函數
+    // 成績測試互動
     function testScore() {
         let score = Number(document.getElementById('testScoreInput').value);
         let resDiv = document.getElementById('scoreResult');
@@ -350,6 +394,47 @@ int main() {
             resDiv.innerHTML = `輸入分數 ${score}：小於 60 分，條件不成立 (False) -> 輸出「此學生成績不及格」`;
             resDiv.style.backgroundColor = "#ffd2d2";
             resDiv.style.color = "#c0392b";
+        }
+    }
+
+    // 正數測試互動
+    function testIf() {
+        let val = Number(document.getElementById('ifNumInput').value);
+        let resDiv = document.getElementById('ifResult');
+        if (val > 0) {
+            resDiv.innerHTML = `結果：${val} 大於 0，條件成立 -> 輸出 "${val}為正數"`;
+            resDiv.style.color = "green";
+        } else {
+            resDiv.innerHTML = `結果：${val} 不大於 0，條件不成立，if 區塊被跳過。`;
+            resDiv.style.color = "#e67e22";
+        }
+    }
+
+    // 奇偶數測試互動
+    function testOddEven() {
+        let val = Number(document.getElementById('oddEvenInput').value);
+        let resDiv = document.getElementById('oddEvenResult');
+        if (val % 2 === 0) {
+            resDiv.innerHTML = `結果：${val} 除以 2 餘數為 0 -> 輸出「此數能被2整除」`;
+            resDiv.style.color = "blue";
+        } else {
+            resDiv.innerHTML = `結果：${val} 除以 2 餘數不為 0 -> 輸出「此數不能被2整除」`;
+            resDiv.style.color = "purple";
+        }
+    }
+
+    // BMI 測試互動
+    function testBmi() {
+        let weight = 63.5;
+        let height = 1.73;
+        let bmi = weight / (height * height);
+        let resDiv = document.getElementById('bmiResult');
+        if (bmi >= 18.5 && bmi < 24) {
+            resDiv.innerHTML = `計算結果：BMI 約為 ${bmi.toFixed(4)}。<br>輸出：此學生BMI正常，BMI結果為: ${bmi.toFixed(4)}`;
+            resDiv.style.color = "green";
+        } else {
+            resDiv.innerHTML = `計算結果：BMI 約為 ${bmi.toFixed(4)}。<br>輸出：此學生BMI不正常，BMI結果為: ${bmi.toFixed(4)}`;
+            resDiv.style.color = "red";
         }
     }
 </script>
