@@ -3,227 +3,353 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>選擇結構 (if / if...else) 互動教學網頁</title>
+    <title>C++ 選擇結構互動教學網頁</title>
     <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2c3e50;
+            --accent-color: #e67e22;
+            --bg-color: #f4f7f6;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
-            color: #333;
-            max-width: 950px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f7f6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
         }
         header {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
             color: white;
-            padding: 30px;
+            padding: 30px 20px;
             text-align: center;
-            border-radius: 8px;
         }
-        section {
-            background: white;
-            margin: 20px 0;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        header h1 {
+            margin: 0 0 10px 0;
+            font-size: 2.2rem;
+        }
+        header p {
+            margin: 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        /* 導覽列連結設計 */
+        nav {
+            background: var(--secondary-color);
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        nav a {
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+        nav a:hover, nav a.active {
+            background: var(--primary-color);
+        }
+        .container {
+            max-width: 1000px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        .tab-content {
+            display: none;
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         h2 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
+            color: var(--secondary-color);
+            border-bottom: 3px solid var(--primary-color);
             padding-bottom: 8px;
+            margin-top: 0;
         }
         h3 {
-            color: #e67e22;
+            color: var(--accent-color);
+            margin-top: 25px;
         }
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
+            margin: 20px 0;
         }
         th, td {
             border: 1px solid #ddd;
             padding: 12px;
-            text-align: center;
+            text-align: left;
         }
         th {
-            background-color: #3498db;
+            background-color: var(--primary-color);
             color: white;
+            text-align: center;
+        }
+        td:first-child {
+            text-align: center;
+            font-weight: bold;
         }
         pre {
             background: #272822;
             color: #f8f8f2;
             padding: 15px;
-            border-radius: 5px;
+            border-radius: 6px;
             overflow-x: auto;
             font-family: 'Courier New', Courier, monospace;
         }
         .interactive-box {
             background: #e8f4f8;
             padding: 20px;
-            border-left: 5px solid #3498db;
-            margin: 15px 0;
+            border-left: 5px solid var(--primary-color);
+            margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
         .warning-box {
             background: #fdf2e9;
-            padding: 15px;
-            border-left: 5px solid #e67e22;
-            margin: 15px 0;
+            padding: 20px;
+            border-left: 5px solid var(--accent-color);
+            margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
+        input, button {
+            padding: 10px 15px;
+            font-size: 1rem;
+            margin-top: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
         button {
-            background: #3498db;
+            background: var(--primary-color);
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 4px;
             cursor: pointer;
-            font-size: 14px;
+            transition: background 0.2s;
         }
         button:hover {
             background: #2980b9;
         }
         .result {
-            margin-top: 10px;
+            margin-top: 12px;
             font-weight: bold;
-            padding: 8px;
+            padding: 10px;
+            border-radius: 4px;
         }
-        ul li {
-            margin-bottom: 8px;
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            margin-top: 40px;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>程式設計基礎：選擇結構 (if / if...else)</h1>
-    <p>帶領你學會如何讓電腦自主判斷與做決定！</p>
+    <h1>C++ 程式設計：選擇結構互動教學</h1>
+    <p>透過多視圖與動態網頁，輕鬆掌握邏輯判斷與流程圖設計！</p>
 </header>
 
-<!-- 單元一：運算子 -->
-<section>
-    <h2>1. 程式如何判斷？認識關係運算子</h2>
-    <p>在寫選擇結構之前，程式需要先學會「如何做比較」。比較的結果只有兩種可能性：</p>
-    <ul>
-        <li><strong>成立</strong>：回傳 <code>true</code>（內部儲存為 <code>1</code>）</li>
-        <li><strong>不成立</strong>：回傳 <code>false</code>（內部儲存為 <code>0</code>）</li>
-    </ul>
-    <table>
-        <tr><th>符號</th><th>運算子名稱</th><th>範例說明</th></tr>
-        <tr><td>&gt;</td><td>大於</td><td>5 &gt; 1 (成立)</td></tr>
-        <tr><td>&lt;</td><td>小於</td><td>1 &lt; 5 (成立)</td></tr>
-        <tr><td>&gt;=</td><td>大於或等於</td><td>成績 &gt;= 60</td></tr>
-        <tr><td>&lt;=</td><td>小於或等於</td><td>價格 &lt;= 100</td></tr>
-        <tr><td>==</td><td>等於（注意是兩個等號）</td><td>價格 == 100</td></tr>
-        <tr><td>!=</td><td>不等於</td><td>5 != 1 (成立)</td></tr>
-    </table>
-</section>
+<!-- 頂部導覽列：切換不同主題頁籤 -->
+<nav>
+    <a onclick="switchTab('tab-flowchart')" id="link-tab-flowchart" class="active">1. 流程圖元素說明</a>
+    <a onclick="switchTab('tab-score')" id="link-tab-score">2. 成績及格判斷 (&gt;=60)</a>
+    <a onclick="switchTab('tab-ifelse')" id="link-tab-ifelse">3. if / if...else 架構</a>
+    <a onclick="switchTab('tab-operators')" id="link-tab-operators">4. 關係運算子</a>
+    <a onclick="switchTab('tab-mistakes')" id="link-tab-mistakes">5. 學生易錯觀念陷阱</a>
+</nav>
 
-<!-- 單元二：if 敘述 -->
-<section>
-    <h2>2. 單向選擇：if 敘述的架構與說明</h2>
-    <p><strong>語法架構：</strong></p>
-    <pre><code>if (判斷條件)
-{
-    // 當條件成立（True）時，才會執行的程式碼
-    敘述主體;
-}</code></pre>
-    <p><strong>說明：</strong>如果括號中的條件成立，就會執行大括號內的程式碼；若條件不成立，則直接跳過不執行。</p>
+<div class="container">
 
-    <div class="interactive-box">
-        <h3>動態體驗：判斷數字是否為正數</h3>
-        <input type="number" id="ifNumInput" value="10">
-        <button onclick="testIf()">執行判斷</button>
-        <div id="ifResult" class="result"></div>
+    <!-- 主題一：流程圖元素說明 -->
+    <div id="tab-flowchart" class="tab-content active">
+        <h2>流程圖常用符號與元素說明</h2>
+        <p>在動手寫程式之前，必須先在紙上繪製簡單的流程圖，讓程式的起始到結束邏輯清楚呈現。</p>
+        <table>
+            <tr><th>符號名稱</th><th>圖形外觀描述</th><th>功能與用途說明</th></tr>
+            <tr><td>開始 / 結束符號</td><td>圓角矩形 / 橢圓</td><td>表示整個程式邏輯流程的起點（Start）或終點（End）。</td></tr>
+            <tr><td>程式執行方向</td><td>箭頭 (Arrow)</td><td>指示資料流動與程式指令執行的順序方向。</td></tr>
+            <tr><td>設定 / 程序</td><td>長方形 (Rectangle)</td><td>用來進行資料的運算、變數賦值或一般處理程序（例如：<code>score = 0;</code>）。</td></tr>
+            <tr><td>決策 / 條件</td><td>菱形 (Diamond)</td><td>用於選擇結構的條件判斷。通常會有兩條出路（True / False）。</td></tr>
+            <tr><td>輸出 / 輸入</td><td>平行四邊形</td><td>用來表示資料的輸入（如 <code>cin</code>）或結果的輸出（如 <code>cout</code>）。</td></tr>
+            <tr><td>連接點</td><td>圓形 (Circle)</td><td>當流程圖需要跨頁或線條過於繁雜時，用來連接不同區段的點。</td></tr>
+        </table>
     </div>
-</section>
 
-<!-- 單元三：if...else 敘述 -->
-<section>
-    <h2>3. 雙向選擇：if...else 敘述的架構與說明</h2>
-    <p>當程式面臨「二選一」的分歧路口時（例如：及格/不及格、偶數/奇數），就要使用 <code>if...else</code>。</p>
-    <p><strong>語法架構：</strong></p>
-    <pre><code>if (判斷條件)
-{
+    <!-- 主主題二：成績大於 60 分的程式碼與流程圖說明 -->
+    <div id="tab-score" class="tab-content">
+        <h2>成績及格判斷（&gt;=60 分）主題解析</h2>
+        <p>這是最經典的生活化選擇結構範例：輸入學期成績，如果大於或等於 60 分則判定為及格，否則為不及格。</p>
+        
+        <h3>1. 完整的 C++ 程式碼</h3>
+        <pre><code>#include&lt;iostream&gt;
+using namespace std;
+int main() {
+    int score = 0;
+    cout &lt;&lt; "請輸入學期成績: ";
+    cin &gt;&gt; score;
+    
+    if (score &gt;= 60) {
+        cout &lt;&lt; "此學生成績及格" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "此學生成績不及格" &lt;&lt; endl;
+    }
+    return 0;
+}</code></pre>
+
+        <h3>2. 流程圖架構說明</h3>
+        <ul>
+            <li><strong>起點</strong>：以「開始符號」啟動程式。</li>
+            <li><strong>輸入階段</strong>：使用「輸入/輸出符號」讀取使用者輸入的 <code>score</code> 變數。</li>
+            <li><strong>決策判斷</strong>：使用「菱形條件符號」進行判斷 <code>score &gt;= 60</code>：
+                <ul>
+                    <li>若成立（True）：走向及格分支，輸出「此學生成績及格」。</li>
+                    <li>若不成立（False）：走向不及格分支，輸出「此學生成績不及格」。</li>
+                </ul>
+            </li>
+            <li><strong>終點</strong>：兩條分支最後匯集，透過「結束符號」結束程式。</li>
+        </ul>
+
+        <div class="interactive-box">
+            <h3>動態互動測試：模擬成績判斷</h3>
+            <p>請輸入一個成績分數來測試結果：</p>
+            <input type="number" id="testScoreInput" value="75">
+            <button onclick="testScore()">測試結果</button>
+            <div id="scoreResult" class="result"></div>
+        </div>
+    </div>
+
+    <!-- 主題三：if / if...else 架構說明 -->
+    <div id="tab-ifelse" class="tab-content">
+        <h2>if 與 if...else 選擇結構架構說明</h2>
+        <p>當程式需要依據條件成立與否來決定執行路徑時，就會使用選擇結構。</p>
+
+        <h3>1. 單向選擇：if 敘述</h3>
+        <pre><code>if (判斷條件) {
+    // 條件為 True 時才會執行的主體
+}</code></pre>
+        <p><strong>說明：</strong>若括號內的條件成立，就執行大括號內的程式；若不成立，則直接跳過。</p>
+
+        <h3>2. 雙向選擇：if...else 敘述</h3>
+        <pre><code>if (判斷條件) {
     // 條件成立（True）時執行此區塊
     敘述主體1;
-}
-else
-{
+} else {
     // 條件不成立（False）時執行此區塊
     敘述主體2;
 }</code></pre>
-
-    <div class="interactive-box">
-        <h3>動態體驗：奇偶數判斷 (num % 2 == 0)</h3>
-        <input type="number" id="oddEvenInput" value="4">
-        <button onclick="testOddEven()">判斷奇偶</button>
-        <div id="oddEvenResult" class="result"></div>
-    </div>
-</section>
-
-<!-- 單元四：學生最易犯錯的觀念與陷阱 -->
-<section>
-    <h2>4. ⚠️ 學生最易犯錯的 5 大觀念與寫程式陷阱</h2>
-    
-    <div class="warning-box">
-        <h3>陷阱一：把「等於 (==)」誤寫成「指定 (=)」</h3>
-        <p><strong>錯誤示範：</strong><code>if (num = 5)</code></p>
-        <p><strong>正確觀念：</strong>一個 <code>=</code> 是「指派數值」（把 5 塞給 num），兩個 <code>==</code> 才是「比較是否相等」。寫成一個等號會導致條件永遠視為成立（True），破壞程式邏輯。</p>
+        <p><strong>說明：</strong>提供一個二選一的分歧路口。條件成立走 <code>if</code>，不成立則走 <code>else</code>，兩者必居其一。</p>
     </div>
 
-    <div class="warning-box">
-        <h3>陷阱二：條件判斷的小括号後面多加了分號 (;)</h3>
-        <p><strong>錯誤示範：</strong><code>if (score >= 60); { cout &lt;&lt; "及格"; }</code></p>
-        <p><strong>正確觀念：</strong>分號代表這一行敘述結束。如果在 <code>if (...)</code> 後面直接加分號，會導致 <code>if</code> 結東，後面的大括號區塊會變成「無條件執行」，失去選擇結構的意義。</p>
+    <!-- 主題四：關係運算子 -->
+    <div id="tab-operators" class="tab-content">
+        <h2>認識關係運算子</h2>
+        <p>比較兩個數值或變數之間的關係。比較的結果只有兩種可能性：成立回傳 <code>true</code>（內部為 1），不成立回傳 <code>false</code>（內部為 0）。</p>
+        <table>
+            <tr><th>運算子符號</th><th>名稱</th><th>範例說明</th></tr>
+            <tr><td>&gt;</td><td>大於</td><td><code>5 &gt; 1</code> (成立)</td></tr>
+            <tr><td>&lt;</td><td>小於</td><td><code>1 &lt; 5</code> (成立)</td></tr>
+            <tr><td>&gt;=</td><td>大於或等於</td><td><code>score &gt;= 60</code></td></tr>
+            <tr><td>&lt;=</td><td>小於或等於</td><td><code>price &lt;= 100</code></td></tr>
+            <tr><td>==</td><td>等於</td><td><code>price == 100</code>（注意是兩個等號）</td></tr>
+            <tr><td>!=</td><td>不等於</td><td><code>5 != 1</code> (成立)</td></tr>
+        </table>
     </div>
 
-    <div class="warning-box">
-        <h3>陷阱三：混淆浮點數精確度與整數型態判斷</h3>
-        <p><strong>錯誤示範：</strong>像講義中企圖用 <code>if (num = (int)num)</code> 來判斷是否為整數，卻誤用成賦值運算子 <code>=</code>，且忽略了浮點數在電腦儲存時可能產生的微小誤差。</p>
-        <p><strong>正確觀念：</strong>進行精確的數值比較與型態轉換時，運算子與括號範圍必須非常嚴謹。</p>
-    </div>
+    <!-- 主題五：學生易錯觀念與陷阱 -->
+    <div id="tab-mistakes" class="tab-content">
+        <h2>⚠️ 學生最易犯錯的 5 大觀念與寫程式陷阱</h2>
 
-    <div class="warning-box">
-        <h3>陷阱四：忘記加上大括號 {} 導致程式邏輯範圍錯亂</h3>
-        <p><strong>錯誤示範：</strong></p>
-        <pre><code>if (weight > 90)
+        <div class="warning-box">
+            <h3>陷阱一：把「等於 (==)」誤寫成「指定 (=)」</h3>
+            <p><strong>錯誤示範：</strong><code>if (num = 5)</code></p>
+            <p><strong>正確觀念：</strong>一個 <code>=</code> 是賦值（把 5 塞給 num），兩個 <code>==</code> 才是比較相等。誤用單個等號會讓條件永遠成立，破壞邏輯。</p>
+        </div>
+
+        <div class="warning-box">
+            <h3>陷阱二：條件判斷小括號後面多加了分號 (;)</h3>
+            <p><strong>錯誤示範：</strong><code>if (score &gt;= 60); { cout &lt;&lt; "及格"; }</code></p>
+            <p><strong>正確觀念：</strong>分號代表敘述結束。如果在 <code>if (...)</code> 後面加分號，會導致 <code>if</code> 提前結束，後面的程式區塊會變成「無條件執行」。</p>
+        </div>
+
+        <div class="warning-box">
+            <h3>陷阱三：忘記加上大括號 {} 導致程式範圍錯亂</h3>
+            <p><strong>錯誤示範：</strong></p>
+            <pre><code>if (weight &gt; 90)
     cout &lt;&lt; "體重過重";
     cout &lt;&lt; "需要多運動"; // 這行不管 if 成立與否都會被執行！</code></pre>
-        <p><strong>正確觀念：</strong>如果 <code>if</code> 或 <code>else</code> 後面要控制多行程式碼，一定要用大括號 <code>{}</code> 包起來，否則只有緊跟著的那一行會受 <code>if</code> 控制。</p>
+            <p><strong>正確觀念：</strong>若要控制多行敘述，必須用大括號 <code>{}</code> 包覆，否則只有緊跟著的第一行受 <code>if</code> 控制。</p>
+        </div>
+
+        <div class="warning-box">
+            <h3>陷阱四：搞錯複合條件的邏輯運算子（&amp;&amp; 與 ||）</h3>
+            <p><strong>錯誤示範：</strong>想表達 BMI 介於 18.5 到 24 之間，卻寫成 <code>if (BMI &gt;= 18.5 || BMI &lt; 24)</code>。</p>
+            <p><strong>正確觀念：</strong>「且」必須用 <code>&amp;&amp;</code>。若用 <code>||</code>（或），條件會變成全部成立，形同虛設。</p>
+        </div>
+
+        <div class="warning-box">
+            <h3>陷阱五：浮點數精確度與型態轉換迷思</h3>
+            <p><strong>正確觀念：</strong>在處理小數或強制轉型（如 <code>(int)</code>）時，電腦內部的二進位儲存可能產生微小誤差，設計條件時需特別注意數值精確度。</p>
+        </div>
     </div>
 
-    <div class="warning-box">
-        <h3>陷阱五：搞錯複合條件的邏輯運算子 (&& 與 ||)</h3>
-        <p><strong>錯誤示範：</strong>想表達 BMI 介於 18.5 到 24 之間，卻寫成 <code>if (BMI >= 18.5 || BMI &lt; 24)</code>。</p>
-        <p><strong>正確觀念：</strong>「且」要用 <code>&amp;&amp;</code>（必須兩邊都符合），若用 <code>||</code>（或）會變成只要小於 24 或是大於 18.5 就全部成立，導致條件形同虛設。</p>
-    </div>
-</section>
+</div>
 
-<!-- 互動 JavaScript 邏輯 -->
+<footer>
+    &copy; 2026 C++ 選擇結構互動教學網頁 | 設計給認真學習程式的你
+</footer>
+
 <script>
-    function testIf() {
-        let val = Number(document.getElementById('ifNumInput').value);
-        let resDiv = document.getElementById('ifResult');
-        if (val > 0) {
-            resDiv.innerHTML = `結果：${val} 大於 0，條件成立，成功輸出 "${val}為正數"`;
-            resDiv.style.color = "green";
-        } else {
-            resDiv.innerHTML = `結果：${val} 不大於 0，條件不成立，if 區塊被跳過。`;
-            resDiv.style.color = "#e67e22";
-        }
+    // 切換頁籤的 JavaScript 邏輯
+    function switchTab(tabId) {
+        // 隱藏所有內容
+        const contents = document.querySelectorAll('.tab-content');
+        contents.forEach(content => content.classList.remove('active'));
+
+        // 移除所有導覽列連結的 active 樣式
+        const links = document.querySelectorAll('nav a');
+        links.forEach(link => link.classList.remove('active'));
+
+        // 顯示被點擊的頁籤內容
+        document.getElementById(tabId).classList.add('active');
+        
+        // 幫對應的導覽列連結加上 active 樣式
+        document.getElementById('link-' + tabId).classList.add('active');
+        
+        // 捲動至頂部
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function testOddEven() {
-        let val = Number(document.getElementById('oddEvenInput').value);
-        let resDiv = document.getElementById('oddEvenResult');
-        if (val % 2 === 0) {
-            resDiv.innerHTML = `結果：${val} 除以 2 餘數為 0，執行 if 區塊 -> 輸出「此數能被2整除」`;
-            resDiv.style.color = "blue";
+    // 成績測試互動函數
+    function testScore() {
+        let score = Number(document.getElementById('testScoreInput').value);
+        let resDiv = document.getElementById('scoreResult');
+        if (score >= 60) {
+            resDiv.innerHTML = `輸入分數 ${score}：大於或等於 60 分，條件成立 (True) -> 輸出「此學生成績及格」`;
+            resDiv.style.backgroundColor = "#e8f8f5";
+            resDiv.style.color = "#27ae60";
         } else {
-            resDiv.innerHTML = `結果：${val} 除以 2 餘數不為 0，執行 else 區塊 -> 輸出「此數不能被2整除」`;
-            resDiv.style.color = "purple";
+            resDiv.innerHTML = `輸入分數 ${score}：小於 60 分，條件不成立 (False) -> 輸出「此學生成績不及格」`;
+            resDiv.style.backgroundColor = "#ffd2d2";
+            resDiv.style.color = "#c0392b";
         }
     }
 </script>
