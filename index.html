@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C++ 選擇結構完整互動教學網頁</title>
+    <title>C++ 選擇結構 4-1 完整互動教學網頁</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -130,6 +130,13 @@
             margin: 20px 0;
             border-radius: 0 8px 8px 0;
         }
+        .tool-box {
+            background: #f0f3f4;
+            padding: 20px;
+            border-left: 5px solid #27ae60;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
         input, button, select {
             padding: 10px 15px;
             font-size: 1rem;
@@ -146,6 +153,19 @@
         }
         button:hover {
             background: #2980b9;
+        }
+        .tool-btn {
+            background: #27ae60;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 20px;
+            color: white;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .tool-btn:hover {
+            background: #219653;
         }
         .result {
             margin-top: 12px;
@@ -166,12 +186,12 @@
 
 <header>
     <h1>C++ 程式設計：選擇結構 4-1 完整互動教學</h1>
-    <p>匯集講義核心觀念、流程圖拆解、完整程式碼範例與學生易錯陷阱剖析</p>
+    <p>匯集講義核心觀念、流程圖工具推薦、完整程式碼範例與學生易錯陷阱剖析</p>
 </header>
 
 <!-- 頂部導覽列：切換不同主題頁籤 -->
 <nav>
-    <a onclick="switchTab('tab-flowchart')" id="link-tab-flowchart" class="active">1. 流程圖元素說明</a>
+    <a onclick="switchTab('tab-flowchart')" id="link-tab-flowchart" class="active">1. 流程圖元素與工具</a>
     <a onclick="switchTab('tab-score')" id="link-tab-score">2. 成績及格判斷 (&gt;=60)</a>
     <a onclick="switchTab('tab-ifelse')" id="link-tab-ifelse">3. if / if...else 架構</a>
     <a onclick="switchTab('tab-operators')" id="link-tab-operators">4. 關係運算子</a>
@@ -181,10 +201,11 @@
 
 <div class="container">
 
-    <!-- 主題一：流程圖元素說明 -->
+    <!-- 主題一：流程圖元素說明與 GitMind 推薦 -->
     <div id="tab-flowchart" class="tab-content active">
-        <h2>流程圖常用符號與元素說明</h2>
-        <p>在動手寫程式之前，必須先在紙上繪製簡單的流程圖，讓程式的起始到結束邏輯清楚呈現。</p>
+        <h2>流程圖常用符號與繪圖工具介紹</h2>
+        <p>在動手寫程式之前，必須先在紙上或透過數位工具繪製簡單的流程圖，讓程式的起始到結束邏輯清楚呈現。</p>
+        
         <table>
             <tr><th>符號名稱</th><th>圖形外觀描述</th><th>功能與用途說明</th></tr>
             <tr><td>開始 / 結束符號</td><td>圓角矩形 / 橢圓</td><td>表示整個程式邏輯流程的起點（Start）或終點（End）。</td></tr>
@@ -194,6 +215,17 @@
             <tr><td>輸出 / 輸入</td><td>平行四邊形</td><td>用來表示資料的輸入（如 <code>cin</code>）或結果的輸出（如 <code>cout</code>）。</td></tr>
             <tr><td>連接點</td><td>圓形 (Circle)</td><td>當流程圖需要跨頁或線條過於繁雜時，用來連接不同區段的點。</td></tr>
         </table>
+
+        <!-- GitMind 推薦區塊 -->
+        <div class="tool-box">
+            <h3>💡 好用的流程圖與心智圖繪製工具推薦</h3>
+            <p>想要在電腦或平板上快速畫出漂亮的流程圖嗎？推薦您使用免費且好上手的線上繪圖平台：</p>
+            <ul>
+                <li><strong>平台名稱：GitMind</strong></li>
+                <li><strong>特色說明：</strong>介面簡潔直覺，支援網頁直接編輯、免安裝，內建豐富的流程圖、心智圖與架構圖範本，非常適合用來梳理程式邏輯與繪製決策流程圖[cite: 1]。</li>
+            </ul>
+            <a href="https://gitmind.com/" target="_blank" class="tool-btn">🔗 前往 GitMind 官方網站</a>
+        </div>
     </div>
 
     <!-- 主題二：成績大於 60 分的程式碼與流程圖說明 -->
@@ -221,7 +253,7 @@ int main() {
         <ul>
             <li><strong>起點</strong>：以「開始符號」啟動程式。</li>
             <li><strong>輸入階段</strong>：使用「輸入/輸出符號」讀取使用者輸入的 <code>score</code> 變數。</li>
-            <li><strong>決策判斷</strong>：使用「菱形條件符號」進行判斷 <code>score &gt;= 60</code>：
+            <li><strong>決策判斷</strong>：使用「菱形條件符號」進行判斷 <code>score &gt;= 60</code>[cite: 1]：
                 <ul>
                     <li>若成立（True）：走向及格分支，輸出「此學生成績及格」。</li>
                     <li>若不成立（False）：走向不及格分支，輸出「此學生成績不及格」。</li>
@@ -248,7 +280,7 @@ int main() {
         <pre><code>if (判斷條件) {
     // 條件為 True 時才會執行的主體
 }</code></pre>
-        <p><strong>說明：</strong>若括號內的條件成立，就執行大括號內的程式；若不成立，則直接跳過。</p>
+        <p><strong>說明：</strong>若括號內的條件成立[cite: 1]，就執行大括號內的程式；若不成立，則直接跳過。</p>
 
         <h3>2. 雙向選擇：if...else 敘述</h3>
         <pre><code>if (判斷條件) {
@@ -258,21 +290,21 @@ int main() {
     // 條件不成立（False）時執行此區塊
     敘述主體2;
 }</code></pre>
-        <p><strong>說明：</strong>提供一個二選一的分歧路口。條件成立走 <code>if</code>，不成立則走 <code>else</code>，兩者必居其一。</p>
+        <p><strong>說明：</strong>提供一個二選一的分歧路口。條件成立走 <code>if</code>，不成立則走 <code>else</code>[cite: 1]，兩者必居其一。</p>
     </div>
 
     <!-- 主題四：關係運算子 -->
     <div id="tab-operators" class="tab-content">
         <h2>認識關係運算子</h2>
-        <p>比較兩個數值或變數之間的關係。比較的結果只有兩種可能性：成立回傳 <code>true</code>（內部為 1），不成立回傳 <code>false</code>（內部為 0）。</p>
+        <p>比較兩個數值或變數之間的關係。比較的結果只有兩種可能性：成立回傳 <code>true</code>（內部為 1），不成立回傳 <code>false</code>（內部為 0）[cite: 1]。</p>
         <table>
             <tr><th>運算子符號</th><th>名稱</th><th>範例說明</th></tr>
-            <tr><td>&gt;</td><td>大於</td><td><code>5 &gt; 1</code> (成立，回傳 1)</td></tr>
-            <tr><td>&lt;</td><td>小於</td><td><code>1 &lt; 5</code> (成立，回傳 1)</td></tr>
-            <tr><td>&gt;=</td><td>大於或等於</td><td><code>Price &gt;= 100</code></td></tr>
-            <tr><td>&lt;=</td><td>小於或等於</td><td><code>Price &lt;= 100</code></td></tr>
-            <tr><td>==</td><td>等於</td><td><code>Price == 100</code>（注意是兩個等號）</td></tr>
-            <tr><td>!=</td><td>不等於</td><td><code>5 != 1</code> (成立，回傳 1)</td></tr>
+            <tr><td>&gt;</td><td>大於</td><td><code>5 &gt; 1</code> (成立，回傳 1)[cite: 1]</td></tr>
+            <tr><td>&lt;</td><td>小於</td><td><code>1 &lt; 5</code> (成立，回傳 1)[cite: 1]</td></tr>
+            <tr><td>&gt;=</td><td>大於或等於</td><td><code>Price &gt;= 100</code>[cite: 1]</td></tr>
+            <tr><td>&lt;=</td><td>小於或等於</td><td><code>Price &lt;= 100</code>[cite: 1]</td></tr>
+            <tr><td>==</td><td>等於</td><td><code>Price == 100</code>（注意是兩個等號）[cite: 1]</td></tr>
+            <tr><td>!=</td><td>不等於</td><td><code>5 != 1</code> (成立，回傳 1)[cite: 1]</td></tr>
         </table>
     </div>
 
