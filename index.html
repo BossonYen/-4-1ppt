@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C++ 選擇結構 4-1 完整互動教學網頁</title>
+    <!-- 引入 Mermaid.js 用於直接在網頁中渲染視覺化流程圖 -->
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
     <style>
         :root {
             --primary-color: #3498db;
@@ -193,6 +196,14 @@
             padding: 10px;
             border-radius: 4px;
         }
+        .flowchart-container {
+            text-align: center;
+            background: #fafafa;
+            padding: 20px;
+            border: 1px dashed #ccc;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
         footer {
             text-align: center;
             padding: 20px;
@@ -228,27 +239,40 @@
         <p>各位同學好！歡迎來到 C++ 程式設計的選擇結構單元。在日常生活中，我們無時無刻都在做決定：<em>「如果明天放晴，就去打球；否則就留在室內看書。」</em>在寫程式時也是一樣，電腦必須學會根據不同的條件來判斷並執行對應的指令。接下來，我們將透過互動網頁、邏輯流程圖與生活化範例（例如成績及格與颱風假標準），一步步掌握 <code>if</code> 選擇結構的核心奧妙！請跟著上方的頁籤指引，開始輕鬆探索吧！</p>
     </div>
 
-    <!-- 主題一：流程圖元素說明與 GitMind 推薦 -->
+    <!-- 主題一：流程圖元素說明與視覺化圖表 -->
     <div id="tab-flowchart" class="tab-content active">
-        <h2>流程圖常用符號與繪圖工具介紹</h2>
-        <p>在動手寫程式之前，必須先在紙上或透過數位工具繪製簡單的流程圖，讓程式的起始到結束邏輯清楚呈現。</p>
+        <h2>流程圖常用符號與視覺化範例</h2>
+        <p>在動手寫程式之前，透過流程圖可以將複雜的邏輯視覺化。以下為選擇結構（以成績判斷為例）的標準流程圖：</p>
         
+        <!-- 內建視覺化流程圖 (Mermaid) -->
+        <div class="flowchart-container">
+            <div class="mermaid">
+                graph TD
+                    A([開始]) --> B[/輸入成績 score/]
+                    B --> C{score >= 60?}
+                    C -- Yes (成立) --> D[/輸出: 及格/]
+                    C -- No (不成立) --> E[/輸出: 不及格/]
+                    D --> F([結束])
+                    E --> F
+            </div>
+        </div>
+
         <table>
             <tr><th>符號名稱</th><th>圖形外觀描述</th><th>功能與用途說明</th></tr>
             <tr><td>開始 / 結束符號</td><td>圓角矩形 / 橢圓</td><td>表示整個程式邏輯流程的起點（Start）或終點（End）。</td></tr>
             <tr><td>程式執行方向</td><td>箭頭 (Arrow)</td><td>指示資料流動與程式指令執行的順序方向。</td></tr>
-            <tr><td>設定 / 程序</td><td>長方形 (Rectangle)</td><td>用來進行資料的運算、變數賦值或一般處理程序（例如：<code>score = 0;</code>）。</td></tr>
-            <tr><td>決策 / 條件</td><td>菱形 (Diamond)</td><td>用於選擇結構的條件判斷。通常會有兩條出路（True / False）。</td></tr>
+            <tr><td>設定 / 程序</td><td>長方形 (Rectangle)</td><td>用來進行資料的運算、變數賦值或一般處理程序。</td></tr>
+            <tr><td>決策 / 條件</td><td>菱形 (Diamond)</td><td>用於選擇結構的條件判斷。通常會有兩條出路（True / False）。[cite: 1]</td></tr>
             <tr><td>輸出 / 輸入</td><td>平行四邊形</td><td>用來表示資料的輸入（如 <code>cin</code>）或結果的輸出（如 <code>cout</code>）。</td></tr>
         </table>
 
         <!-- GitMind 推薦區塊 -->
         <div class="tool-box">
             <h3>💡 好用的流程圖與心智圖繪製工具推薦</h3>
-            <p>想要在電腦或平板上快速畫出漂亮的流程圖嗎？推薦您使用免費且好上手的線上繪圖平台：</p>
+            <p>想要在電腦或平板上自己動手畫出漂亮的流程圖嗎？推薦您使用免費且好上手的線上繪圖平台：</p>
             <ul>
                 <li><strong>平台名稱：GitMind</strong></li>
-                <li><strong>特色說明：</strong>介面簡潔直覺，支援網頁直接編輯、免安裝，內建豐富的流程圖、心智圖與架構圖範本，非常適合用來梳理程式邏輯與繪製決策流程圖[cite: 1]。</li>
+                <li><strong>特色說明：</strong>介面簡潔直覺，支援網頁直接編輯、免安裝，內建豐富的流程圖與架構圖範本[cite: 1]。</li>
             </ul>
             <a href="https://gitmind.com/" target="_blank" class="tool-btn">🔗 前往 GitMind 官方網站</a>
         </div>
@@ -276,7 +300,7 @@ int main() {
 }</code></pre>
 
         <div class="interactive-box">
-            <h3>動態互動測試：模擬成績判斷</h3>
+            <h3>🎮 動態互動測試：模擬成績判斷</h3>
             <p>請輸入一個成績分數來測試結果：</p>
             <input type="number" id="testScoreInput" value="75">
             <button onclick="testScore()">測試結果</button>
@@ -284,10 +308,10 @@ int main() {
         </div>
     </div>
 
-    <!-- 主題三：新加入的颱風假標準範例 -->
+    <!-- 主題三：颱風假標準範例 -->
     <div id="tab-typhoon" class="tab-content">
         <h2>生活化進階範例：放颱風假標準判斷</h2>
-        <p>對應您提供的 GitMind 流程圖，當條件牽涉到「或者（Logical OR）」時，可以使用邏輯運算子 <code>||</code> 來組合多個條件。</p>
+        <p>當條件牽涉到「或者（Logical OR）」時，可以使用邏輯運算子 <code>||</code> 來組合多個條件。</p>
         
         <div class="warning-box">
             <p><strong>氣象預報標準：</strong>「依據氣象預報，平均風力可達 7 級以上 或 陣風可達 10 級以上」即符合放假標準。</p>
@@ -315,7 +339,7 @@ int main() {
 }</code></pre>
 
         <div class="interactive-box">
-            <h3>動態互動測試：模擬颱風假判定</h3>
+            <h3>🎮 動態互動測試：模擬颱風假判定</h3>
             <label>平均風力級數：</label>
             <input type="number" id="avgWindInput" value="6"><br><br>
             <label>陣風級數：</label>
