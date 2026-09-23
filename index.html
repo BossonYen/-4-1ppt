@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C++ 選擇結構 4-1 if...else...</title>
+    <title>C++ 選擇結構 4-1 完整互動教學網頁</title>
     <style>
         :root {
             --primary-color: #3498db;
@@ -63,6 +63,26 @@
             max-width: 1000px;
             margin: 30px auto;
             padding: 0 20px;
+        }
+        /* 引導語專用樣式區塊 */
+        .welcome-box {
+            background: #eaf2f8;
+            border-left: 6px solid #2980b9;
+            padding: 22px 25px;
+            margin-bottom: 25px;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.03);
+        }
+        .welcome-box h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            font-size: 1.25rem;
+        }
+        .welcome-box p {
+            margin-bottom: 0;
+            color: #34495e;
+            font-size: 1.02rem;
+            line-height: 1.7;
         }
         .tab-content {
             display: none;
@@ -186,68 +206,60 @@
 
 <header>
     <h1>C++ 程式設計：選擇結構 4-1 完整互動教學</h1>
-    <p>從生活中的選擇出發，帶領學生輕鬆理解選擇結構與條件判斷</p>
+    <p>匯集講義核心觀念、流程圖工具推薦、完整程式碼範例與學生易錯陷阱剖析</p>
 </header>
 
 <!-- 頂部導覽列：切換不同主題頁籤 -->
 <nav>
-    <a onclick="switchTab('tab-intro')" id="link-tab-intro" class="active">1. 引導省思與觀念</a>
-    <a onclick="switchTab('tab-flowchart')" id="link-tab-flowchart">2. 流程圖元素與工具</a>
-    <a onclick="switchTab('tab-score')" id="link-tab-score">3. 成績及格判斷</a>
-    <a onclick="switchTab('tab-typhoon')" id="link-tab-typhoon">4. 颱風假標準範例</a>
-    <a onclick="switchTab('tab-ifelse')" id="link-tab-ifelse">5. if / if...else 架構</a>
-    <a onclick="switchTab('tab-operators')" id="link-tab-operators">6. 關係與邏輯運算子</a>
-    <a onclick="switchTab('tab-examples')" id="link-tab-examples">7. 講義程式範例</a>
-    <a onclick="switchTab('tab-mistakes')" id="link-tab-mistakes">8. 易錯觀念陷阱</a>
+    <a onclick="switchTab('tab-flowchart')" id="link-tab-flowchart" class="active">1. 流程圖元素與工具</a>
+    <a onclick="switchTab('tab-score')" id="link-tab-score">2. 成績及格判斷</a>
+    <a onclick="switchTab('tab-typhoon')" id="link-tab-typhoon">3. 颱風假標準範例</a>
+    <a onclick="switchTab('tab-ifelse')" id="link-tab-ifelse">4. if / if...else 架構</a>
+    <a onclick="switchTab('tab-operators')" id="link-tab-operators">5. 關係運算子</a>
+    <a onclick="switchTab('tab-examples')" id="link-tab-examples">6. 講義程式範例</a>
+    <a onclick="switchTab('tab-mistakes')" id="link-tab-mistakes">7. 易錯觀念陷阱</a>
 </nav>
 
 <div class="container">
 
-    <!-- 主題一：結合您提供的引導省思 -->
-    <div id="tab-intro" class="tab-content active">
-        <h2>💭 想一想：生活中的選擇結構</h2>
-        <p>在學校的生活中，有沒有什麼概念或是實例有用到選擇結構的呢？例如：要及格者成績需要達 60 分，所以如果沒有 60 分則判定為不及格，否則為及格。</p>
-        
-        <div class="interactive-box">
-            <h3>📝 舉例反思學習單</h3>
-            <p><strong>(1) 情況：</strong>________________________________________________</p>
-            <p><strong>(2) 條件：</strong>________________________________________________</p>
-            <p><strong>(3) 選擇結構問句：</strong>若成績未達 60 分則判定為不及格，否則為及格？（或自訂問句）</p>
-        </div>
-
-        <p>因此在設計程式時，我們希望能夠依據<strong>條件的成立與否</strong>來決定要執行特定程式或順序，我們稱之為<strong>選擇結構</strong>。</p>
-        <p>在講選擇結構之前，是不是通常會需要一個符號（例如菱形條件判斷）來表示是否有達到、高於或低於某個程度來做判斷？程式需要先學會<strong>「如何做判斷」</strong>，來比較數值是否達到、高於或低於某個標準。例如：要及格者成績需要達 60 分，所以如果沒有 60 分則判定為不及格，否則為及格。</p>
-        <p>接下來，我們就來看看如何透過流程圖與 <code>if...else</code> 語法實現這個概念！</p>
+    <!-- 老師的學習引導語區塊 -->
+    <div class="welcome-box">
+        <h3>👋 老師的學習引導語</h3>
+        <p>各位同學好！歡迎來到 C++ 程式設計的選擇結構單元。在日常生活中，我們無時無刻都在做決定：<em>「如果明天放晴，就去打球；否則就留在室內看書。」</em>在寫程式時也是一樣，電腦必須學會根據不同的條件來判斷並執行對應的指令。接下來，我們將透過互動網頁、邏輯流程圖與生活化範例（例如成績及格與颱風假標準），一步步掌握 <code>if</code> 選擇結構的核心奧妙！請跟著上方的頁籤指引，開始輕鬆探索吧！</p>
     </div>
 
-    <!-- 主題二：流程圖元素說明與 GitMind 推薦 -->
-    <div id="tab-flowchart" class="tab-content">
+    <!-- 主題一：流程圖元素說明與 GitMind 推薦 -->
+    <div id="tab-flowchart" class="tab-content active">
         <h2>流程圖常用符號與繪圖工具介紹</h2>
-        <p>在動手寫程式之前，必須先透過數位工具繪製簡單的流程圖，讓程式的條件判斷邏輯清楚呈現。</p>
+        <p>在動手寫程式之前，必須先在紙上或透過數位工具繪製簡單的流程圖，讓程式的起始到結束邏輯清楚呈現。</p>
         
         <table>
             <tr><th>符號名稱</th><th>圖形外觀描述</th><th>功能與用途說明</th></tr>
             <tr><td>開始 / 結束符號</td><td>圓角矩形 / 橢圓</td><td>表示整個程式邏輯流程的起點（Start）或終點（End）。</td></tr>
+            <tr><td>程式執行方向</td><td>箭頭 (Arrow)</td><td>指示資料流動與程式指令執行的順序方向。</td></tr>
+            <tr><td>設定 / 程序</td><td>長方形 (Rectangle)</td><td>用來進行資料的運算、變數賦值或一般處理程序（例如：<code>score = 0;</code>）。</td></tr>
             <tr><td>決策 / 條件</td><td>菱形 (Diamond)</td><td>用於選擇結構的條件判斷。通常會有兩條出路（True / False）。</td></tr>
-            <tr><td>設定 / 程序</td><td>長方形 (Rectangle)</td><td>用來進行資料的運算或一般處理程序。</td></tr>
-            <tr><td>輸出 / 輸入</td><td>平行四邊形</td><td>用來表示資料的輸入或結果的輸出。</td></tr>
+            <tr><td>輸出 / 輸入</td><td>平行四邊形</td><td>用來表示資料的輸入（如 <code>cin</code>）或結果的輸出（如 <code>cout</code>）。</td></tr>
         </table>
 
         <!-- GitMind 推薦區塊 -->
         <div class="tool-box">
             <h3>💡 好用的流程圖與心智圖繪製工具推薦</h3>
-            <p>推薦您使用免費且好上手的線上繪圖平台來繪製程式流程圖：</p>
+            <p>想要在電腦或平板上快速畫出漂亮的流程圖嗎？推薦您使用免費且好上手的線上繪圖平台：</p>
             <ul>
                 <li><strong>平台名稱：GitMind</strong></li>
-                <li><strong>特色說明：</strong>介面簡潔直覺，支援網頁直接編輯、免安裝，內建豐富的流程圖與架構圖範本。</li>
+                <li><strong>特色說明：</strong>介面簡潔直覺，支援網頁直接編輯、免安裝，內建豐富的流程圖、心智圖與架構圖範本，非常適合用來梳理程式邏輯與繪製決策流程圖[cite: 1]。</li>
             </ul>
             <a href="https://gitmind.com/" target="_blank" class="tool-btn">🔗 前往 GitMind 官方網站</a>
         </div>
     </div>
 
-    <!-- 主題三：成績判斷 -->
+    <!-- 主題二：成績判斷 -->
     <div id="tab-score" class="tab-content">
         <h2>成績及格判斷（&gt;=60 分）主題解析</h2>
+        <p>這是最經典的生活化選擇結構範例：輸入學期成績，如果大於或等於 60 分則判定為及格，否則為不及格。</p>
+        
+        <h3>1. 完整的 C++ 程式碼</h3>
         <pre><code>#include&lt;iostream&gt;
 using namespace std;
 int main() {
@@ -262,49 +274,81 @@ int main() {
     }
     return 0;
 }</code></pre>
+
         <div class="interactive-box">
             <h3>動態互動測試：模擬成績判斷</h3>
+            <p>請輸入一個成績分數來測試結果：</p>
             <input type="number" id="testScoreInput" value="75">
             <button onclick="testScore()">測試結果</button>
             <div id="scoreResult" class="result"></div>
         </div>
     </div>
 
-    <!-- 主題四：颱風假標準範例 -->
+    <!-- 主題三：新加入的颱風假標準範例 -->
     <div id="tab-typhoon" class="tab-content">
         <h2>生活化進階範例：放颱風假標準判斷</h2>
+        <p>對應您提供的 GitMind 流程圖，當條件牽涉到「或者（Logical OR）」時，可以使用邏輯運算子 <code>||</code> 來組合多個條件。</p>
+        
         <div class="warning-box">
             <p><strong>氣象預報標準：</strong>「依據氣象預報，平均風力可達 7 級以上 或 陣風可達 10 級以上」即符合放假標準。</p>
         </div>
-        <pre><code>if (avgWind &gt;= 7 || gustWind &gt;= 10) {
-    cout &lt;&lt; "放颱風假" &lt;&lt; endl;
-} else {
-    cout &lt;&lt; "不放颱風假" &lt;&lt; endl;
+
+        <h3>1. 對應的 C++ 程式碼</h3>
+        <pre><code>#include&lt;iostream&gt;
+using namespace std;
+int main() {
+    int avgWind = 0;   // 平均風力級數
+    int gustWind = 0;  // 陣風級數
+    
+    cout &lt;&lt; "請輸入預報平均風力級數: ";
+    cin &gt;&gt; avgWind;
+    cout &lt;&lt; "請輸入預報陣風級數: ";
+    cin &gt;&gt; gustWind;
+    
+    // 使用邏輯運算子 || (OR) 結合兩個條件
+    if (avgWind &gt;= 7 || gustWind &gt;= 10) {
+        cout &lt;&lt; "放颱風假" &lt;&lt; endl;
+    } else {
+        cout &lt;&lt; "不放颱風假" &lt;&lt; endl;
+    }
+    return 0;
 }</code></pre>
+
+        <div class="interactive-box">
+            <h3>動態互動測試：模擬颱風假判定</h3>
+            <label>平均風力級數：</label>
+            <input type="number" id="avgWindInput" value="6"><br><br>
+            <label>陣風級數：</label>
+            <input type="number" id="gustWindInput" value="10"><br>
+            <button onclick="testTyphoon()">判定是否放颱風假</button>
+            <div id="typhoonResult" class="result"></div>
+        </div>
     </div>
 
-    <!-- 主題五：if / if...else 架構說明 -->
+    <!-- 主題四：if / if...else 架構說明 -->
     <div id="tab-ifelse" class="tab-content">
         <h2>if 與 if...else 選擇結構架構說明</h2>
+        <p>當程式需要依據條件成立與否來決定執行路徑時，就會使用選擇結構。</p>
         <pre><code>if (判斷條件) {
-    // 條件成立（True）時執行
+    // 條件成立（True）時執行此區塊
 } else {
-    // 條件不成立（False）時執行
+    // 條件不成立（False）時執行此區塊
 }</code></pre>
     </div>
 
-    <!-- 主題六：關係運算子 -->
+    <!-- 主題五：關係運算子 -->
     <div id="tab-operators" class="tab-content">
         <h2>認識關係與邏輯運算子</h2>
+        <p>比較數值或組合多個條件的常用符號[cite: 1]：</p>
         <table>
             <tr><th>運算子</th><th>名稱</th><th>說明</th></tr>
-            <tr><td>&gt;=</td><td>大於或等於</td><td>檢查是否大於或等於指定數值</td></tr>
-            <tr><td>&amp;&amp;</td><td>邏輯與 (AND)</td><td>多個條件必須同時成立</td></tr>
-            <tr><td>||</td><td>邏輯或 (OR)</td><td>多個條件只要有一個成立</td></tr>
+            <tr><td>&gt;=</td><td>大於或等於</td><td>檢查是否大於或等於指定數值[cite: 1]</td></tr>
+            <tr><td>&amp;&amp;</td><td>邏輯與 (AND)</td><td>多個條件必須同時成立，結果才為 True</td></tr>
+            <tr><td>||</td><td>邏輯或 (OR)</td><td>多個條件只要有一個成立，結果即為 True</td></tr>
         </table>
     </div>
 
-    <!-- 主題七：講義程式範例 -->
+    <!-- 主題六：講義程式範例 -->
     <div id="tab-examples" class="tab-content">
         <h2>講義原版程式範例與互動測試</h2>
         <pre><code>int num = 10;
@@ -313,9 +357,9 @@ if (num > 0) {
 }</code></pre>
     </div>
 
-    <!-- 主題八：學生易錯觀念與陷阱 -->
+    <!-- 主題七：學生易錯觀念與陷阱 -->
     <div id="tab-mistakes" class="tab-content">
-        <h2>⚠️ 學生最易犯錯的觀念與寫程式陷阱</h2>
+        <h2>⚠️ 學生最易犯錯的 5 大觀念與寫程式陷阱</h2>
         <div class="warning-box">
             <h3>陷阱一：把「等於 (==)」誤寫成「指定 (=)」</h3>
             <p>一個 <code>=</code> 是賦值，兩個 <code>==</code> 才是比較相等。</p>
@@ -349,6 +393,22 @@ if (num > 0) {
             resDiv.style.color = "#27ae60";
         } else {
             resDiv.innerHTML = `輸入分數 ${score}：不及格。`;
+            resDiv.style.color = "#c0392b";
+        }
+    }
+
+    function testTyphoon() {
+        let avg = Number(document.getElementById('avgWindInput').value);
+        let gust = Number(document.getElementById('gustWindInput').value);
+        let resDiv = document.getElementById('typhoonResult');
+        
+        if (avg >= 7 || gust >= 10) {
+            resDiv.innerHTML = `平均風力 ${avg} 級（>=7）或陣風 ${gust} 級（>=10）符合條件 -> 輸出「放颱風假」 🌴`;
+            resDiv.style.backgroundColor = "#e8f8f5";
+            resDiv.style.color = "#27ae60";
+        } else {
+            resDiv.innerHTML = `平均風力 ${avg} 級且陣風 ${gust} 級皆未達標準 -> 輸出「不放颱風假」 💼`;
+            resDiv.style.backgroundColor = "#ffd2d2";
             resDiv.style.color = "#c0392b";
         }
     }
