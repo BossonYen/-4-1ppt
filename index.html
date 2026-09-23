@@ -186,54 +186,68 @@
 
 <header>
     <h1>C++ 程式設計：選擇結構 4-1 完整互動教學</h1>
-    <p>匯集講義核心觀念、流程圖工具推薦、完整程式碼範例與學生易錯陷阱剖析</p>
+    <p>從生活中的選擇出發，帶領學生輕鬆理解選擇結構與條件判斷</p>
 </header>
 
 <!-- 頂部導覽列：切換不同主題頁籤 -->
 <nav>
-    <a onclick="switchTab('tab-flowchart')" id="link-tab-flowchart" class="active">1. 流程圖元素與工具</a>
-    <a onclick="switchTab('tab-score')" id="link-tab-score">2. 成績及格判斷 (&gt;=60)</a>
-    <a onclick="switchTab('tab-ifelse')" id="link-tab-ifelse">3. if / if...else 架構</a>
-    <a onclick="switchTab('tab-operators')" id="link-tab-operators">4. 關係運算子</a>
-    <a onclick="switchTab('tab-examples')" id="link-tab-examples">5. 講義原版程式範例</a>
-    <a onclick="switchTab('tab-mistakes')" id="link-tab-mistakes">6. 學生易錯觀念陷阱</a>
+    <a onclick="switchTab('tab-intro')" id="link-tab-intro" class="active">1. 引導省思與觀念</a>
+    <a onclick="switchTab('tab-flowchart')" id="link-tab-flowchart">2. 流程圖元素與工具</a>
+    <a onclick="switchTab('tab-score')" id="link-tab-score">3. 成績及格判斷</a>
+    <a onclick="switchTab('tab-typhoon')" id="link-tab-typhoon">4. 颱風假標準範例</a>
+    <a onclick="switchTab('tab-ifelse')" id="link-tab-ifelse">5. if / if...else 架構</a>
+    <a onclick="switchTab('tab-operators')" id="link-tab-operators">6. 關係與邏輯運算子</a>
+    <a onclick="switchTab('tab-examples')" id="link-tab-examples">7. 講義程式範例</a>
+    <a onclick="switchTab('tab-mistakes')" id="link-tab-mistakes">8. 易錯觀念陷阱</a>
 </nav>
 
 <div class="container">
 
-    <!-- 主題一：流程圖元素說明與 GitMind 推薦 -->
-    <div id="tab-flowchart" class="tab-content active">
+    <!-- 主題一：結合您提供的引導省思 -->
+    <div id="tab-intro" class="tab-content active">
+        <h2>💭 想一想：生活中的選擇結構</h2>
+        <p>在學校的生活中，有沒有什麼概念或是實例有用到選擇結構的呢？例如：要及格者成績需要達 60 分，所以如果沒有 60 分則判定為不及格，否則為及格。</p>
+        
+        <div class="interactive-box">
+            <h3>📝 舉例反思學習單</h3>
+            <p><strong>(1) 情況：</strong>________________________________________________</p>
+            <p><strong>(2) 條件：</strong>________________________________________________</p>
+            <p><strong>(3) 選擇結構問句：</strong>若成績未達 60 分則判定為不及格，否則為及格？（或自訂問句）</p>
+        </div>
+
+        <p>因此在設計程式時，我們希望能夠依據<strong>條件的成立與否</strong>來決定要執行特定程式或順序，我們稱之為<strong>選擇結構</strong>。</p>
+        <p>在講選擇結構之前，是不是通常會需要一個符號（例如菱形條件判斷）來表示是否有達到、高於或低於某個程度來做判斷？程式需要先學會<strong>「如何做判斷」</strong>，來比較數值是否達到、高於或低於某個標準。例如：要及格者成績需要達 60 分，所以如果沒有 60 分則判定為不及格，否則為及格。</p>
+        <p>接下來，我們就來看看如何透過流程圖與 <code>if...else</code> 語法實現這個概念！</p>
+    </div>
+
+    <!-- 主題二：流程圖元素說明與 GitMind 推薦 -->
+    <div id="tab-flowchart" class="tab-content">
         <h2>流程圖常用符號與繪圖工具介紹</h2>
-        <p>在動手寫程式之前，必須先在紙上或透過數位工具繪製簡單的流程圖，讓程式的起始到結束邏輯清楚呈現。</p>
+        <p>在動手寫程式之前，必須先透過數位工具繪製簡單的流程圖，讓程式的條件判斷邏輯清楚呈現。</p>
         
         <table>
             <tr><th>符號名稱</th><th>圖形外觀描述</th><th>功能與用途說明</th></tr>
             <tr><td>開始 / 結束符號</td><td>圓角矩形 / 橢圓</td><td>表示整個程式邏輯流程的起點（Start）或終點（End）。</td></tr>
-            <tr><td>程式執行方向</td><td>箭頭 (Arrow)</td><td>指示資料流動與程式指令執行的順序方向。</td></tr>
-            <tr><td>設定 / 程序</td><td>長方形 (Rectangle)</td><td>用來進行資料的運算、變數賦值或一般處理程序（例如：<code>score = 0;</code>）。</td></tr>
             <tr><td>決策 / 條件</td><td>菱形 (Diamond)</td><td>用於選擇結構的條件判斷。通常會有兩條出路（True / False）。</td></tr>
-            <tr><td>輸出 / 輸入</td><td>平行四邊形</td><td>用來表示資料的輸入（如 <code>cin</code>）或結果的輸出（如 <code>cout</code>）。</td></tr>
-            <tr><td>連接點</td><td>圓形 (Circle)</td><td>當流程圖需要跨頁或線條過於繁雜時，用來連接不同區段的點。</td></tr>
+            <tr><td>設定 / 程序</td><td>長方形 (Rectangle)</td><td>用來進行資料的運算或一般處理程序。</td></tr>
+            <tr><td>輸出 / 輸入</td><td>平行四邊形</td><td>用來表示資料的輸入或結果的輸出。</td></tr>
         </table>
 
         <!-- GitMind 推薦區塊 -->
         <div class="tool-box">
             <h3>💡 好用的流程圖與心智圖繪製工具推薦</h3>
-            <p>想要在電腦或平板上快速畫出漂亮的流程圖嗎？推薦您使用免費且好上手的線上繪圖平台：</p>
+            <p>推薦您使用免費且好上手的線上繪圖平台來繪製程式流程圖：</p>
             <ul>
                 <li><strong>平台名稱：GitMind</strong></li>
-                <li><strong>特色說明：</strong>介面簡潔直覺，支援網頁直接編輯、免安裝，內建豐富的流程圖、心智圖與架構圖範本，非常適合用來梳理程式邏輯與繪製決策流程圖[cite: 1]。</li>
+                <li><strong>特色說明：</strong>介面簡潔直覺，支援網頁直接編輯、免安裝，內建豐富的流程圖與架構圖範本。</li>
             </ul>
             <a href="https://gitmind.com/" target="_blank" class="tool-btn">🔗 前往 GitMind 官方網站</a>
         </div>
     </div>
 
-    <!-- 主題二：成績大於 60 分的程式碼與流程圖說明 -->
+    <!-- 主題三：成績判斷 -->
     <div id="tab-score" class="tab-content">
         <h2>成績及格判斷（&gt;=60 分）主題解析</h2>
-        <p>這是最經典的生活化選擇結構範例：輸入學期成績，如果大於或等於 60 分則判定為及格，否則為不及格。</p>
-        
-        <h3>1. 完整的 C++ 程式碼</h3>
         <pre><code>#include&lt;iostream&gt;
 using namespace std;
 int main() {
@@ -248,159 +262,73 @@ int main() {
     }
     return 0;
 }</code></pre>
-
-        <h3>2. 流程圖架構說明</h3>
-        <ul>
-            <li><strong>起點</strong>：以「開始符號」啟動程式。</li>
-            <li><strong>輸入階段</strong>：使用「輸入/輸出符號」讀取使用者輸入的 <code>score</code> 變數。</li>
-            <li><strong>決策判斷</strong>：使用「菱形條件符號」進行判斷 <code>score &gt;= 60</code>[cite: 1]：
-                <ul>
-                    <li>若成立（True）：走向及格分支，輸出「此學生成績及格」。</li>
-                    <li>若不成立（False）：走向不及格分支，輸出「此學生成績不及格」。</li>
-                </ul>
-            </li>
-            <li><strong>終點</strong>：兩條分支最後匯集，透過「結束符號」結束程式。</li>
-        </ul>
-
         <div class="interactive-box">
             <h3>動態互動測試：模擬成績判斷</h3>
-            <p>請輸入一個成績分數來測試結果：</p>
             <input type="number" id="testScoreInput" value="75">
             <button onclick="testScore()">測試結果</button>
             <div id="scoreResult" class="result"></div>
         </div>
     </div>
 
-    <!-- 主題三：if / if...else 架構說明 -->
-    <div id="tab-ifelse" class="tab-content">
-        <h2>if 與 if...else 選擇結構架構說明</h2>
-        <p>當程式需要依據條件成立與否來決定執行路徑時，就會使用選擇結構。</p>
-
-        <h3>1. 單向選擇：if 敘述</h3>
-        <pre><code>if (判斷條件) {
-    // 條件為 True 時才會執行的主體
-}</code></pre>
-        <p><strong>說明：</strong>若括號內的條件成立[cite: 1]，就執行大括號內的程式；若不成立，則直接跳過。</p>
-
-        <h3>2. 雙向選擇：if...else 敘述</h3>
-        <pre><code>if (判斷條件) {
-    // 條件成立（True）時執行此區塊
-    敘述主體1;
+    <!-- 主題四：颱風假標準範例 -->
+    <div id="tab-typhoon" class="tab-content">
+        <h2>生活化進階範例：放颱風假標準判斷</h2>
+        <div class="warning-box">
+            <p><strong>氣象預報標準：</strong>「依據氣象預報，平均風力可達 7 級以上 或 陣風可達 10 級以上」即符合放假標準。</p>
+        </div>
+        <pre><code>if (avgWind &gt;= 7 || gustWind &gt;= 10) {
+    cout &lt;&lt; "放颱風假" &lt;&lt; endl;
 } else {
-    // 條件不成立（False）時執行此區塊
-    敘述主體2;
+    cout &lt;&lt; "不放颱風假" &lt;&lt; endl;
 }</code></pre>
-        <p><strong>說明：</strong>提供一個二選一的分歧路口。條件成立走 <code>if</code>，不成立則走 <code>else</code>[cite: 1]，兩者必居其一。</p>
     </div>
 
-    <!-- 主題四：關係運算子 -->
+    <!-- 主題五：if / if...else 架構說明 -->
+    <div id="tab-ifelse" class="tab-content">
+        <h2>if 與 if...else 選擇結構架構說明</h2>
+        <pre><code>if (判斷條件) {
+    // 條件成立（True）時執行
+} else {
+    // 條件不成立（False）時執行
+}</code></pre>
+    </div>
+
+    <!-- 主題六：關係運算子 -->
     <div id="tab-operators" class="tab-content">
-        <h2>認識關係運算子</h2>
-        <p>比較兩個數值或變數之間的關係。比較的結果只有兩種可能性：成立回傳 <code>true</code>（內部為 1），不成立回傳 <code>false</code>（內部為 0）[cite: 1]。</p>
+        <h2>認識關係與邏輯運算子</h2>
         <table>
-            <tr><th>運算子符號</th><th>名稱</th><th>範例說明</th></tr>
-            <tr><td>&gt;</td><td>大於</td><td><code>5 &gt; 1</code> (成立，回傳 1)[cite: 1]</td></tr>
-            <tr><td>&lt;</td><td>小於</td><td><code>1 &lt; 5</code> (成立，回傳 1)[cite: 1]</td></tr>
-            <tr><td>&gt;=</td><td>大於或等於</td><td><code>Price &gt;= 100</code>[cite: 1]</td></tr>
-            <tr><td>&lt;=</td><td>小於或等於</td><td><code>Price &lt;= 100</code>[cite: 1]</td></tr>
-            <tr><td>==</td><td>等於</td><td><code>Price == 100</code>（注意是兩個等號）[cite: 1]</td></tr>
-            <tr><td>!=</td><td>不等於</td><td><code>5 != 1</code> (成立，回傳 1)[cite: 1]</td></tr>
+            <tr><th>運算子</th><th>名稱</th><th>說明</th></tr>
+            <tr><td>&gt;=</td><td>大於或等於</td><td>檢查是否大於或等於指定數值</td></tr>
+            <tr><td>&amp;&amp;</td><td>邏輯與 (AND)</td><td>多個條件必須同時成立</td></tr>
+            <tr><td>||</td><td>邏輯或 (OR)</td><td>多個條件只要有一個成立</td></tr>
         </table>
     </div>
 
-    <!-- 主題五：講義原版程式範例與互動 -->
+    <!-- 主題七：講義程式範例 -->
     <div id="tab-examples" class="tab-content">
         <h2>講義原版程式範例與互動測試</h2>
-        <p>此區收錄講義中的經典範例（如正數判斷、奇偶數判斷、BMI 邏輯），讓您直接在網頁上執行測試。</p>
-
-        <h3>範例 1：if 敘述 - 判斷數字是否為正數</h3>
         <pre><code>int num = 10;
 if (num > 0) {
     cout &lt;&lt; "10為正數";
 }</code></pre>
-        <div class="interactive-box">
-            <label>輸入數字測試：</label>
-            <input type="number" id="ifNumInput" value="10">
-            <button onclick="testIf()">執行測試</button>
-            <div id="ifResult" class="result"></div>
-        </div>
-
-        <h3>範例 2：if...else 敘述 - 判斷能否被 2 整除（奇偶數）</h3>
-        <pre><code>int num = 0;
-cin >> num;
-if ((num % 2) == 0) {
-    cout &lt;&lt; "此數能被2整除" &lt;&lt; endl;
-} else {
-    cout &lt;&lt; "此數不能被2整除" &lt;&lt; endl;
-}</code></pre>
-        <div class="interactive-box">
-            <label>輸入整數測試奇偶：</label>
-            <input type="number" id="oddEvenInput" value="4">
-            <button onclick="testOddEven()">判斷奇偶</button>
-            <div id="oddEvenResult" class="result"></div>
-        </div>
-
-        <h3>範例 3：複合條件判斷 - BMI 範圍運算</h3>
-        <pre><code>float weight = 63.5;
-float height = 1.73;
-float BMI = weight / (pow(height, 2));
-
-if (BMI >= 18.5 && BMI < 24) {
-    cout &lt;&lt; "此學生BMI正常，BMI結果為: " &lt;&lt; BMI;
-} else {
-    cout &lt;&lt; "此學生BMI不正常，BMI結果為: " &lt;&lt; BMI;
-}</code></pre>
-        <div class="interactive-box">
-            <button onclick="testBmi()">計算並顯示 BMI 結果</button>
-            <div id="bmiResult" class="result"></div>
-        </div>
     </div>
 
-    <!-- 主題六：學生易錯觀念與陷阱 -->
+    <!-- 主題八：學生易錯觀念與陷阱 -->
     <div id="tab-mistakes" class="tab-content">
-        <h2>⚠️ 學生最易犯錯的 5 大觀念與寫程式陷阱</h2>
-
+        <h2>⚠️ 學生最易犯錯的觀念與寫程式陷阱</h2>
         <div class="warning-box">
             <h3>陷阱一：把「等於 (==)」誤寫成「指定 (=)」</h3>
-            <p><strong>錯誤示範：</strong><code>if (num = 5)</code></p>
-            <p><strong>正確觀念：</strong>一個 <code>=</code> 是賦值（把 5 塞給 num），兩個 <code>==</code> 才是比較相等。誤用單個等號會讓條件永遠成立，破壞邏輯。</p>
-        </div>
-
-        <div class="warning-box">
-            <h3>陷阱二：條件判斷小括號後面多加了分號 (;)</h3>
-            <p><strong>錯誤示範：</strong><code>if (score &gt;= 60); { cout &lt;&lt; "及格"; }</code></p>
-            <p><strong>正確觀念：</strong>分號代表敘述結束。如果在 <code>if (...)</code> 後面加分號，會導致 <code>if</code> 提前結束，後面的程式區塊會變成「無條件執行」。</p>
-        </div>
-
-        <div class="warning-box">
-            <h3>陷阱三：忘記加上大括號 {} 導致程式範圍錯亂</h3>
-            <p><strong>錯誤示範：</strong></p>
-            <pre><code>if (weight &gt; 90)
-    cout &lt;&lt; "體重過重";
-    cout &lt;&lt; "需要多運動"; // 這行不管 if 成立與否都會被執行！</code></pre>
-            <p><strong>正確觀念：</strong>若要控制多行敘述，必須用大括號 <code>{}</code> 包覆，否則只有緊跟著的第一行受 <code>if</code> 控制。</p>
-        </div>
-
-        <div class="warning-box">
-            <h3>陷阱四：搞錯複合條件的邏輯運算子（&amp;&amp; 與 ||）</h3>
-            <p><strong>錯誤示範：</strong>想表達 BMI 介於 18.5 到 24 之間，卻寫成 <code>if (BMI &gt;= 18.5 || BMI &lt; 24)</code>。</p>
-            <p><strong>正確觀念：</strong>「且」必須用 <code>&amp;&amp;</code>。若用 <code>||</code>（或），條件會變成全部成立，形同虛設。</p>
-        </div>
-
-        <div class="warning-box">
-            <h3>陷阱五：浮點數精確度與型態轉換迷思</h3>
-            <p><strong>正確觀念：</strong>在處理小數或強制轉型（如講義中類似 <code>(int)</code> 判斷整數的題目）時，電腦內部的二進位儲存可能產生微小誤差，設計條件時需特別注意運算子與型態。</p>
+            <p>一個 <code>=</code> 是賦值，兩個 <code>==</code> 才是比較相等。</p>
         </div>
     </div>
 
 </div>
 
 <footer>
-    &copy; 2026 C++ 選擇結構 4-1 互動教學網頁 | 設計給認真學習程式的你
+    &copy; 2026 C++ 選擇結構 4-1 互動教學網頁
 </footer>
 
 <script>
-    // 切換頁籤的 JavaScript 邏輯
     function switchTab(tabId) {
         const contents = document.querySelectorAll('.tab-content');
         contents.forEach(content => content.classList.remove('active'));
@@ -410,63 +338,18 @@ if (BMI >= 18.5 && BMI < 24) {
 
         document.getElementById(tabId).classList.add('active');
         document.getElementById('link-' + tabId).classList.add('active');
-        
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    // 成績測試互動
     function testScore() {
         let score = Number(document.getElementById('testScoreInput').value);
         let resDiv = document.getElementById('scoreResult');
         if (score >= 60) {
-            resDiv.innerHTML = `輸入分數 ${score}：大於或等於 60 分，條件成立 (True) -> 輸出「此學生成績及格」`;
-            resDiv.style.backgroundColor = "#e8f8f5";
+            resDiv.innerHTML = `輸入分數 ${score}：及格！`;
             resDiv.style.color = "#27ae60";
         } else {
-            resDiv.innerHTML = `輸入分數 ${score}：小於 60 分，條件不成立 (False) -> 輸出「此學生成績不及格」`;
-            resDiv.style.backgroundColor = "#ffd2d2";
+            resDiv.innerHTML = `輸入分數 ${score}：不及格。`;
             resDiv.style.color = "#c0392b";
-        }
-    }
-
-    // 正數測試互動
-    function testIf() {
-        let val = Number(document.getElementById('ifNumInput').value);
-        let resDiv = document.getElementById('ifResult');
-        if (val > 0) {
-            resDiv.innerHTML = `結果：${val} 大於 0，條件成立 -> 輸出 "${val}為正數"`;
-            resDiv.style.color = "green";
-        } else {
-            resDiv.innerHTML = `結果：${val} 不大於 0，條件不成立，if 區塊被跳過。`;
-            resDiv.style.color = "#e67e22";
-        }
-    }
-
-    // 奇偶數測試互動
-    function testOddEven() {
-        let val = Number(document.getElementById('oddEvenInput').value);
-        let resDiv = document.getElementById('oddEvenResult');
-        if (val % 2 === 0) {
-            resDiv.innerHTML = `結果：${val} 除以 2 餘數為 0 -> 輸出「此數能被2整除」`;
-            resDiv.style.color = "blue";
-        } else {
-            resDiv.innerHTML = `結果：${val} 除以 2 餘數不為 0 -> 輸出「此數不能被2整除」`;
-            resDiv.style.color = "purple";
-        }
-    }
-
-    // BMI 測試互動
-    function testBmi() {
-        let weight = 63.5;
-        let height = 1.73;
-        let bmi = weight / (height * height);
-        let resDiv = document.getElementById('bmiResult');
-        if (bmi >= 18.5 && bmi < 24) {
-            resDiv.innerHTML = `計算結果：BMI 約為 ${bmi.toFixed(4)}。<br>輸出：此學生BMI正常，BMI結果為: ${bmi.toFixed(4)}`;
-            resDiv.style.color = "green";
-        } else {
-            resDiv.innerHTML = `計算結果：BMI 約為 ${bmi.toFixed(4)}。<br>輸出：此學生BMI不正常，BMI結果為: ${bmi.toFixed(4)}`;
-            resDiv.style.color = "red";
         }
     }
 </script>
