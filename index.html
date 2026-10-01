@@ -149,6 +149,7 @@
             border: 1px solid #ddd;
             padding: 12px;
             text-align: left;
+            vertical-align: middle;
         }
         th {
             background-color: var(--primary-color);
@@ -252,9 +253,9 @@
 <nav>
     <a onclick="switchTab('tab-cover')" id="link-tab-cover" class="active">🏠 首頁封面</a>
     <a onclick="switchTab('tab-flowchart')" id="link-tab-flowchart">1. 流程圖元素與工具</a>
-    <a onclick="switchTab('tab-score')" id="link-tab-score">2. 成績及格判斷</a>
-    <a onclick="switchTab('tab-typhoon')" id="link-tab-typhoon">3. 颱風假標準範例</a>
-    <a onclick="switchTab('tab-ifelse')" id="link-tab-ifelse">4. if / if...else 架構</a>
+    <a onclick="switchTab('tab-ifelse')" id="link-tab-ifelse">2. if / if...else 架構</a>
+    <a onclick="switchTab('tab-score')" id="link-tab-score">3. 成績及格判斷</a>
+    <a onclick="switchTab('tab-typhoon')" id="link-tab-typhoon">4. 颱風假標準範例</a>
     <a onclick="switchTab('tab-operators')" id="link-tab-operators">5. 關係與邏輯運算子</a>
     <a onclick="switchTab('tab-examples')" id="link-tab-examples">6. 講義程式範例</a>
     <a onclick="switchTab('tab-mistakes')" id="link-tab-mistakes">7. 易錯觀念與陷阱</a>
@@ -297,11 +298,45 @@
 
         <table>
             <tr><th>符號名稱</th><th>圖形外觀描述</th><th>功能與用途說明</th></tr>
-            <tr><td>開始 / 結束符號</td><td>圓角矩形 / 橢圓</td><td>表示整個程式邏輯流程的起點（Start）或終點（End）。</td></tr>
-            <tr><td>程式執行方向</td><td>箭頭 (Arrow)</td><td>指示資料流動與程式指令執行的順序方向。</td></tr>
-            <tr><td>設定 / 程序</td><td>長方形 (Rectangle)</td><td>用來進行資料的運算、變數賦值或一般處理程序。</td></tr>
-            <tr><td>決策 / 條件</td><td>菱形 (Diamond)</td><td>用於選擇結構的條件判斷。通常會有兩條出路（True / False）。</td></tr>
-            <tr><td>輸出 / 輸入</td><td>平行四邊形</td><td>用來表示資料的輸入（如 <code>cin</code>）或結果的輸出（如 <code>cout</code>）。</td></tr>
+            <tr>
+                <td>開始 / 結束符號</td>
+                <td style="text-align: center;">
+                    <div style="width: 100px; height: 32px; border: 2px solid #2c3e50; border-radius: 16px; background: #eaf2f8; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #2c3e50; font-weight: bold;">圓角矩形 / 橢圓</div>
+                </td>
+                <td>表示整個程式邏輯流程的起點（Start）或終點（End）。</td>
+            </tr>
+            <tr>
+                <td>程式執行方向</td>
+                <td style="text-align: center;">
+                    <span style="font-size: 1.5rem; color: #3498db; font-weight: bold;">➔ / ↓</span>
+                </td>
+                <td>指示資料流動與程式指令執行的順序方向。</td>
+            </tr>
+            <tr>
+                <td>設定 / 程序</td>
+                <td style="text-align: center;">
+                    <div style="width: 100px; height: 36px; border: 2px solid #2c3e50; background: #eaf2f8; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #2c3e50; font-weight: bold;">長方形</div>
+                </td>
+                <td>用來進行資料的運算、變數賦值或一般處理程序。</td>
+            </tr>
+            <tr>
+                <td>決策 / 條件</td>
+                <td style="text-align: center;">
+                    <div style="width: 45px; height: 45px; border: 2px solid #2c3e50; background: #eaf2f8; margin: 0 auto; transform: rotate(45deg); display: flex; align-items: center; justify-content: center;">
+                        <span style="transform: rotate(-45deg); font-size: 0.75rem; color: #2c3e50; font-weight: bold;">菱形</span>
+                    </div>
+                </td>
+                <td>用於選擇結構的條件判斷。通常會有兩條出路（True / False）。</td>
+            </tr>
+            <tr>
+                <td>輸出 / 輸入</td>
+                <td style="text-align: center;">
+                    <div style="width: 110px; height: 36px; border: 2px solid #2c3e50; background: #eaf2f8; margin: 0 auto; transform: skewX(-20deg); display: flex; align-items: center; justify-content: center;">
+                        <span style="transform: skewX(20deg); font-size: 0.8rem; color: #2c3e50; font-weight: bold;">平行四邊形</span>
+                    </div>
+                </td>
+                <td>用來表示資料的輸入（如 <code>cin</code>）或結果的輸出（如 <code>cout</code>）。</td>
+            </tr>
         </table>
 
         <div class="tool-box">
@@ -315,12 +350,36 @@
         </div>
     </div>
 
-    <!-- 主題二：成績判斷 -->
+    <!-- 主題二：if / if...else 架構說明 -->
+    <div id="tab-ifelse" class="tab-content">
+        <h2>if 與 if...else 選擇結構架構說明</h2>
+        <p>當程式需要依據條件成立與否來決定執行路徑時，就會使用選擇結構。</p>
+        <pre><code>if (判斷條件) {
+    // 條件成立（True）時執行此區塊
+} else {
+    // 條件不成立（False）時執行此區塊
+}</code></pre>
+    </div>
+
+    <!-- 主題三：成績判斷 -->
     <div id="tab-score" class="tab-content">
         <h2>成績及格判斷（&gt;=60 分）主題解析</h2>
         <p>這是最經典的生活化選擇結構範例：輸入學期成績，如果大於或等於 60 分則判定為及格，否則為不及格。</p>
         
-        <h3>1. 完整的 C++ 程式碼</h3>
+        <h3>1. 程式邏輯流程圖</h3>
+        <div class="flowchart-container">
+            <div class="mermaid">
+                graph TD
+                    A([開始]) --> B[/輸入 score/]
+                    B --> C{score >= 60}
+                    C -- 成立 (True) --> D[/輸出「此學生成績及格」/]
+                    C -- 不成立 (False) --> E[/輸出「此學生成績不及格」/]
+                    D --> F([結束])
+                    E --> F
+            </div>
+        </div>
+
+        <h3>2. 完整的 C++ 程式碼</h3>
         <pre><code>#include&lt;iostream&gt;
 using namespace std;
 int main() {
@@ -345,7 +404,7 @@ int main() {
         </div>
     </div>
 
-    <!-- 主題三：颱風假標準範例 -->
+    <!-- 主題四：颱風假標準範例 -->
     <div id="tab-typhoon" class="tab-content">
         <h2>生活化進階範例：放颱風假標準判斷</h2>
         <p>當條件牽涉到「或者（Logical OR）」時，可以使用邏輯運算子 <code>||</code> 來組合多個條件。</p>
@@ -354,7 +413,20 @@ int main() {
             <p><strong>氣象預報標準：</strong>「依據氣象預報，平均風力可達 7 級以上 或 陣風可達 10 級以上」即符合放假標準。</p>
         </div>
 
-        <h3>1. 對應的 C++ 程式碼</h3>
+        <h3>1. 程式邏輯流程圖</h3>
+        <div class="flowchart-container">
+            <div class="mermaid">
+                graph TD
+                    A([開始]) --> B[/輸入 avgWind, gustWind/]
+                    B --> C{avgWind >= 7 || gustWind >= 10}
+                    C -- 成立 (True) --> D[/輸出「放颱風假」/]
+                    C -- 不成立 (False) --> E[/輸出「不放颱風假」/]
+                    D --> F([結束])
+                    E --> F
+            </div>
+        </div>
+
+        <h3>2. 對應的 C++ 程式碼</h3>
         <pre><code>#include&lt;iostream&gt;
 using namespace std;
 int main() {
@@ -384,17 +456,6 @@ int main() {
             <button class="btn-action" onclick="testTyphoon()">判定是否放颱風假</button>
             <div id="typhoonResult" class="result"></div>
         </div>
-    </div>
-
-    <!-- 主題四：if / if...else 架構說明 -->
-    <div id="tab-ifelse" class="tab-content">
-        <h2>if 與 if...else 選擇結構架構說明</h2>
-        <p>當程式需要依據條件成立與否來決定執行路徑時，就會使用選擇結構。</p>
-        <pre><code>if (判斷條件) {
-    // 條件成立（True）時執行此區塊
-} else {
-    // 條件不成立（False）時執行此區塊
-}</code></pre>
     </div>
 
     <!-- 主題五：關係與邏輯運算子 -->
@@ -471,6 +532,9 @@ if (num > 0) {
         document.getElementById(tabId).classList.add('active');
         document.getElementById('link-' + tabId).classList.add('active');
         window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        // 切換頁籤時重新初始化 Mermaid 確保流程圖順利渲染
+        mermaid.init(undefined, document.querySelectorAll('.tab-content.active .mermaid'));
     }
 
     function testScore() {
