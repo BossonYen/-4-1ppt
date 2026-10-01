@@ -243,24 +243,6 @@
         .fc-start { border-radius: 20px; }
         .fc-io { transform: skewX(-15deg); }
         .fc-io span { display: inline-block; transform: skewX(15deg); }
-        .fc-process { border-radius: 4px; }
-        .fc-condition {
-            width: 140px;
-            height: 60px;
-            transform: rotate(45deg);
-            background: #eaf2f8;
-            border: 2px solid #2c3e50;
-            margin: 25px auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .fc-condition span {
-            transform: rotate(-45deg);
-            font-size: 0.85rem;
-            text-align: center;
-            width: 140px;
-        }
         .fc-arrow { font-size: 1.2rem; color: #3498db; font-weight: bold; margin: 2px 0; }
         .fc-branch-container {
             display: flex;
@@ -328,8 +310,12 @@
             <div class="fc-arrow">↓</div>
             <div class="fc-box fc-io"><span>輸入成績 score</span></div>
             <div class="fc-arrow">↓</div>
-            <div class="fc-condition"><span>score >= 60 ?</span></div>
-            <div style="height: 20px;"></div>
+            <!-- 使用 SVG 繪製標準對稱菱形 -->
+            <svg width="220" height="70" style="display:block; margin: 0 auto;">
+                <polygon points="110,2 218,35 110,68 2,35" fill="#eaf2f8" stroke="#2c3e50" stroke-width="2"/>
+                <text x="110" y="40" text-anchor="middle" font-size="14" fill="#2c3e50" font-weight="bold">score >= 60</text>
+            </svg>
+            <div style="height: 10px;"></div>
             <div class="fc-branch-container">
                 <div class="fc-branch">
                     <span style="font-size: 0.85rem; color: #27ae60; font-weight: bold; margin-bottom: 5px;">Yes (成立)</span>
@@ -373,9 +359,10 @@
             <tr>
                 <td>決策 / 條件</td>
                 <td style="text-align: center;">
-                    <div style="width: 45px; height: 45px; border: 2px solid #2c3e50; background: #eaf2f8; margin: 0 auto; transform: rotate(45deg); display: flex; align-items: center; justify-content: center;">
-                        <span style="transform: rotate(-45deg); font-size: 0.75rem; color: #2c3e50; font-weight: bold;">菱形</span>
-                    </div>
+                    <!-- 小表格示意用 SVG 菱形 -->
+                    <svg width="60" height="40" style="display:block; margin: 0 auto;">
+                        <polygon points="30,2 58,20 30,38 2,20" fill="#eaf2f8" stroke="#2c3e50" stroke-width="2"/>
+                    </svg>
                 </td>
                 <td>用於選擇結構的條件判斷。通常會有兩條出路（True / False）。</td>
             </tr>
@@ -423,8 +410,12 @@
             <div class="fc-arrow">↓</div>
             <div class="fc-box fc-io"><span>輸入 score</span></div>
             <div class="fc-arrow">↓</div>
-            <div class="fc-condition"><span>score >= 60</span></div>
-            <div style="height: 20px;"></div>
+            <!-- 使用 SVG 繪製標準對稱菱形 -->
+            <svg width="220" height="70" style="display:block; margin: 0 auto;">
+                <polygon points="110,2 218,35 110,68 2,35" fill="#eaf2f8" stroke="#2c3e50" stroke-width="2"/>
+                <text x="110" y="40" text-anchor="middle" font-size="14" fill="#2c3e50" font-weight="bold">score >= 60</text>
+            </svg>
+            <div style="height: 10px;"></div>
             <div class="fc-branch-container">
                 <div class="fc-branch">
                     <span style="font-size: 0.85rem; color: #27ae60; font-weight: bold; margin-bottom: 5px;">成立 (True)</span>
@@ -482,8 +473,12 @@ int main() {
             <div class="fc-arrow">↓</div>
             <div class="fc-box fc-io"><span>輸入 avgWind, gustWind</span></div>
             <div class="fc-arrow">↓</div>
-            <div class="fc-condition" style="width: 180px; height: 70px;"><span>avgWind >= 7 || gustWind >= 10</span></div>
-            <div style="height: 25px;"></div>
+            <!-- 使用更寬的 SVG 菱形容納較長的判斷式文字 -->
+            <svg width="320" height="80" style="display:block; margin: 0 auto;">
+                <polygon points="160,2 318,40 160,78 2,40" fill="#eaf2f8" stroke="#2c3e50" stroke-width="2"/>
+                <text x="160" y="45" text-anchor="middle" font-size="13" fill="#2c3e50" font-weight="bold">avgWind >= 7 || gustWind >= 10</text>
+            </svg>
+            <div style="height: 10px;"></div>
             <div class="fc-branch-container">
                 <div class="fc-branch">
                     <span style="font-size: 0.85rem; color: #27ae60; font-weight: bold; margin-bottom: 5px;">成立 (True)</span>
